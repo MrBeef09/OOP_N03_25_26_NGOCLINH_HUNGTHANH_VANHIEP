@@ -7,9 +7,15 @@ Các Objects (đối tượng cơ bản)
 ##  Universities (Trường đại học)
 
 ```
-maTruong
-tenTruong
-diaDiem
+Variable Members (Biến thành viên)
+
++ maTruong
++ tenTruong
++ diaDiem
+
+Methods (Phương thức hoạt đọng)
+
+void print(String ma, String ten, String diadiem);
 
 
 ```
