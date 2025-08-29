@@ -1,45 +1,15 @@
 # Project Thanh - Linh - Hiep
 
-Xây dựng ứng dụng chọn trường đại học cho sinh viên cấp ba
+1. Nguyễn Hưng Thành MSSV: 2301068 
+2. Mai Ngọc Linh MSSV: 23010717
+3. Nguyễn Văn Hiệp MSSV: 23010859
 
-Các Objects (đối tượng cơ bản) 
+# PROJECT:Xây dựng ứng dụng chọn trường đại học cho sinh viên cấp ba
 
-##  Universities (Trường đại học)
+Yêu cầu chính:
+- Web có các chức năng đối với 2 loại user khác nhau
+- Đối với user ( phụ huynh,học sinh) : đăng ký , đăng nhập , tạo và cập nhật hồ sơ cá nhân , tra cứu chọn lọc ngành trường , lưu danh sách yêu thích , theo dõi tin tức thông tin tuyển sinh.
+- Đối với admin : quản lý trường, quản lý người dùng , cập nhật tin tức.
+Cụ thể hơn:
+ - Đối với admin : thêm, sửa, xoá thông tin trường, ngành, điểm chuẩn, học phí , xem danh sách user.
 
-```
-Variable Members (Biến thành viên)
-
-+ maTruong
-+ tenTruong
-+ diaDiem
-
-Methods (Phương thức hoạt đọng)
-
-void print(String ma, String ten, String diadiem);
-
-
-```
-
-## Majors (Ngành học)
-
-```
-maTruong
-maNghanh
-tenNghanh
-diemChuan
-
-```
-## Facilities (Cơ sở vật chất)
-```
-maTruong;
-chisoGiaoVien;
-tyleGiaoVienvsSinhVien;
-soLuongPhongHoc;
-soLuongPhongLab;
-chatLuongPhongHoc;
-chatLuongPhongLab;
-heThongQuanLy;
-chiSoTrangBietBiTheThao;
-
-
-```
