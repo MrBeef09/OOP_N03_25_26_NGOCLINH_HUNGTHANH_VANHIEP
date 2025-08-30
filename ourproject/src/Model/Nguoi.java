@@ -25,8 +25,8 @@ public class Nguoi {
 
     //method
     public void xemThongtin(){
-        System.out.println(Hoten);
-        System.out.println(Ngaysinh);
-        System.out.println(Gioitinh); 
+        System.out.println("Ho va ten:" + Hoten);
+        System.out.println("Ngay sinh:" + Ngaysinh);
+        System.out.println("Gioi tinh:" + Gioitinh); 
     }
 }
