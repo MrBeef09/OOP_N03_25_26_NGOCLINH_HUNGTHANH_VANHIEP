@@ -12,4 +12,5 @@ Yêu cầu chính:
 - Đối với admin : quản lý trường, quản lý người dùng , cập nhật tin tức.
 Cụ thể hơn:
  - Đối với admin : thêm, sửa, xoá thông tin trường, ngành, điểm chuẩn, học phí , xem danh sách user.
+LINK Class UML : https://online.visual-paradigm.com/w/otpbnvuy/app/diagrams/#diagram:workspace=otpbnvuy&proj=0&id=1&type=ClassDiagram
 
