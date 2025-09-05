@@ -1,0 +1,9 @@
+{
+    "java.project.sourcePaths": [
+        "ourproject/src/Test",
+        "ourproject/src/Model/User",
+        "ourproject/src/Model/Truongdaihoc",
+        "ourproject/src"
+    ],
+    "java.project.referencedLibraries": []
+}
