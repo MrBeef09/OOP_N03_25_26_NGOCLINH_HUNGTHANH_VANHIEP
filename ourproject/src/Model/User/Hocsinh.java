@@ -1,4 +1,4 @@
-package User;
+//package User;
 public class Hocsinh {
     private String Mahocsinh;
     public Thongtincanhan Thongtincanhan;
