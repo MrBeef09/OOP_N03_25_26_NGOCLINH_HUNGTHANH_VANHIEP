@@ -7,7 +7,7 @@ public class Key {
         this.value = value;
     }
 
-    // 🚨 Cố tình làm cho tất cả key có cùng hashCode
+    //  Cố tình làm cho tất cả key có cùng hashCode
     // => sẽ tạo ra "collision" khi đưa vào HashMap
     @Override
     public int hashCode() {
