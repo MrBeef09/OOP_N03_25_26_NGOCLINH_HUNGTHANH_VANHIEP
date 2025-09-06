@@ -1,5 +1,5 @@
 //package User;
-public class User {
+public class Nguoi {
     private String Hoten;
     private int Ngaysinh;
     private String Gioitinh;
