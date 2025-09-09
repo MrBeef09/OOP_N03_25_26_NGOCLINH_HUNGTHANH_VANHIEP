@@ -1,8 +1,8 @@
 package User;
 public class Nguoi {
-    public String Hoten;
-    public int Ngaysinh;
-    public String Gioitinh;
+    private String Hoten;
+    private int Ngaysinh;
+    private String Gioitinh;
 
     //method
     public void xemThongtin(){
