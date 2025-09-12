@@ -1,4 +1,3 @@
-package User;
 public class Sothichnganhhoc {
     private String Nganhquantam;
     private String Sothich;
@@ -8,20 +7,18 @@ public class Sothichnganhhoc {
     public String getNganhquantam(){
         return Nganhquantam;
     }
-    public void setNganhquantam(){
-        this.Nganhquantam = Nganhquantam;
-    }
+    
     public String getSothich(){
         return Sothich;
     }
-    public void setSothich(){
-        this.Sothich = Sothich;
-    }
+    
     public String getTainang(){
         return Tainang;
     }
-    public void setTainang(){
+    public void setSothichnganhhoc(String Nganhquantam , String Tainang,String Sothich){
+        this.Nganhquantam = Nganhquantam;
         this.Tainang = Tainang;
+        this.Sothich = Sothich;
     }
 
     // method

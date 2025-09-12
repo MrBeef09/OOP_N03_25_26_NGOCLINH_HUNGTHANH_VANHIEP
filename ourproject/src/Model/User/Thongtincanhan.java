@@ -1,4 +1,4 @@
-package User;
+//package User;
 public class Thongtincanhan {
     private String Diachi;
     private int Sodienthoai;
@@ -7,11 +7,17 @@ public class Thongtincanhan {
     public String getDiachi(){
         return Diachi;
     }
-    public void setDiachi(){
+    public int getSodienthoai(){
+        return Sodienthoai;
+    }
+    public void setThongtincanhan(String Diachi, int Sodienthoai ){
         this.Diachi = Diachi;
+        this.Sodienthoai = Sodienthoai;
     }
 
     //method
-    public void Capnhatthongtin(){}
+    public void Capnhatthongtin(){
+        
+    }
     public void Xemthongtin(){}
 }
