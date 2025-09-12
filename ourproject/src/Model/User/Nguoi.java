@@ -8,16 +8,19 @@ public class Nguoi {
     public String getHoten(){
         return Hoten;
     }
+    public void setHoten(String Hoten) {
+        this.Hoten = Hoten;
+    }
     public int getNgaysinh(){
         return Ngaysinh;
+    }
+    public void setNgaysinh(int Ngaysinh) {
+        this.Ngaysinh = Ngaysinh;
     }
     public String getGioitinh(){
         return Gioitinh;
     }
-
-    public void setNguoi(String Hoten , int Ngaysinh , String Gioitinh){
-        this.Hoten = Hoten;
-        this.Ngaysinh = Ngaysinh;
+    public void setGioitinh(String Gioitinh) {
         this.Gioitinh = Gioitinh;
     }
 
@@ -27,4 +30,5 @@ public class Nguoi {
         System.out.println("Ngay sinh:" + Ngaysinh);
         System.out.println("Gioi tinh:" + Gioitinh); 
     }
+    
 }
