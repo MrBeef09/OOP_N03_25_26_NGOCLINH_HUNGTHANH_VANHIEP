@@ -1,5 +1,3 @@
-package User;
-import Truongdaihoc.Truongdaihoc;
 
 public class Giaovien {
     private String Magiaovien;
