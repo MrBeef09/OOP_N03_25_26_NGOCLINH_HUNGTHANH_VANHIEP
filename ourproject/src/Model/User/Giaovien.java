@@ -21,4 +21,14 @@ public class Giaovien extends Nguoi {
     public void GuiNhanxethocsinh(){}
     public void XemDanhsachhocsinh(){}
     public void CapnhatThongtin(){}
+    @Override
+public String toString() {
+    return "Giáo viên {" +
+            "Mã GV='" + Magiaovien + '\'' +
+            ", Họ tên='" + getHoten() + '\'' +
+            ", Ngày sinh=" + getNgaysinh() +
+            ", Giới tính='" + getGioitinh() + '\'' +
+            '}';
+}
+
 }
