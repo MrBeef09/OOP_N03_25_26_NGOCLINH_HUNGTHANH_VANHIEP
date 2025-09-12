@@ -1,5 +1,5 @@
 
-public class Giaovien {
+public class Giaovien extends Nguoi {
     private String Magiaovien;
     public Thongtincanhan Thongtincanhan;
     public Taikhoan Taikhoan;
