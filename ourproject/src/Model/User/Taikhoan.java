@@ -14,13 +14,13 @@ public class Taikhoan {
         return Vaitro;
     }
     public void setMatkhau(String Matkhau , String Tendangnhap ,String Vaitro){
-        if (Matkhau.length() > 0 ){
+        if (Matkhau != null && Matkhau.length() > 0 ){
             this.Matkhau = Matkhau;
         }
-        if(Tendangnhap.length() > 0){
+        if(Tendangnhap!= null && Tendangnhap.length() > 0){
             this.Tendangnhap = Tendangnhap;
         }
-        if(Vaitro.equals("Hoc sinh") || Vaitro.equals("Admin")){
+        if(Vaitro != null && Vaitro.equals("Hoc sinh") || Vaitro.equals("Admin")){
             this.Vaitro = Vaitro;
         }
     }
@@ -39,7 +39,7 @@ public class Taikhoan {
             System.out.println("Dang nhap thanh cong voi vai tro" + this.Vaitro);
         }
         else{
-            System.out.println("Sai ten dang nhap hoac mat khau");
+            System.out.println("Sai ten dang nhap hoac mat khau , vui long nhap lai");
         }
     }
     public boolean Doimatkhau(String matkhauCu , String matkhauMoi){

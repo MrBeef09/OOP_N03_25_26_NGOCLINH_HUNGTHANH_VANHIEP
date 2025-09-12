@@ -3,7 +3,8 @@
         "ourproject/src/Test",
         "ourproject/src/Model/User",
         "ourproject/src/Model/Truongdaihoc",
-        "ourproject/src"
+        "ourproject/src",
+        "ourproject/src/Controller"
     ],
     "java.project.referencedLibraries": []
 }
