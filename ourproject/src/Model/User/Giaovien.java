@@ -3,7 +3,7 @@ public class Giaovien extends Nguoi {
     private String Magiaovien;
     public Thongtincanhan Thongtincanhan;
     public Taikhoan Taikhoan;
-    public Truongdaihoc Truongcongtac;
+    public TruongDaiHoc Truongcongtac;
 
     //getter setter
     public String getMagiaovien(){

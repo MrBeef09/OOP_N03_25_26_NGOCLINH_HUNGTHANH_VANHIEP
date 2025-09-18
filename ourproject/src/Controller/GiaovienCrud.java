@@ -30,7 +30,7 @@ public class GiaovienCrud {
     }
 
     // UPDATE - cập nhật thông tin (vd: trường công tác)
-    public void updateTruongcongtac(String magiaovien, Truongdaihoc newTruong) {
+    public void updateTruongcongtac(String magiaovien, TruongDaiHoc newTruong) {
         Giaovien gv = getByMagiaovien(magiaovien);
         if (gv != null) {
             gv.Truongcongtac = newTruong;
