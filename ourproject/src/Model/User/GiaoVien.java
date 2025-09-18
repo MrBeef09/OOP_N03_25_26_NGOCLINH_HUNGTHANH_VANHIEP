@@ -1,15 +1,23 @@
 
+<<<<<<< HEAD:ourproject/src/Model/User/Giaovien.java
 public class Giaovien extends Nguoi {
     private String Magiaovien;
     public Thongtincanhan Thongtincanhan;
     public Taikhoan Taikhoan;
     public TruongDaiHoc Truongcongtac;
+=======
+public class GiaoVien extends Nguoi {
+    private String MaGiaoVien;
+    public Thongtincanhan ThongTinCaNhan;
+    public Taikhoan TaiKhoan;
+    public Truongdaihoc TruongCongTac;
+>>>>>>> 06fcf07374d75d1906fc8457a3d70ea1f0a2d74e:ourproject/src/Model/User/GiaoVien.java
 
     //getter setter
-    public String getMagiaovien(){
+    public String SetMaGiaoVien(){
         return (Magiaovien);
     }
-    public void setMagiaovien(String Magiaovien) {
+    public void SetMaGiaoVien(String MaGiaoVien) {
         if(Magiaovien.length() > 0){
             this.Magiaovien = Magiaovien;
         }
