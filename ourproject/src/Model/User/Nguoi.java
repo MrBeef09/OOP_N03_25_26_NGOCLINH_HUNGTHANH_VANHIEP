@@ -5,22 +5,22 @@ public class Nguoi {
     private String GioiTinh;
 
     //getter setter
-    public String GetHoTen(){
+    public String getHoTen(){
         return HoTen;
     }
-    public void SetHoTen(String HoTen) {
+    public void setHoTen(String HoTen) {
         this.HoTen = HoTen;
     }
-    public int GetNgaySinh(){
+    public int getNgaySinh(){
         return NgaySinh;
     }
-    public void SetNgaySinh(int NgaySinh) {
+    public void setNgaySinh(int NgaySinh) {
         this.NgaySinh = NgaySinh;
     }
     public String getGioiTinh(){
         return GioiTinh;
     }
-    public void SetGioiTinh(String GioiTinh) {
+    public void setGioiTinh(String GioiTinh) {
         this.GioiTinh = GioiTinh;
     }
 

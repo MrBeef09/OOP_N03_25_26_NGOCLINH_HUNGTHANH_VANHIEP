@@ -4,22 +4,22 @@ public class KetQuaHocTap {
     private String ToHopMon;
 
     //getter setter
-    public float GetDiemThi(){
+    public float getDiemThi(){
         return DiemThi;
     }
-    public String GetHocLuc(){
+    public String getHocLuc(){
         return HocLuc;
     }
-    public String GetToHopMon(){
+    public String getToHopMon(){
         return ToHopMon;
     }
-    public void SetDiemThi(float DiemThi){
+    public void setDiemThi(float DiemThi){
         this.DiemThi = DiemThi;
     }
-    public void SetHocLuc(String HocLuc){
+    public void setHocLuc(String HocLuc){
         this.HocLuc = HocLuc;
     }
-    public void SetToHopMon(String ToHopMon){
+    public void setToHopMon(String ToHopMon){
         this.ToHopMon = ToHopMon;
     }
     

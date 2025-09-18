@@ -4,16 +4,16 @@ public class ThongTinCaNhan {
     private int SoDienThoai;
 
     // getter setter
-    public String GetDiaChi(){
+    public String getDiaChi(){
         return DiaChi;
     }
-    public int GetSoDienThoai(){
+    public int getSoDienThoai(){
         return SoDienThoai;
     }
-    public void SetDiaChi(String DiaChi) {
+    public void setDiaChi(String DiaChi) {
         this.DiaChi = DiaChi;
     }
-    public void SetSoDienthoai(int SoDienShoai) {
+    public void setSoDienthoai(int SoDienShoai) {
         this.SoDienThoai = SoDienThoai;
     }
 
