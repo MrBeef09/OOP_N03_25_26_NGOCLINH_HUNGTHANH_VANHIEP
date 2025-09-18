@@ -4,16 +4,16 @@ public class TaiKhoan {
     private String VaiTro;
 
     //getter setter 
-    public String GetMatKhau(){
+    public String getMatKhau(){
         return MatKhau;
     }
-    public String GetTenDangNhap(){
+    public String getTenDangNhap(){
         return TenDangNhap;
     }
-    public String GetVaiTro(){
+    public String getVaiTro(){
         return VaiTro;
     }
-    public void SetMatKhau(String MatKhau , String TenDangNhap ,String VaiTro){
+    public void setMatKhau(String MatKhau , String TenDangNhap ,String VaiTro){
         if (MatKhau != null && MatKhau.length() > 0 ){
             this.MatKhau = MatKhau;
         }
@@ -31,7 +31,7 @@ public class TaiKhoan {
         return this.MatKhau.equals(nhapLai);
     }
     public void Dangky(String matkhau,String tenDangnhap ,String vaiTro){
-        SetMatKhau(matkhau, tenDangnhap, vaiTro);
+        setMatKhau(matkhau, tenDangnhap, vaiTro);
         System.out.println("Dang ky tai khoan thanh cong");
     }
     public void Dangnhap(String matkhau,String tenDangnhap){

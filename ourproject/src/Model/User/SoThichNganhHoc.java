@@ -4,24 +4,24 @@ public class SoThichNganhHoc {
     private String TaiNang;
 
     // getter setter
-    public String GetNganhQuanTam(){
+    public String getNganhQuanTam(){
         return NganhQuanTam;
     }
     
-    public String GetSoThich(){
+    public String getSoThich(){
         return SoThich;
     }
     
-    public String GetTaiNang(){
+    public String getTaiNang(){
         return TaiNang;
     }
-    public void SetNganhQuanTam(String NganhQuanTam) {
+    public void setNganhQuanTam(String NganhQuanTam) {
         this.NganhQuanTam = NganhQuanTam;
     }
-    public void SetSoThich(String SoThich) {
+    public void setSoThich(String SoThich) {
         this.SoThich = SoThich;
     }
-    public void SetTaiNang(String TaiNang) {
+    public void setTaiNang(String TaiNang) {
         this.TaiNang = TaiNang;
     }
 
