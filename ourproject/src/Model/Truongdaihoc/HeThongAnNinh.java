@@ -1,0 +1,20 @@
+public class HeThongAnNinh implements HaTangKiThuat {
+    private int soLuongCamera;
+    private boolean coBaoChay;
+
+    public HeThongAnNinh(int soLuongCamera, boolean coBaoChay) {
+        this.soLuongCamera = soLuongCamera;
+        this.coBaoChay = coBaoChay;
+    }
+
+    @Override
+    public void hienThiThongTin() {
+        System.out.println("Hệ thống an ninh | Camera: " + soLuongCamera +
+                           " | Báo cháy: " + (coBaoChay ? "Có" : "Không"));
+    }
+
+    @Override
+    public int danhGia() {
+        return soLuongCamera / 10 + (coBaoChay ? 5 : 0);
+    }
+}
