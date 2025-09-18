@@ -1,34 +1,34 @@
 //package User;
 public class Nguoi {
-    private String Hoten;
-    private int Ngaysinh;
-    private String Gioitinh;
+    private String HoTen;
+    private int NgaySinh;
+    private String GioiTinh;
 
     //getter setter
-    public String getHoten(){
-        return Hoten;
+    public String GetHoTen(){
+        return HoTen;
     }
-    public void setHoten(String Hoten) {
-        this.Hoten = Hoten;
+    public void SetHoTen(String HoTen) {
+        this.HoTen = HoTen;
     }
-    public int getNgaysinh(){
-        return Ngaysinh;
+    public int GetNgaySinh(){
+        return NgaySinh;
     }
-    public void setNgaysinh(int Ngaysinh) {
-        this.Ngaysinh = Ngaysinh;
+    public void SetNgaySinh(int NgaySinh) {
+        this.NgaySinh = NgaySinh;
     }
-    public String getGioitinh(){
-        return Gioitinh;
+    public String getGioiTinh(){
+        return GioiTinh;
     }
-    public void setGioitinh(String Gioitinh) {
-        this.Gioitinh = Gioitinh;
+    public void SetGioiTinh(String GioiTinh) {
+        this.GioiTinh = GioiTinh;
     }
 
     //method
-    public void xemThongtin(){
-        System.out.println("Ho va ten:" + Hoten);
-        System.out.println("Ngay sinh:" + Ngaysinh);
-        System.out.println("Gioi tinh:" + Gioitinh); 
+    public void XemThongTin(){
+        System.out.println("Ho va ten:" + HoTen);
+        System.out.println("Ngay sinh:" + NgaySinh);
+        System.out.println("Gioi tinh:" + GioiTinh); 
     }
     
 }

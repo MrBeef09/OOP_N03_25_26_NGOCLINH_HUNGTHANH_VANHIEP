@@ -1,15 +1,15 @@
 
-public class Giaovien extends Nguoi {
-    private String Magiaovien;
-    public Thongtincanhan Thongtincanhan;
-    public Taikhoan Taikhoan;
-    public Truongdaihoc Truongcongtac;
+public class GiaoVien extends Nguoi {
+    private String MaGiaoVien;
+    public Thongtincanhan ThongTinCaNhan;
+    public Taikhoan TaiKhoan;
+    public Truongdaihoc TruongCongTac;
 
     //getter setter
-    public String getMagiaovien(){
+    public String SetMaGiaoVien(){
         return (Magiaovien);
     }
-    public void setMagiaovien(String Magiaovien) {
+    public void SetMaGiaoVien(String MaGiaoVien) {
         if(Magiaovien.length() > 0){
             this.Magiaovien = Magiaovien;
         }
