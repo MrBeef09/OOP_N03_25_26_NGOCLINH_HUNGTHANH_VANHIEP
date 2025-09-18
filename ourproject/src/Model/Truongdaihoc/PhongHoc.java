@@ -9,14 +9,19 @@ public abstract class PhongHoc{
         this.maPhong = maPhong;
         this.sucChua = sucChua;
     }
-    public String getMaPhong(){}
+    public String getMaPhong(){
+        return maPhong;
+    }
 
+    public int getSucChua(){
+        return sucChua;
+    }
 
+    public abstract int danhGia();
 
-
-
-
-
+    public void xemThongTin(){
+        System.out.println("Mã Phòng: " + maPhong + ",Sức Chứa : " + sucChua);
+    }
 
 }
 
