@@ -1,25 +1,17 @@
 
-<<<<<<< HEAD:ourproject/src/Model/User/Giaovien.java
-public class Giaovien extends Nguoi {
-    private String Magiaovien;
-    public Thongtincanhan Thongtincanhan;
-    public Taikhoan Taikhoan;
-    public TruongDaiHoc Truongcongtac;
-=======
 public class GiaoVien extends Nguoi {
     private String MaGiaoVien;
-    public Thongtincanhan ThongTinCaNhan;
-    public Taikhoan TaiKhoan;
-    public Truongdaihoc TruongCongTac;
->>>>>>> 06fcf07374d75d1906fc8457a3d70ea1f0a2d74e:ourproject/src/Model/User/GiaoVien.java
+    private ThongTinCaNhan ThongTinCaNhan;
+    private TaiKhoan TaiKhoan;
+    private TruongDaiHoc TruongCongTac;
 
     //getter setter
-    public String SetMaGiaoVien(){
-        return (Magiaovien);
+    public String getMaGiaoVien(){
+        return MaGiaoVien;
     }
     public void SetMaGiaoVien(String MaGiaoVien) {
-        if(Magiaovien.length() > 0){
-            this.Magiaovien = Magiaovien;
+        if(MaGiaoVien.length() > 0){
+            this.MaGiaoVien = MaGiaoVien;
         }
     }
 
@@ -32,10 +24,10 @@ public class GiaoVien extends Nguoi {
     @Override
 public String toString() {
     return "Giáo viên {" +
-            "Mã GV='" + Magiaovien + '\'' +
-            ", Họ tên='" + getHoten() + '\'' +
-            ", Ngày sinh=" + getNgaysinh() +
-            ", Giới tính='" + getGioitinh() + '\'' +
+            "Mã GV='" + MaGiaoVien + '\'' +
+            ", Họ tên='" + getHoTen() + '\'' +
+            ", Ngày sinh=" + getNgaySinh() +
+            ", Giới tính='" + getGioiTinh() + '\'' +
             '}';
 }
 

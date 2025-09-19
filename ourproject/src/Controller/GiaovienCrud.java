@@ -2,10 +2,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GiaovienCrud {
-    private List<Giaovien> giaoviens = new ArrayList<>();
+    private List<GiaoVien> giaoviens = new ArrayList<>();
 
     // CREATE
-    public void addGiaovien(Giaovien gv) {
+    public void addGiaovien(GiaoVien gv) {
         giaoviens.add(gv);
         System.out.println("Đã thêm giáo viên: " + gv);
     }
@@ -13,15 +13,15 @@ public class GiaovienCrud {
     // READ - xem toàn bộ danh sách
     public void getGiaoviens() {
         System.out.println("Danh sách giáo viên:");
-        for (Giaovien gv : giaoviens) {
+        for (GiaoVien gv : giaoviens) {
             System.out.println(gv);
         }
     }
 
     // READ - tìm theo mã giáo viên
-    public Giaovien getByMagiaovien(String magiaovien) {
-        for (Giaovien gv : giaoviens) {
-            if (gv.getMagiaovien().equals(magiaovien)) {
+    public GiaoVien getByMagiaovien(String magiaovien) {
+        for (GiaoVien gv : giaoviens) {
+            if (gv.getMaGiaoVien().equals(magiaovien)) {
                 return gv;
             }
         }
@@ -31,7 +31,7 @@ public class GiaovienCrud {
 
     // UPDATE - cập nhật thông tin (vd: trường công tác)
     public void updateTruongcongtac(String magiaovien, TruongDaiHoc newTruong) {
-        Giaovien gv = getByMagiaovien(magiaovien);
+        GiaoVien gv = getByMagiaovien(magiaovien);
         if (gv != null) {
             gv.Truongcongtac = newTruong;
             System.out.println("Đã cập nhật trường công tác cho giáo viên: " + gv.getMagiaovien());
@@ -40,7 +40,7 @@ public class GiaovienCrud {
 
     // DELETE - xóa giáo viên theo mã
     public void deleteGiaovien(String magiaovien) {
-        Giaovien gv = getByMagiaovien(magiaovien);
+        GiaoVien gv = getByMagiaovien(magiaovien);
         if (gv != null) {
             giaoviens.remove(gv);
             System.out.println("Đã xóa giáo viên có mã: " + magiaovien);
