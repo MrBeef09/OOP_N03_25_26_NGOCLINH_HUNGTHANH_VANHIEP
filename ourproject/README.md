@@ -15,6 +15,10 @@ Cụ thể hơn:
  - Đối với admin : thêm, sửa, xoá thông tin trường, ngành, điểm chuẩn, học phí , xem danh sách user.
 LINK Class UML 
 https://github.com/user-attachments/assets/793ae027-0d35-4033-8787-fe24163807bb
+LINK Sequence UML
+https://github.com/user-attachments/assets/60d95dbc-520e-4aae-a37b-9743a0718911
+
+
 
 
 
