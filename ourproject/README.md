@@ -17,6 +17,10 @@ LINK Class UML
 https://github.com/user-attachments/assets/793ae027-0d35-4033-8787-fe24163807bb
 LINK Sequence UML
 https://github.com/user-attachments/assets/60d95dbc-520e-4aae-a37b-9743a0718911
+Link activity CRUD của phòng học
+
+<img width="1710" height="3840" alt="Untitled diagram _ Mermaid Chart-2025-09-19-110427" src="https://github.com/user-attachments/assets/55d77d4b-bf5e-4741-9ede-69952ee8b81b" />
+
 
 
 
