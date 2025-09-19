@@ -1,6 +1,32 @@
 import java.util.ArrayList;
 import java.util.List;
 
+// Lớp đối tượng GiaoVien
+class GiaoVien {
+    private int id;
+    private String ten;
+    private String monDay;
+
+    public GiaoVien(int id, String ten, String monDay) {
+        this.id = id;
+        this.ten = ten;
+        this.monDay = monDay;
+    }
+
+    // Getter & Setter
+    public int getId() { return id; }
+    public String getTen() { return ten; }
+    public void setTen(String ten) { this.ten = ten; }
+    public String getMonDay() { return monDay; }
+    public void setMonDay(String monDay) { this.monDay = monDay; }
+
+    @Override
+    public String toString() {
+        return "GiaoVien{id=" + id + ", ten='" + ten + "', monDay='" + monDay + "'}";
+    }
+}
+
+// Lớp CRUD
 public class GiaovienCrud {
     private List<GiaoVien> giaoviens = new ArrayList<>();
 
@@ -10,40 +36,48 @@ public class GiaovienCrud {
         System.out.println("Đã thêm giáo viên: " + gv);
     }
 
-    // READ - xem toàn bộ danh sách
-    public void getGiaoviens() {
-        System.out.println("Danh sách giáo viên:");
+    // READ - lấy thông tin giáo viên theo id
+    public GiaoVien getGiaovienById(int id) {
         for (GiaoVien gv : giaoviens) {
-            System.out.println(gv);
-        }
-    }
-
-    // READ - tìm theo mã giáo viên
-    public GiaoVien getByMagiaovien(String magiaovien) {
-        for (GiaoVien gv : giaoviens) {
-            if (gv.getMaGiaoVien().equals(magiaovien)) {
+            if (gv.getId() == id) {
                 return gv;
             }
         }
-        System.out.println("Không tìm thấy giáo viên có mã: " + magiaovien);
         return null;
     }
 
-    // UPDATE - cập nhật thông tin (vd: trường công tác)
-    public void updateTruongcongtac(String magiaovien, TruongDaiHoc newTruong) {
-        GiaoVien gv = getByMagiaovien(magiaovien);
+    // UPDATE - sửa tên hoặc môn dạy
+    public void updateGiaovien(int id, String newTen, String newMonDay) {
+        GiaoVien gv = getGiaovienById(id);
         if (gv != null) {
-            gv.Truongcongtac = newTruong;
-            System.out.println("Đã cập nhật trường công tác cho giáo viên: " + gv.getMagiaovien());
+            gv.setTen(newTen);
+            gv.setMonDay(newMonDay);
+            System.out.println("Đã cập nhật: " + gv);
+        } else {
+            System.out.println("Không tìm thấy giáo viên có id = " + id);
         }
     }
 
-    // DELETE - xóa giáo viên theo mã
-    public void deleteGiaovien(String magiaovien) {
-        GiaoVien gv = getByMagiaovien(magiaovien);
+    // DELETE - xoá giáo viên theo id
+    public void deleteGiaovien(int id) {
+        GiaoVien gv = getGiaovienById(id);
         if (gv != null) {
             giaoviens.remove(gv);
-            System.out.println("Đã xóa giáo viên có mã: " + magiaovien);
+            System.out.println("Đã xoá giáo viên: " + gv);
+        } else {
+            System.out.println("Không tìm thấy giáo viên có id = " + id);
+        }
+    }
+
+    // READ ALL - in ra danh sách giáo viên
+    public void getAllGiaoviens() {
+        if (giaoviens.isEmpty()) {
+            System.out.println("Danh sách giáo viên trống!");
+        } else {
+            System.out.println("Danh sách giáo viên:");
+            for (GiaoVien gv : giaoviens) {
+                System.out.println(gv);
+            }
         }
     }
 }
