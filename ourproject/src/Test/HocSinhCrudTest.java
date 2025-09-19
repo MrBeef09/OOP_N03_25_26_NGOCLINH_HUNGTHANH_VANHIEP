@@ -1,10 +1,12 @@
-public class Main {
+package Test;
+
+public class HocSinhCrudTest {
     public static void main(String[] args) {
-        HocsinhCrud crud = new HocSinhCrud();
+        HocSinhCrud crud = new HocSinhCrud();
 
         // CREATE
-        crud.addHocsinh(new Hocsinh("N2301","Nguyen Hung Thanh", 24 ,"Nam"));
-        crud.addHocsinh(new Hocsinh("T5632","Nguyen Van Hiep",30,"Nam"));
+        crud.addHocsinh(new HocSinh("N2301","Nguyen Hung Thanh", 24 ,"Nam"));
+        crud.addHocsinh(new HocSinh("T5632","Nguyen Van Hiep",30,"Nam"));
 
         // READ
         crud.getHocsinh();
