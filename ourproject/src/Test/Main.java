@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        HocsinhCrud crud = new HocsinhCrud();
+        HocsinhCrud crud = new HocSinhCrud();
 
         // CREATE
         crud.addHocsinh(new Hocsinh("N2301","Nguyen Hung Thanh", 24 ,"Nam"));
