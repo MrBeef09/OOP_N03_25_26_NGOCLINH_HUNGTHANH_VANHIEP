@@ -34,14 +34,21 @@ public class TaiKhoan {
         setMatKhau(matkhau, tenDangnhap, vaiTro);
         System.out.println("Dang ky tai khoan thanh cong");
     }
-    public void Dangnhap(String matkhau,String tenDangnhap){
-        if(this.MatKhau.equals(matkhau) && this.TenDangNhap.equals(tenDangnhap)){
+    public boolean Dangnhap(String matkhau,String tenDangnhap){
+        boolean check = false;
+        while (!check){
+            if(this.MatKhau.equals(matkhau) && this.TenDangNhap.equals(tenDangnhap)){
             System.out.println("Dang nhap thanh cong voi vai tro" + this.VaiTro);
+            check = true;
+            
         }
         else{
             System.out.println("Sai ten dang nhap hoac mat khau , vui long nhap lai");
         }
+        }
+        return check;
     }
+    
     public boolean Doimatkhau(String MatKhauCu , String MatKhauMoi){
         if(this.MatKhau.equals(MatKhauCu)){
             this.MatKhau.equals(MatKhauMoi);
