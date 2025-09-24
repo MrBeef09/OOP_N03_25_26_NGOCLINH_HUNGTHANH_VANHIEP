@@ -11,9 +11,9 @@ public class TestTrangThietBi {
         dieuHoa.XemThongTin();
         quat.XemThongTin();
 
-        System.out.println("Điểm máy chiếu: " + mayChieu.DanhGia());
-        System.out.println("Điểm máy tính: " + mayTinh.DanhGia());
-        System.out.println("Điểm điều hòa: " + dieuHoa.DanhGia());
-        System.out.println("Điểm quạt: " + quat.DanhGia());
+        System.out.println("Điểm máy chiếu: " + mayChieu.danhGia());
+        System.out.println("Điểm máy tính: " + mayTinh.danhGia());
+        System.out.println("Điểm điều hòa: " + dieuHoa.danhGia());
+        System.out.println("Điểm quạt: " + quat.danhGia());
     }
 }
