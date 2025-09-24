@@ -28,6 +28,16 @@ public class HocSinh extends Nguoi {
     }
 
     //method
+    public void CapNhatThongTinCaNhan(String hoTen, int ngaySinh, String gioiTinh, String maHocSinh, String diaChi, int soDienThoai) {
+        this.setHoTen(hoTen);
+        this.setNgaySinh(ngaySinh); 
+        this.setGioiTinh(gioiTinh);
+        if (thongTinCaNhan != null) {
+            thongTinCaNhan.CapNhatThongTin(diaChi, soDienThoai);
+        } else {
+            System.out.println("Thong tin ca nhan chua duoc khoi tao.");
+        }
+    }
     public boolean dangNhap(String password, String username) {
     if (taiKhoan != null) {
         return taiKhoan.Dangnhap(password, username);
