@@ -1,29 +1,39 @@
 public class KetQuaHocTap {
-    private float DiemThi;
-    private String HocLuc;
-    private String ToHopMon;
+    private float diemThi;
+    private String hocLuc;
+    private String toHopMon;
 
     //getter setter
     public float getDiemThi(){
-        return DiemThi;
+        return diemThi;
     }
     public String getHocLuc(){
-        return HocLuc;
+        return hocLuc;
     }
     public String getToHopMon(){
-        return ToHopMon;
+        return toHopMon;
     }
-    public void setDiemThi(float DiemThi){
-        this.DiemThi = DiemThi;
+    public void setDiemThi(float diemThi){
+        this.diemThi = diemThi;
     }
-    public void setHocLuc(String HocLuc){
-        this.HocLuc = HocLuc;
+    public void setHocLuc(String hocLuc){
+        this.hocLuc = hocLuc;
     }
-    public void setToHopMon(String ToHopMon){
-        this.ToHopMon = ToHopMon;
+    public void setToHopMon(String toHopMon){
+        this.toHopMon = toHopMon;
     }
     
+    //constructor
+    public KetQuaHocTap(float DiemThi, String HocLuc, String ToHopMon){
+        this.diemThi = DiemThi;
+        this.hocLuc = hocLuc;
+        this.toHopMon = toHopMon;
+    }
     //method 
-    public void Capnhatdiemthi(){}
+    public void CapNhatDiemThi(float diemThi, String hocLuc, String toHopMon) {
+        this.diemThi = diemThi;
+        this.hocLuc = hocLuc;
+        this.toHopMon = toHopMon;
+    }
     public void Tinhhocluc(){}
 }
