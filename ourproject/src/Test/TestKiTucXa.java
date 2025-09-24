@@ -1,4 +1,4 @@
-public class TestKyTucXa {
+public class TestKiTucXa {
     public static void main(String[] args) {
         // Tạo một số ký túc xá để test
         KyTucXa ktx1 = new KyTucXa("KTX1", 200, 1500);

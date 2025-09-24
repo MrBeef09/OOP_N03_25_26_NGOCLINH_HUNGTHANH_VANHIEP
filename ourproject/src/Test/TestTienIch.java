@@ -1,4 +1,4 @@
-package tienich;
+
 
 public class TestTienIch {
     public static void main(String[] args) {
