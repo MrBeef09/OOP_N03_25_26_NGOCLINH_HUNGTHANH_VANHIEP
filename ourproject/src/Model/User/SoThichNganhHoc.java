@@ -1,31 +1,37 @@
 public class SoThichNganhHoc {
-    private String NganhQuanTam;
-    private String SoThich;
-    private String TaiNang;
+    private String nganhQuanTam;
+    private String soThich;
+    private String taiNang;
 
     // getter setter
     public String getNganhQuanTam(){
-        return NganhQuanTam;
+        return nganhQuanTam;
     }
     
     public String getSoThich(){
-        return SoThich;
+        return soThich;
     }
     
     public String getTaiNang(){
-        return TaiNang;
+        return taiNang;
     }
-    public void setNganhQuanTam(String NganhQuanTam) {
-        this.NganhQuanTam = NganhQuanTam;
+    public void setNganhQuanTam(String nganhQuanTam) {
+        this.nganhQuanTam = nganhQuanTam;
     }
-    public void setSoThich(String SoThich) {
-        this.SoThich = SoThich;
+    public void setSoThich(String soThich) {
+        this.soThich = soThich;
     }
-    public void setTaiNang(String TaiNang) {
-        this.TaiNang = TaiNang;
+    public void setTaiNang(String taiNang) {
+        this.taiNang = taiNang;
     }
 
     // method
-    public void Chonnganhhoc(){}
-    public void Xemsothich(){}
+    public void chonNganhHoc() {
+        System.out.println("Bạn đã chọn ngành học: " + nganhQuanTam);
+
+    }
+    public void Xemsothich(){
+        System.out.println("So thich: " + soThich);
+        System.out.println("Tai nang: " + taiNang);
+    }
 }
