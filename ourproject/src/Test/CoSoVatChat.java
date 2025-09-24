@@ -49,7 +49,7 @@ public class CoSoVatChat {
         System.out.println("===== DANH SÁCH TRANG THIẾT BỊ =====");
         for (TrangThietBi tb : dsTrangThietBi) {
             tb.XemThongTin();
-            System.out.println("Điểm: " + tb.DanhGia() + "\n");
+            System.out.println("Điểm: " + tb.danhGia() + "\n");
         }
 
         System.out.println("===== DANH SÁCH TIỆN ÍCH =====");
@@ -71,7 +71,7 @@ public class CoSoVatChat {
         for (PhongHoc p : dsPhongHoc) tong += p.danhGia();
         for (KyTucXa k : dsKTX) tong += k.danhGia();
         for (ThuVien t : dsThuVien) tong += t.danhGia();
-        for (TrangThietBi tb : dsTrangThietBi) tong += tb.DanhGia();
+        for (TrangThietBi tb : dsTrangThietBi) tong += tb.danhGia();
         for (TienIch ti : dsTienIch) tong += ti.DanhGia();
         for (HaTangKiThuat ht : dsHaTang) tong += ht.danhGia();
         return tong;
