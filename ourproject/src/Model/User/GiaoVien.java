@@ -30,6 +30,12 @@ public class GiaoVien extends Nguoi {
         }
         return false;
     }
+    public void XemThongTin(){
+        System.out.println("ma giao vien: " + maGiaoVien +
+                           " | ho ten: " + getHoTen() +
+                           " | ngay sinh: " + getNgaySinh() +
+                           " | gioi tinh: " + getGioiTinh());
+    }
     
     public void ChonTruongdaihoc(){}
     public void GuiNhanxethocsinh(){}
