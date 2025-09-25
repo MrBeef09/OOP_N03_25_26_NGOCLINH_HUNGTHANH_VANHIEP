@@ -1,33 +1,75 @@
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TruongDaiHoc {
-    private String maTruong;
+    private int maTruong;
     private String tenTruong;
-    private List<PhongHoc> danhSachPhongHoc = new ArrayList<>();
-    private List<ThuVien> danhSachThuVien = new ArrayList<>();
-    private List<PhongThiNghiem> danhSachPTN = new ArrayList<>();
-    private List<MayTinh> danhSachMayTinh = new ArrayList<>();
-    private List<GiaoVien> danhSachGiaoVien = new ArrayList<>();
+    private String diaChi;
+    private CoSoVatChat coSoVatChat;
+    private List<GiaoVien> danhSachGiaoVien;
+    private List<NganhHoc> danhSachNganhHoc;
 
-    public TruongDaiHoc(String maTruong, String tenTruong) {
+    public TruongDaiHoc(int maTruong, String tenTruong, String diaChi) {
         this.maTruong = maTruong;
         this.tenTruong = tenTruong;
+        this.diaChi = diaChi;
+        this.coSoVatChat = new CoSoVatChat(); // luôn có sẵn cơ sở vật chất
+        this.danhSachGiaoVien = new ArrayList<>();
+        this.danhSachNganhHoc = new ArrayList<>();
+    }
+
+    // ===== Getter =====
+    public int getMaTruong() {
+        return maTruong;
     }
 
     public String getTenTruong() {
         return tenTruong;
     }
 
-    public List<PhongHoc> getDanhSachPhongHoc() { return danhSachPhongHoc; }
-    public List<ThuVien> getDanhSachThuVien() { return danhSachThuVien; }
-    public List<PhongThiNghiem> getDanhSachPTN() { return danhSachPTN; }
-    public List<MayTinh> getDanhSachMayTinh() { return danhSachMayTinh; }
-    public List<GiaoVien> getDanhSachGiaoVien() { return danhSachGiaoVien; }
+    public String getDiaChi() {
+        return diaChi;
+    }
 
-    public void themPhongHoc(PhongHoc p) { danhSachPhongHoc.add(p); }
-    public void themThuVien(ThuVien tv) { danhSachThuVien.add(tv); }
-    public void themPhongThiNghiem(PhongThiNghiem ptn) { danhSachPTN.add(ptn); }
-    public void themMayTinh(MayTinh mt) { danhSachMayTinh.add(mt); }
-    public void themGiaoVien(GiaoVien gv) { danhSachGiaoVien.add(gv); }
+    public CoSoVatChat getCoSoVatChat() {
+        return coSoVatChat;
+    }
+
+    public List<GiaoVien> getDanhSachGiaoVien() {
+        return danhSachGiaoVien;
+    }
+
+    public List<NganhHoc> getDanhSachNganhHoc() {
+        return danhSachNganhHoc;
+    }
+
+    // ===== Method =====
+    public void themGiaoVien(GiaoVien gv) {
+        danhSachGiaoVien.add(gv);
+    }
+
+    public void themNganhHoc(NganhHoc nganh) {
+        danhSachNganhHoc.add(nganh);
+    }
+
+    public void xemThongTin() {
+        System.out.println("Mã trường: " + maTruong +
+                           " | Tên trường: " + tenTruong +
+                           " | Địa chỉ: " + diaChi);
+        System.out.println("=== Danh sách giáo viên: ===");
+        for (GiaoVien gv : danhSachGiaoVien) {
+            gv.XemThongTin();
+        }
+        System.out.println("=== Danh sách ngành học: ===");
+        for (NganhHoc ng : danhSachNganhHoc) {
+            ng.xemThongTin();
+        }
+    }
+
+    public void xemCoSoVatChat() {
+        System.out.println("=== Cơ sở vật chất của trường ===");
+        coSoVatChat.xemThongTin();
+        System.out.println("Tổng điểm CSVC: " + coSoVatChat.tinhTongDiem());
+    }
 }

@@ -1,25 +1,34 @@
 //package User;
 public class ThongTinCaNhan {
-    private String DiaChi;
-    private int SoDienThoai;
+    private String diaChi;
+    private int soDienThoai;
 
     // getter setter
     public String getDiaChi(){
-        return DiaChi;
+        return diaChi;
     }
     public int getSoDienThoai(){
-        return SoDienThoai;
+        return soDienThoai;
     }
     public void setDiaChi(String DiaChi) {
-        this.DiaChi = DiaChi;
+        this.diaChi = diaChi;
     }
-    public void setSoDienthoai(int SoDienShoai) {
-        this.SoDienThoai = SoDienThoai;
+    public void setSoDienthoai(int soDienThoai) {
+        this.soDienThoai = soDienThoai;
     }
 
-    //method
-    public void Capnhatthongtin(){
-        
+    //constructor
+    public ThongTinCaNhan(String diaChi, int soDienThoai) {
+        this.diaChi = diaChi;
+        this.soDienThoai = soDienThoai;
     }
-    public void Xemthongtin(){}
+    // method
+    public void CapNhatThongTin(String diaChi, int soDienThoai) {
+        this.diaChi = diaChi;
+        this.soDienThoai = soDienThoai;
+    }
+    public void Xemthongtin(){
+        System.out.println("Dia chi: " + diaChi);
+        System.out.println("So dien thoai: " + soDienThoai);
+    }
 }
