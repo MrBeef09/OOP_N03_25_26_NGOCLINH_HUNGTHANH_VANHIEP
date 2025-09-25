@@ -10,7 +10,7 @@ public class KetQuaHocTap {
     public String getHocLuc(){
         return hocLuc;
     }
-    public String getToHopMon(){
+    public String gettoHopMon(){
         return toHopMon;
     }
     public void setDiemThi(float diemThi){
@@ -24,7 +24,7 @@ public class KetQuaHocTap {
     }
     
     //constructor
-    public KetQuaHocTap(float DiemThi, String HocLuc, String ToHopMon){
+    public KetQuaHocTap(float DiemThi, String hocLuc, String toHopMon){
         this.diemThi = DiemThi;
         this.hocLuc = hocLuc;
         this.toHopMon = toHopMon;

@@ -17,7 +17,7 @@ public class GiaoVien extends Nguoi {
     public String getMaGiaoVien(){
         return maGiaoVien;
     }
-    public void SetMaGiaoVien(String maGiaoVien){ {
+    public void SetMaGiaoVien(String maGiaoVien){
         if(maGiaoVien.length() > 0){
             this.maGiaoVien = maGiaoVien;
         }
@@ -51,5 +51,4 @@ public String toString() {
             '}';
 }
 
-}
 }

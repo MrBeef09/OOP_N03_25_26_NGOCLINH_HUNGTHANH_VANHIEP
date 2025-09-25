@@ -10,7 +10,7 @@ public class ThongTinCaNhan {
     public int getSoDienThoai(){
         return soDienThoai;
     }
-    public void setDiaChi(String DiaChi) {
+    public void setDiaChi(String diaChi) {
         this.diaChi = diaChi;
     }
     public void setSoDienthoai(int soDienThoai) {
