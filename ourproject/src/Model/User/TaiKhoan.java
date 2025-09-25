@@ -1,50 +1,57 @@
 public class TaiKhoan {
-    private String TenDangNhap;
-    private String MatKhau;
-    private String VaiTro;
+    private String tenDangNhap;
+    private String matKhau;
+    private String vaiTro;
 
     //getter setter 
     public String getMatKhau(){
-        return MatKhau;
+        return matKhau;
     }
     public String getTenDangNhap(){
-        return TenDangNhap;
+        return tenDangNhap;
     }
     public String getVaiTro(){
-        return VaiTro;
+        return vaiTro;
     }
-    public void setMatKhau(String MatKhau , String TenDangNhap ,String VaiTro){
-        if (MatKhau != null && MatKhau.length() > 0 ){
-            this.MatKhau = MatKhau;
+    public void setMatKhau(String matKhau , String tenDangNhap ,String vaiTro){
+        if (matKhau != null && matKhau.length() > 0 ){
+            this.matKhau = matKhau;
         }
-        if(TenDangNhap!= null && TenDangNhap.length() > 0){
-            this.TenDangNhap = TenDangNhap;
+        if(tenDangNhap!= null && tenDangNhap.length() > 0){
+            this.tenDangNhap = tenDangNhap;
         }
-        if(VaiTro != null && VaiTro.equals("Hoc sinh") || VaiTro.equals("Admin")){
-            this.VaiTro = VaiTro;
+        if(vaiTro != null && vaiTro.equals("Hoc sinh") || vaiTro.equals("Admin")){
+            this.vaiTro = vaiTro;
         }
     }
 
 
     // method
     public boolean Xacnhanmatkhau(String nhapLai){
-        return this.MatKhau.equals(nhapLai);
+        return this.matKhau.equals(nhapLai);
     }
     public void Dangky(String matkhau,String tenDangnhap ,String vaiTro){
         setMatKhau(matkhau, tenDangnhap, vaiTro);
         System.out.println("Dang ky tai khoan thanh cong");
     }
-    public void Dangnhap(String matkhau,String tenDangnhap){
-        if(this.MatKhau.equals(matkhau) && this.TenDangNhap.equals(tenDangnhap)){
-            System.out.println("Dang nhap thanh cong voi vai tro" + this.VaiTro);
+    public boolean Dangnhap(String matkhau,String tenDangnhap){
+        boolean check = false;
+        while (!check){
+            if(this.matKhau.equals(matkhau) && this.tenDangNhap.equals(tenDangnhap)){
+            System.out.println("Dang nhap thanh cong voi vai tro" + this.vaiTro);
+            check = true;
+            
         }
         else{
             System.out.println("Sai ten dang nhap hoac mat khau , vui long nhap lai");
         }
+        }
+        return check;
     }
+    
     public boolean Doimatkhau(String MatKhauCu , String MatKhauMoi){
-        if(this.MatKhau.equals(MatKhauCu)){
-            this.MatKhau.equals(MatKhauMoi);
+        if(this.matKhau.equals(MatKhauCu)){
+            this.matKhau.equals(MatKhauMoi);
             System.out.println("Doi mat khau thanh cong");
             return true;
         }
