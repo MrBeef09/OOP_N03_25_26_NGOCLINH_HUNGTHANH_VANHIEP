@@ -4,7 +4,7 @@ public class TestSequence {
         for (int i = 0; i < 10; i++)
             s.add(Integer.toString(i));
 
-        Selector sl = s.getSelector();  // dùng Selector bạn định nghĩa
+        Selector sl = s.getSelector();  
         while (!sl.end()) {
             System.out.println(sl.current());
             sl.next();

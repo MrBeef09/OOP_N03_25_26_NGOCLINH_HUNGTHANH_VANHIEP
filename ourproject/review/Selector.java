@@ -1,5 +1,5 @@
 public interface Selector {
     boolean end();
-    Object current();   // chữ O hoa
+    Object current();  
     void next();
 }
