@@ -24,7 +24,7 @@ public class KetQuaHocTap {
     }
     
     //constructor
-    public KetQuaHocTap(float DiemThi, String HocLuc, String ToHopMon){
+    public KetQuaHocTap(float DiemThi, String hocLuc, String toHopMon){
         this.diemThi = DiemThi;
         this.hocLuc = hocLuc;
         this.toHopMon = toHopMon;
