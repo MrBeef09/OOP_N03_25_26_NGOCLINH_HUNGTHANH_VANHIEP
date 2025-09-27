@@ -1,7 +1,6 @@
 
 public class TestHaTangKiThuat {
     public static void main(String[] args) {
-        // Chỉ còn 4 hệ thống
         HaTangKiThuat dien = new HeThongDien("500kVA", 3);
         HaTangKiThuat nuoc = new HeThongNuoc(2000, 2);
         HaTangKiThuat internet = new MangInternet("VNPT", 500, 10);
