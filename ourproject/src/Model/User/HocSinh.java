@@ -37,6 +37,7 @@ public class HocSinh extends Nguoi {
         } else {
             System.out.println("Thong tin ca nhan chua duoc khoi tao.");
         }
+        System.out.println("Hoc sinh" + getHoTen() + "da cap nhat thong tin");
     }
     public boolean dangNhap(String password, String username) {
     if (taiKhoan != null) {

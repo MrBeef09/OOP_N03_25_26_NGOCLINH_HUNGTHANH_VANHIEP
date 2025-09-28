@@ -30,17 +30,39 @@ public class GiaoVien extends Nguoi {
         }
         return false;
     }
-    public void XemThongTin(){
+    public void xemThongTin(){
         System.out.println("ma giao vien: " + maGiaoVien +
                            " | ho ten: " + getHoTen() +
                            " | ngay sinh: " + getNgaySinh() +
                            " | gioi tinh: " + getGioiTinh());
     }
     
-    public void ChonTruongdaihoc(){}
-    public void GuiNhanxethocsinh(){}
-    public void XemDanhsachhocsinh(){}
-    public void CapnhatThongtin(){}
+    public void ChonTruongdaihoc(){
+        if(truongCongTac != null){
+            System.out.println("Giao vien" + getHoTen() + "da chon tuỏng dai hoc:" + truongCongTac.getTenTruong());
+        }
+        else{
+            System.out.println("Giao vien" + getHoTen() + "chua co truong dai hoc cong tac.");
+        }
+    }
+    public void GuiNhanxethocsinh(String nhanXet){
+        System.out.println("Giao vien " + getHoTen() + " gui nhan xet: " + nhanXet);
+    }
+    public void XemDanhsachhocsinh(){
+        System.out.println("Giao vien " + getHoTen() + " xem danh sach hoc sinh.");
+    }
+    public void CapnhatThongtin(String hoTen , int ngaySinh, String gioiTinh, ThongTinCaNhan thongTinCaNhan){
+        if (thongTinCaNhan != null) {
+            thongTinCaNhan.CapNhatThongTin(thongTinCaNhan.getDiaChi(), thongTinCaNhan.getSoDienThoai());
+        } 
+        else{
+            System.out.println("Thong tin ca nhan chua duoc khoi tao.");
+        }
+        this.setHoTen(hoTen);
+        this.setNgaySinh(ngaySinh);
+        this.setGioiTinh(gioiTinh);
+        System.out.println("Giao vien " + getHoTen() + " da cap nhat thong tin.");
+    }
     @Override
 public String toString() {
     return "Giáo viên {" +
@@ -52,3 +74,7 @@ public String toString() {
 }
 
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/main
