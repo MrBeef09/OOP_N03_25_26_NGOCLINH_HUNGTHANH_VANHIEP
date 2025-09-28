@@ -7,5 +7,6 @@
         "ourproject/src/Controller",
         "ourproject/review"
     ],
-    "java.project.referencedLibraries": []
+    "java.project.referencedLibraries": [],
+    "java.compile.nullAnalysis.mode": "automatic"
 }
