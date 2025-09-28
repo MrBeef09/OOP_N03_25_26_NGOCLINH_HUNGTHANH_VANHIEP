@@ -4,9 +4,14 @@
         "ourproject/src/Model/User",
         "ourproject/src/Model/Truongdaihoc",
         "ourproject/src",
-        "ourproject/src/Controller"
+        "ourproject/src/Controller",
+        "ourproject/review"
     ],
     "java.project.referencedLibraries": [],
+<<<<<<< HEAD
     "java.compile.nullAnalysis.mode": "automatic",
     "java.debug.settings.onBuildFailureProceed": true
+=======
+    "java.compile.nullAnalysis.mode": "automatic"
+>>>>>>> origin/main
 }

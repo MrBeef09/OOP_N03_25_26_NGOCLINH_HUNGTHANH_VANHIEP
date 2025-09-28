@@ -1,6 +1,7 @@
 
 import java.util.ArrayList;
 import java.util.List;
+import Model.GiaoVien;
 
 public class TruongDaiHoc {
     private int maTruong;
@@ -59,7 +60,7 @@ public class TruongDaiHoc {
                            " | Địa chỉ: " + diaChi);
         System.out.println("=== Danh sách giáo viên: ===");
         for (GiaoVien gv : danhSachGiaoVien) {
-            gv.XemThongTin();
+            gv.xemThongTin();
         }
         System.out.println("=== Danh sách ngành học: ===");
         for (NganhHoc ng : danhSachNganhHoc) {
