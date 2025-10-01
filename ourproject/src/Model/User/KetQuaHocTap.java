@@ -10,7 +10,7 @@ public class KetQuaHocTap {
     public String getHocLuc(){
         return hocLuc;
     }
-    public String getToHopMon(){
+    public String gettoHopMon(){
         return toHopMon;
     }
     public void setDiemThi(float diemThi){
