@@ -5,6 +5,10 @@
         "ourproject/src/Model/Truongdaihoc",
         "ourproject/src/Controller",
         "ourproject/src",
+<<<<<<< HEAD
+=======
+        "ourproject/src/Controller",
+>>>>>>> origin/main
         "ourproject/review"
     ],
     "java.project.referencedLibraries": []
