@@ -1,13 +1,12 @@
-// OuterPrivate.java
 public class OuterPrivate {
-    private class InnerPrivate {
-        public void show() {
-            System.out.println("Đây là private inner class");
+    private class InnerPrivate{
+        public void show(){
+            System.out.println("day la private inner class)");
         }
     }
 
-    public void useInner() {
-        InnerPrivate inner = new InnerPrivate();
-        inner.show();
+    public void useInner(){
+        InnerPrivate ip = new InnerPrivate();
+        ip.show();
     }
 }

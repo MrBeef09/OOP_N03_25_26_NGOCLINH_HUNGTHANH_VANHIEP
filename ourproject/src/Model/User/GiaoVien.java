@@ -30,7 +30,7 @@ public class GiaoVien extends Nguoi {
         }
         return false;
     }
-    public void xemThongTin(){
+    public void XemThongTin(){
         System.out.println("ma giao vien: " + maGiaoVien +
                            " | ho ten: " + getHoTen() +
                            " | ngay sinh: " + getNgaySinh() +
@@ -63,6 +63,7 @@ public class GiaoVien extends Nguoi {
         this.setGioiTinh(gioiTinh);
         System.out.println("Giao vien " + getHoTen() + " da cap nhat thong tin.");
     }
+    
     @Override
 public String toString() {
     return "Giáo viên {" +
@@ -74,7 +75,3 @@ public String toString() {
 }
 
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/main

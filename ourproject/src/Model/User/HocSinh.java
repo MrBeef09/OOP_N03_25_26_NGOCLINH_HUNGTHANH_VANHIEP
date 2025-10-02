@@ -28,6 +28,18 @@ public class HocSinh extends Nguoi {
     }
 
     //method
+    public void XemThongTin() {
+        System.out.println("Ma hoc sinh: " + maHocSinh +
+                           " | Ho ten: " + getHoTen() +
+                           " | Ngay sinh: " + getNgaySinh() +
+                           " | Gioi tinh: " + getGioiTinh() +
+                           " | Dia chi: " + (thongTinCaNhan != null ? thongTinCaNhan.getDiaChi() : "Chua cap nhat") +
+                           " | So dien thoai: " + (thongTinCaNhan != null ? thongTinCaNhan.getSoDienThoai() : "Chua cap nhat")+
+                           " | Diem thi: " + (ketQuaHocTap != null ? ketQuaHocTap.getDiemThi() : "Chua cap nhat") +
+                           " | Nganh quan tam: " + (soThichNganhHoc != null ? soThichNganhHoc.getNganhQuanTam() : "Chua cap nhat") +
+                           " | So thich: " + (soThichNganhHoc != null ? soThichNganhHoc.getSoThich() : "Chua cap nhat") +
+                           " | Tai nang: " + (soThichNganhHoc != null ? soThichNganhHoc.getTaiNang() : "Chua cap nhat"));
+    }
     public void CapNhatThongTinCaNhan(String hoTen, int ngaySinh, String gioiTinh, String maHocSinh, String diaChi, int soDienThoai) {
         this.setHoTen(hoTen);
         this.setNgaySinh(ngaySinh); 
@@ -37,6 +49,12 @@ public class HocSinh extends Nguoi {
         } else {
             System.out.println("Thong tin ca nhan chua duoc khoi tao.");
         }
+        if(ketQuaHocTap != null){
+            ketQuaHocTap.setDiemThi(ketQuaHocTap.getDiemThi());
+        } else {
+            System.out.println("Ket qua hoc tap chua duoc khoi tao.");
+        }
+        this.setMaHocSinh(maHocSinh);
         System.out.println("Hoc sinh" + getHoTen() + "da cap nhat thong tin");
     }
     public boolean dangNhap(String password, String username) {

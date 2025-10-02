@@ -1,5 +1,5 @@
 public interface Selector {
     boolean end();
-    Object current();  
+    Object current();
     void next();
 }
