@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
-import Model.GiaoVien;
+
+import com.example.servingwebcontent.Model.GiaoVien;
 
 public class TruongDaiHoc {
     private int maTruong;

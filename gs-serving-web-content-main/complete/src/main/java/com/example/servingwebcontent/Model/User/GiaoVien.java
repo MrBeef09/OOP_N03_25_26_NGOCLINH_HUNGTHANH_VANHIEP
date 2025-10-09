@@ -28,7 +28,7 @@ public class GiaoVien extends Nguoi {
             return taiKhoan.Dangnhap(passWord, username);
         }
         return false;
-    }
+   }
     public void XemThongTin(){
         System.out.println("ma giao vien: " + maGiaoVien +
                            " | ho ten: " + getHoTen() +
