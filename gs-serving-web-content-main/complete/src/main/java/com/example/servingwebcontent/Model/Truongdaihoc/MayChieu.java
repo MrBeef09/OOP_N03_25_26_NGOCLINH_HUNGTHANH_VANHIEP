@@ -1,3 +1,4 @@
+package com.example.servingwebcontent.Model.Truongdaihoc;
 public class MayChieu implements TrangThietBi {
     private String doPhanGiai;
     private String congSuat;

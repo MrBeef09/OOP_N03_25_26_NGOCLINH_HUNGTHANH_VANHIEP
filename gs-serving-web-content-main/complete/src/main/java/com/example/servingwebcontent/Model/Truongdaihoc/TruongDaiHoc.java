@@ -1,7 +1,8 @@
+package com.example.servingwebcontent.Model.Truongdaihoc;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.servingwebcontent.Model.GiaoVien;
+import com.example.servingwebcontent.Model.User.GiaoVien;
 
 public class TruongDaiHoc {
     private int maTruong;
@@ -60,7 +61,7 @@ public class TruongDaiHoc {
                            " | Địa chỉ: " + diaChi);
         System.out.println("=== Danh sách giáo viên: ===");
         for (GiaoVien gv : danhSachGiaoVien) {
-            gv.xemThongTin();
+            gv.XemThongTin();
         }
         System.out.println("=== Danh sách ngành học: ===");
         for (NganhHoc ng : danhSachNganhHoc) {

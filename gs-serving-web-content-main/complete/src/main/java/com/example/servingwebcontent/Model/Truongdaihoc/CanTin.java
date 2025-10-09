@@ -1,3 +1,4 @@
+package com.example.servingwebcontent.Model.Truongdaihoc;
 public class CanTin implements TienIch {
     private String MaCanTin;
     private int SucChua;

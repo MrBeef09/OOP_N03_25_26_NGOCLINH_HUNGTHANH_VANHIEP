@@ -1,3 +1,4 @@
+package com.example.servingwebcontent.Model.Truongdaihoc;
 public class SanBong implements TienIch {
     private String LoaiSan;
     private int SucChua;

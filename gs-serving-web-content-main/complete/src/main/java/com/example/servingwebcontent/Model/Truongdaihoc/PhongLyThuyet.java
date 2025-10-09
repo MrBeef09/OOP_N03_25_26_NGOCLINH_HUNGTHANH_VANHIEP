@@ -1,4 +1,5 @@
-    public class PhongLyThuyet extends PhongHoc {
+package com.example.servingwebcontent.Model.Truongdaihoc;
+public class PhongLyThuyet extends PhongHoc {
     private int soBan;
     private int soGhe;
 
