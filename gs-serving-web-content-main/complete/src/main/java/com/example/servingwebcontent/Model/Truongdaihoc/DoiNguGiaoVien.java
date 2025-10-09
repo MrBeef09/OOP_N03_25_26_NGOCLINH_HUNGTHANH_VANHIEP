@@ -1,4 +1,3 @@
-
 public class DoiNguGiaoVien {
     private int soLuongGV;
     private int soLuongTS; // số tiến sĩ
