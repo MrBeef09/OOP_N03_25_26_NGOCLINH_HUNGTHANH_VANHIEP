@@ -38,6 +38,7 @@ public class GiaoVien extends Nguoi {
                            " | so dien thoai: " + (thongTinCaNhan != null ? thongTinCaNhan.getSoDienThoai() : "Chua cap nhat")) ;
     }
     
+    
     public void ChonTruongdaihoc(){
         if(truongCongTac != null){
             System.out.println("Giao vien" + getHoTen() + "da chon truong dai hoc:" + truongCongTac.getTenTruong());
