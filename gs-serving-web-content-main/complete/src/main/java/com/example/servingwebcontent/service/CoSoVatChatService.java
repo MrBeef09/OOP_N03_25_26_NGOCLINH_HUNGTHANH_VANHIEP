@@ -53,4 +53,16 @@ public class CoSoVatChatService {
         dsTienIch.clear();
         dsHaTang.clear();
     }
+public List<Object> layDanhSachCSVC() {
+    List<Object> danhSach = new ArrayList<>();
+    danhSach.addAll(dsPhongHoc);
+    danhSach.addAll(dsKTX);
+    danhSach.addAll(dsThuVien);
+    danhSach.addAll(dsTrangThietBi);
+    danhSach.addAll(dsTienIch);
+    danhSach.addAll(dsHaTang);
+    return danhSach;
+}
+
+
 }
