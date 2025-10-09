@@ -28,17 +28,49 @@ public class HocSinh extends Nguoi {
     }
 
     //method
-    public void CapNhatThongTinCaNhan(String hoTen, int ngaySinh, String gioiTinh, String maHocSinh, String diaChi, int soDienThoai) {
-        this.setHoTen(hoTen);
-        this.setNgaySinh(ngaySinh); 
-        this.setGioiTinh(gioiTinh);
-        if (thongTinCaNhan != null) {
-            thongTinCaNhan.CapNhatThongTin(diaChi, soDienThoai);
-        } else {
-            System.out.println("Thong tin ca nhan chua duoc khoi tao.");
-        }
-        System.out.println("Hoc sinh" + getHoTen() + "da cap nhat thong tin");
+    public void XemThongTin() {
+        System.out.println("Ma hoc sinh: " + maHocSinh +
+                           " | Ho ten: " + getHoTen() +
+                           " | Ngay sinh: " + getNgaySinh() +
+                           " | Gioi tinh: " + getGioiTinh() +
+                           " | Dia chi: " + (thongTinCaNhan != null ? thongTinCaNhan.getDiaChi() : "Chua cap nhat") +
+                           " | So dien thoai: " + (thongTinCaNhan != null ? thongTinCaNhan.getSoDienThoai() : "Chua cap nhat")+
+                           " | Diem thi: " + (ketQuaHocTap != null ? ketQuaHocTap.getDiemThi() : "Chua cap nhat") +
+                           " | Nganh quan tam: " + (soThichNganhHoc != null ? soThichNganhHoc.getNganhQuanTam() : "Chua cap nhat") +
+                           " | So thich: " + (soThichNganhHoc != null ? soThichNganhHoc.getSoThich() : "Chua cap nhat") +
+                           " | Tai nang: " + (soThichNganhHoc != null ? soThichNganhHoc.getTaiNang() : "Chua cap nhat"));
     }
+
+
+    public void CapNhatThongTinCaNhan(String hoTen, int ngaySinh, String gioiTinh, 
+                                  String maHocSinh, String diaChi, int soDienThoai, 
+                                  KetQuaHocTap ketQuaHocTap, 
+                                  SoThichNganhHoc soThichNganhHoc, 
+                                  TaiKhoan taiKhoan) {
+    
+    this.setHoTen(hoTen);
+    this.setNgaySinh(ngaySinh); 
+    this.setGioiTinh(gioiTinh);
+    this.setMaHocSinh(maHocSinh);
+
+    if (this.thongTinCaNhan != null) {
+        this.thongTinCaNhan.CapNhatThongTin(diaChi, soDienThoai);
+    } else {
+        System.out.println("Thong tin ca nhan chua duoc khoi tao.");
+    }
+
+    if (ketQuaHocTap != null) {
+        this.ketQuaHocTap = ketQuaHocTap;
+    } else {
+        System.out.println("Ket qua hoc tap chua duoc khoi tao.");
+    }
+
+    if (soThichNganhHoc != null) {
+        this.soThichNganhHoc = soThichNganhHoc;
+    } else {
+        System.out.println("So thich nganh hoc chua duoc khoi tao.");}
+                                  }
+
     public boolean dangNhap(String password, String username) {
     if (taiKhoan != null) {
         return taiKhoan.Dangnhap(password, username);
