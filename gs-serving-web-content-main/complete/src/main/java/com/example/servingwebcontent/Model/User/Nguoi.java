@@ -1,8 +1,8 @@
 //package User;
-public class Nguoi {                                                           
-    private String hoTen;
-    private int ngaySinh;
-    private String gioiTinh;
+public abstract class Nguoi {
+    private  String hoTen;
+    private  int ngaySinh;
+    private  String gioiTinh;
 
     //getter setter
     public String getHoTen(){
@@ -25,10 +25,6 @@ public class Nguoi {
     }
 
     //method
-    public void XemThongTin(){
-        System.out.println("Ho va ten:" + hoTen);
-        System.out.println("Ngay sinh:" + ngaySinh);
-        System.out.println("Gioi tinh:" + gioiTinh); 
-    }
+    public abstract void XemThongTin();
     
 }

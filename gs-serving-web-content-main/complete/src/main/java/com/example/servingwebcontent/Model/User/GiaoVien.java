@@ -1,4 +1,3 @@
-
 public class GiaoVien extends Nguoi {
     private String maGiaoVien;
     private ThongTinCaNhan thongTinCaNhan;
@@ -29,18 +28,20 @@ public class GiaoVien extends Nguoi {
             return taiKhoan.Dangnhap(passWord, username);
         }
         return false;
-    }
-    public void xemThongTin(){
+   }
+    public void XemThongTin(){
         System.out.println("ma giao vien: " + maGiaoVien +
                            " | ho ten: " + getHoTen() +
                            " | ngay sinh: " + getNgaySinh() +
-                           " | gioi tinh: " + getGioiTinh());
+                           " | gioi tinh: " + getGioiTinh() +
+                           " | dia chi: " + (thongTinCaNhan != null ? thongTinCaNhan.getDiaChi() : "Chua cap nhat") +
+                           " | so dien thoai: " + (thongTinCaNhan != null ? thongTinCaNhan.getSoDienThoai() : "Chua cap nhat")) ;
     }
     
     
     public void ChonTruongdaihoc(){
         if(truongCongTac != null){
-            System.out.println("Giao vien" + getHoTen() + "da chon tuỏng dai hoc:" + truongCongTac.getTenTruong());
+            System.out.println("Giao vien" + getHoTen() + "da chon truong dai hoc:" + truongCongTac.getTenTruong());
         }
         else{
             System.out.println("Giao vien" + getHoTen() + "chua co truong dai hoc cong tac.");
@@ -64,6 +65,7 @@ public class GiaoVien extends Nguoi {
         this.setGioiTinh(gioiTinh);
         System.out.println("Giao vien " + getHoTen() + " da cap nhat thong tin.");
     }
+    
     @Override
 public String toString() {
     return "Giáo viên {" +
