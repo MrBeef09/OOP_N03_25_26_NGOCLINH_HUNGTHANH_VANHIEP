@@ -37,6 +37,7 @@ public class GiaoVien extends Nguoi {
                            " | gioi tinh: " + getGioiTinh());
     }
     
+    
     public void ChonTruongdaihoc(){
         if(truongCongTac != null){
             System.out.println("Giao vien" + getHoTen() + "da chon tuỏng dai hoc:" + truongCongTac.getTenTruong());
@@ -74,7 +75,3 @@ public String toString() {
 }
 
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/main
