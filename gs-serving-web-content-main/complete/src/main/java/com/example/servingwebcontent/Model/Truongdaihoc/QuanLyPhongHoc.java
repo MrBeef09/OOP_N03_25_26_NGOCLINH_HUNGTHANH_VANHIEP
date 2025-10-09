@@ -1,3 +1,4 @@
+package com.example.servingwebcontent.Model.Truongdaihoc;
 import java.util.ArrayList;
 
 public class QuanLyPhongHoc {

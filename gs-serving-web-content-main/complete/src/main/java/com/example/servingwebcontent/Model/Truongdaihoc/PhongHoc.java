@@ -1,3 +1,4 @@
+package com.example.servingwebcontent.Model.Truongdaihoc;
 public abstract class PhongHoc{
     protected String maPhong;
     protected int sucChua;

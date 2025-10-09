@@ -1,3 +1,4 @@
+package com.example.servingwebcontent.Model.Truongdaihoc;
 public class Quat implements TrangThietBi {
     private int soLuong;
 

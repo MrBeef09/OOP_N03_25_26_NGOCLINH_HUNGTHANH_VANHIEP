@@ -1,4 +1,6 @@
-import java.util.*;
+
+package com.example.servingwebcontent.Model.Truongdaihoc;
+import java.util.List;
 
 public class NganhHoc {
     private String tenNganh;

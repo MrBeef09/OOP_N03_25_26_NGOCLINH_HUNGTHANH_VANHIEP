@@ -1,3 +1,5 @@
+package com.example.servingwebcontent.Model.User;
+
 public class KetQuaHocTap {
     private float diemThi;
     private String hocLuc;

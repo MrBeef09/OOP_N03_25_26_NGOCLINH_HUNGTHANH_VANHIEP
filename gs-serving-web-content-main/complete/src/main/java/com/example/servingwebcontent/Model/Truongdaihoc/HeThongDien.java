@@ -1,4 +1,4 @@
-
+package com.example.servingwebcontent.Model.Truongdaihoc;
 
 public class HeThongDien implements HaTangKiThuat {
      private String congSuatToiDa;

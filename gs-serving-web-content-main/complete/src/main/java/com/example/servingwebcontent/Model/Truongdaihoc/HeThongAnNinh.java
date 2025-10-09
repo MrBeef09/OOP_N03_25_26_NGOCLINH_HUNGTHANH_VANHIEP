@@ -1,3 +1,4 @@
+package com.example.servingwebcontent.Model.Truongdaihoc;
 public class HeThongAnNinh implements HaTangKiThuat {
     private int soLuongCamera;
     private boolean coBaoChay;

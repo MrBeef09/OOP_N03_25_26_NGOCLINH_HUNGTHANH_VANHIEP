@@ -1,3 +1,4 @@
+package com.example.servingwebcontent.Model.Truongdaihoc;
 public class PhongThiNghiem extends PhongHoc {
     private int soDungCu;
     private boolean tieuChuanAnToan;

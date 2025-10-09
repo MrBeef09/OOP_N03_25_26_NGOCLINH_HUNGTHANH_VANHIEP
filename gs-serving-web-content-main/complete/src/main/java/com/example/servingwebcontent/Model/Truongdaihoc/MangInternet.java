@@ -1,4 +1,4 @@
-
+package com.example.servingwebcontent.Model.Truongdaihoc;
 
 public class MangInternet implements HaTangKiThuat {
     private String nhaCungCap;

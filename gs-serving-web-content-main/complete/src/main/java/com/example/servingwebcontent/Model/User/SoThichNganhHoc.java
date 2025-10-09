@@ -1,3 +1,5 @@
+
+package com.example.servingwebcontent.Model.User;
 public class SoThichNganhHoc {
     private String nganhQuanTam;
     private String soThich;
