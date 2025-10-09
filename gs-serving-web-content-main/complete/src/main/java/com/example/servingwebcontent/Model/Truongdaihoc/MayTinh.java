@@ -1,3 +1,4 @@
+package com.example.servingwebcontent.Model.Truongdaihoc;
 public class MayTinh implements TrangThietBi {
     private String CPU;
     private int RAM;

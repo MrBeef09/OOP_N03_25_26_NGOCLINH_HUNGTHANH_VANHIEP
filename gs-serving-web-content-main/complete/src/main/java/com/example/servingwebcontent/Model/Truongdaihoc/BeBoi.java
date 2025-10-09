@@ -1,3 +1,4 @@
+package com.example.servingwebcontent.Model.Truongdaihoc;
 public class BeBoi implements TienIch {
     private double DienTich;
     private double DoSau;
