@@ -1,3 +1,4 @@
+package com.example.servingwebcontent.Model.Truongdaihoc;
 public class PhongThucHanhMayTinh extends PhongHoc {
     private int soMayTinh;
     private boolean coInternet;

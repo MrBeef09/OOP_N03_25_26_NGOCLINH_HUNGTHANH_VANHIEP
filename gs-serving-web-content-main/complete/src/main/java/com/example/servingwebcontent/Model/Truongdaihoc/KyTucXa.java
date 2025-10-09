@@ -1,3 +1,4 @@
+package com.example.servingwebcontent.Model.Truongdaihoc;
 public class KyTucXa {
     private String maKTX;
     private int soLuongPhong;

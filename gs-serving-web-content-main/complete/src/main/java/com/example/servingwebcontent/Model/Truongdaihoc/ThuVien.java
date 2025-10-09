@@ -1,3 +1,4 @@
+package com.example.servingwebcontent.Model.Truongdaihoc;
 public class ThuVien {
     private String maThuVien;
     private int soLuongSach;

@@ -1,3 +1,5 @@
+package com.example.servingwebcontent.Model.User;
+
 //package User;
 public class ThongTinCaNhan {
     private String diaChi;

@@ -1,4 +1,4 @@
-
+package com.example.servingwebcontent.Model.Truongdaihoc;
 public class HeThongNuoc implements HaTangKiThuat{
     private int sucChuaBeNuoc; // đơn vị: m3
     private int soLuongMayBom;

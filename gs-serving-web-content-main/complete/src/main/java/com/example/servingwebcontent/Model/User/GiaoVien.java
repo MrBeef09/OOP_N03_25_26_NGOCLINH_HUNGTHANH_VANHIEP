@@ -1,3 +1,5 @@
+package com.example.servingwebcontent.Model.User;
+import com.example.servingwebcontent.Model.Truongdaihoc.TruongDaiHoc;
 public class GiaoVien extends Nguoi {
     private String maGiaoVien;
     private ThongTinCaNhan thongTinCaNhan;

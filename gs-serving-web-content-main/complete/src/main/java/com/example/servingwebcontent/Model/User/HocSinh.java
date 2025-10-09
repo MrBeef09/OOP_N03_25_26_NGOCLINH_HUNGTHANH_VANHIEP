@@ -1,3 +1,5 @@
+package com.example.servingwebcontent.Model.User;
+
 //package User;
 public class HocSinh extends Nguoi {
     private String maHocSinh;
