@@ -42,6 +42,6 @@ public class TuVanController {
         model.addAttribute("toHop", toHop);
         model.addAttribute("soThich", soThich);
 
-        return "ketqua_tuvan"; // hiển thị trang kết quả tư vấn
+        return "tuvan"; // hiển thị trang kết quả tư vấn
     }
 }
