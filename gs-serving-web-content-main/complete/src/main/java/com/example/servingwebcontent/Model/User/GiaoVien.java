@@ -26,13 +26,7 @@ public class GiaoVien extends Nguoi {
         }
     }
 
-    //method
-    public boolean Dangnhap(String passWord, String username){
-        if(taiKhoan != null){
-            return taiKhoan.Dangnhap(passWord, username);
-        }
-        return false;
-   }
+    //
     public void XemThongTin(){
         System.out.println("ma giao vien: " + maGiaoVien +
                            " | ho ten: " + getHoTen() +
