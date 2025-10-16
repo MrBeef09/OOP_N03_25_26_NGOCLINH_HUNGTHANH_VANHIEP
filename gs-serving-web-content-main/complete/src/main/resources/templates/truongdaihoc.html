@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Eschool - Danh sách các Trường Đại học</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #2563eb;
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        th, td {
+            border: 1px solid #e5e7eb;
+            padding: 15px;
+            text-align: center;
+        }
+        th {
+            background-color: #facc15;
+            color: #1f2937;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+        .btn-back {
+            display: block;
+            width: 200px;
+            margin: 0 auto;
+            padding: 12px;
+            text-align: center;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .btn-back:hover {
+            background: #1e40af;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Danh sách các Trường Đại học</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Tên trường</th>
+                    <th>Mã trường</th>
+                    <th>Địa chỉ</th>
+                    <th>Cơ sở vật chất</th>
+                    <th>Đội ngũ giảng viên</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="truong : ${truongList}">
+                    <td th:text="${truong.tenTruong}"></td>
+                    <td th:text="${truong.maTruong}"></td>
+                    <td th:text="${truong.diaChi}"></td>
+                    <td>Hiện đại, nhiều phòng thí nghiệm</td>
+                    <td>Giảng viên trình độ cao</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a th:href="@{/}" class="btn-back">← Quay lại</a>
+    </div>
+</body>
+</html>

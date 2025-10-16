@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eschool - Tư Vấn Ngành Học</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #2563eb;
+            --dark-blue: #1e40af;
+            --light-blue: #dbeafe;
+            --bg-white: #ffffff;
+            --text-dark: #1f2937;
+            --text-gray: #6b7280;
+            --border-color: #e5e7eb;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-white);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary-blue);
+        }
+
+        .nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover, .nav a.active {
+            color: var(--primary-blue);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--bg-white);
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: var(--text-gray);
+            margin-bottom: 10px;
+        }
+
+        /* Form Section */
+        .form-section {
+            background: var(--bg-white);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+
+        .form-section h2 {
+            color: var(--primary-blue);
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--text-dark);
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background: var(--bg-white);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px var(--light-blue);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 18px;
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background: var(--dark-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
+        }
+
+        /* Result Section */
+        .result-section {
+            background: var(--bg-white);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: none;
+        }
+
+        .result-section.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .result-header h2 {
+            color: var(--primary-blue);
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+        }
+
+        .result-card h3 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .result-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .info-item {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .info-item strong {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .info-item span {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .match-score {
+            background: var(--light-blue);
+            color: var(--primary-blue);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .match-score h4 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .score-bar {
+            background: white;
+            height: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .score-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-blue), var(--dark-blue));
+            transition: width 1s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .btn-new {
+            width: 100%;
+            padding: 15px;
+            background: white;
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-new:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav {
+                gap: 15px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">Eschool</div>
+            <nav class="nav">
+                <a th:href="@{/}" class="active">Home</a>
+                <a href="#">About</a>
+                <a href="#" class="active">Courses</a>
+                <a href="#">Blog</a>
+                <a href="#">Contact</a>
+            </nav>
+        </div>
+
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>Tư Vấn Ngành Học</h1>
+            <p>Hệ thống tư vấn thông minh giúp bạn tìm ngành học phù hợp</p>
+            <p style="color: var(--primary-blue); font-weight: 600;">Khám phá tương lai của bạn!</p>
+        </div>
+
+        <!-- Form Section -->
+        <div class="form-section" id="formSection">
+            <h2>Nhập Thông Tin Của Bạn</h2>
+            <form id="tuvanForm">
+                <div class="form-group">
+                    <label for="diemThi">Điểm thi của bạn (0-30)</label>
+                    <input type="number" id="diemThi" step="0.1" min="0" max="30" required placeholder="Ví dụ: 25.5">
+                </div>
+
+                <div class="form-group">
+                    <label for="toHop">Tổ hợp môn</label>
+                    <select id="toHop" required>
+                        <option value="">-- Chọn tổ hợp --</option>
+                        <option value="A00">A00 (Toán, Lý, Hóa)</option>
+                        <option value="A01">A01 (Toán, Lý, Anh)</option>
+                        <option value="B00">B00 (Toán, Hóa, Sinh)</option>
+                        <option value="C00">C00 (Văn, Sử, Địa)</option>
+                        <option value="D01">D01 (Toán, Văn, Anh)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="soThich">Sở thích của bạn (cách nhau bởi dấu phẩy)</label>
+                    <textarea id="soThich" rows="3" required placeholder="Ví dụ: máy tính, lập trình, công nghệ"></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Tư Vấn Ngay</button>
+            </form>
+        </div>
+
+        <!-- Result Section -->
+        <div class="result-section" id="resultSection">
+            <div class="result-header">
+                <h2>Kết Quả Tư Vấn</h2>
+                <p style="color: var(--text-gray);">Ngành học phù hợp nhất với bạn</p>
+            </div>
+
+            <div class="match-score">
+                <h4>Độ phù hợp</h4>
+                <div class="score-bar">
+                    <div class="score-fill" id="scoreFill">0%</div>
+                </div>
+            </div>
+
+            <div class="result-card">
+                <h3 id="tenNganh">Công nghệ thông tin</h3>
+                <p style="margin-top: 10px; font-size: 16px; opacity: 0.9;">Mã ngành: <span id="maNganh">CNTT01</span></p>
+                
+                <div class="result-info">
+                    <div class="info-item">
+                        <strong>Điểm chuẩn</strong>
+                        <span id="diemChuan">25.5</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Điểm của bạn</strong>
+                        <span id="diemBan">26.0</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Tổ hợp</strong>
+                        <span id="toHopKQ">A00</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Chỉ tiêu</strong>
+                        <span id="chiTieu">200</span>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn-new" onclick="resetForm()">Tư Vấn Lại</button>
+        </div>
+    </div>
+
+    <script>
+        // Dữ liệu ngành học (giống với backend)
+        const dsNganh = [
+            {
+                tenNganh: "Công nghệ thông tin",
+                maNganh: "CNTT01",
+                toHop: ["A00", "A01"],
+                diemChuan: 25.5,
+                diemUuTien: 95,
+                chiTieu: 200,
+                soThich: ["máy tính", "lập trình", "khoa học", "logic", "công nghệ"]
+            },
+            {
+                tenNganh: "Kinh tế",
+                maNganh: "KT01",
+                toHop: ["A00", "D01"],
+                diemChuan: 24.0,
+                diemUuTien: 90,
+                chiTieu: 150,
+                soThich: ["kinh doanh", "quản lý", "tài chính", "số liệu", "thương mại"]
+            },
+            {
+                tenNganh: "Ngôn ngữ Anh",
+                maNganh: "NNA01",
+                toHop: ["D01"],
+                diemChuan: 23.5,
+                diemUuTien: 85,
+                chiTieu: 120,
+                soThich: ["ngôn ngữ", "du lịch", "giao tiếp", "ngoại ngữ", "văn hóa"]
+            },
+            {
+                tenNganh: "Y khoa",
+                maNganh: "Y01",
+                toHop: ["B00"],
+                diemChuan: 27.0,
+                diemUuTien: 98,
+                chiTieu: 100,
+                soThich: ["sức khỏe", "chăm sóc", "y học", "con người", "sinh học"]
+            }
+        ];
+
+        // Hàm tính điểm phù hợp
+        function tinhDiemPhuHop(nganh, diemThi, toHop, dsSoThich) {
+            let diem = 0;
+
+            // Điểm cơ bản từ điểm thi
+            if (diemThi >= nganh.diemChuan) {
+                diem += 50;
+                diem += (diemThi - nganh.diemChuan) * 2;
+            } else {
+                diem += 20;
+            }
+
+            // Điểm từ tổ hợp môn
+            if (nganh.toHop.includes(toHop)) {
+                diem += 30;
+            }
+
+            // Điểm từ sở thích
+            let demSoThichTrung = 0;
+            dsSoThich.forEach(st => {
+                if (nganh.soThich.some(nst => nst.toLowerCase().includes(st.toLowerCase()))) {
+                    demSoThichTrung++;
+                }
+            });
+            diem += demSoThichTrung * 10;
+
+            return Math.min(diem, 100);
+        }
+
+        // Xử lý form submit
+        document.getElementById('tuvanForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const diemThi = parseFloat(document.getElementById('diemThi').value);
+            const toHop = document.getElementById('toHop').value;
+            const soThich = document.getElementById('soThich').value;
+            const dsSoThich = soThich.split(',').map(s => s.trim());
+
+            // Tìm ngành phù hợp nhất
+            let nganhPhuHop = null;
+            let diemMax = -1;
+
+            dsNganh.forEach(nganh => {
+                const diem = tinhDiemPhuHop(nganh, diemThi, toHop, dsSoThich);
+                if (diem > diemMax) {
+                    diemMax = diem;
+                    nganhPhuHop = nganh;
+                }
+            });
+
+            // Hiển thị kết quả
+            document.getElementById('tenNganh').textContent = nganhPhuHop.tenNganh;
+            document.getElementById('maNganh').textContent = nganhPhuHop.maNganh;
+            document.getElementById('diemChuan').textContent = nganhPhuHop.diemChuan;
+            document.getElementById('diemBan').textContent = diemThi;
+            document.getElementById('toHopKQ').textContent = toHop;
+            document.getElementById('chiTieu').textContent = nganhPhuHop.chiTieu;
+
+            // Hiển thị độ phù hợp
+            const scoreFill = document.getElementById('scoreFill');
+            setTimeout(() => {
+                scoreFill.style.width = diemMax + '%';
+                scoreFill.textContent = Math.round(diemMax) + '%';
+            }, 100);
+
+            // Ẩn form, hiện kết quả
+            document.getElementById('formSection').style.display = 'none';
+            document.getElementById('resultSection').classList.add('show');
+
+            // Scroll to result
+            document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Hàm reset form
+        function resetForm() {
+            document.getElementById('tuvanForm').reset();
+            document.getElementById('formSection').style.display = 'block';
+            document.getElementById('resultSection').classList.remove('show');
+            document.getElementById('scoreFill').style.width = '0%';
+            
+            // Scroll to form
+            document.getElementById('formSection').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
