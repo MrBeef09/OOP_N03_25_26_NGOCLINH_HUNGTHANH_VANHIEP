@@ -1,4 +1,4 @@
-package com.example.servingwebcontent.service;
+package com.example.servingwebcontent.Service;
 
 import java.util.ArrayList;
 import java.util.List;

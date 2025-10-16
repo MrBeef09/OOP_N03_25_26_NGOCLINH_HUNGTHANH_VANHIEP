@@ -1,4 +1,4 @@
-package com.example.servingwebcontent.service;
+package com.example.servingwebcontent.Service;
 
 import com.example.servingwebcontent.Model.User.GiaoVien;
 import com.example.servingwebcontent.Model.Truongdaihoc.TruongDaiHoc;
