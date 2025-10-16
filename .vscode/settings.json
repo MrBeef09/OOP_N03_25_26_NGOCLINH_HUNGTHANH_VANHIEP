@@ -1,0 +1,21 @@
+{
+    "java.project.sourcePaths": [
+        "ourproject/src/Test",
+        "ourproject/src/Model/User",
+        "ourproject/src/Model/Truongdaihoc",
+        "ourproject/src/Controller",
+        "ourproject/src",
+<<<<<<< HEAD
+=======
+        "ourproject/src/Controller",
+>>>>>>> origin/main
+        "ourproject/review"
+    ],
+    "java.project.referencedLibraries": [],
+<<<<<<< HEAD
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.debug.settings.onBuildFailureProceed": true
+=======
+    "java.compile.nullAnalysis.mode": "automatic"
+>>>>>>> origin/main
+}

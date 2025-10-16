@@ -1,0 +1,26 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+<<<<<<< HEAD
+            "mainClass": "App",
+            "projectName": "OOP_N03_25_26_NGOCLINH_HUNGTHANH_VANHIEP_92c838d4"
+=======
+            "mainClass": "com.example.servingwebcontent.console.App",
+            "projectName": "serving-web-content-complete"
+>>>>>>> refs/remotes/origin/main
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ServingWebContentApplication<serving-web-content-complete>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.example.servingwebcontent.ServingWebContentApplication",
+            "projectName": "serving-web-content-complete",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
