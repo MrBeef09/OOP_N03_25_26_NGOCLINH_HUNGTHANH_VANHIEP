@@ -8,6 +8,15 @@ public class TruongDaiHocController {
 
     @GetMapping("/truongdaihoc")
     public String showTruongDaiHocPage() {
+
+
+
+
+
+
+
+
+        
         return "truongdaihoc"; // trả về file truongdaihoc.html (trong templates)
     }
 }
