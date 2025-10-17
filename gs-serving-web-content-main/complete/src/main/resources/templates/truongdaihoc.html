@@ -115,9 +115,9 @@
                 <td th:text="${truong.maTruong}"></td>
                 <td th:text="${truong.diaChi}"></td>
                 <td>
-                    <a href="#" class="btn-detail"
-                       th:attr="data-csvc=${truong.coSoVatChat.moTa}"
-                       onclick="showDetail(this)">Xem chi tiết</a>
+                  <a href="#" class="btn-detail" 
+                  th:attr="data-csvc=${truong.coSoVatChat != null ? truong.coSoVatChat.moTa : 'Không có thông tin'}"
+                  onclick="showDetail(this)">Xem chi tiết</a>
                 </td>
                 <td>Giảng viên trình độ cao</td>
             </tr>

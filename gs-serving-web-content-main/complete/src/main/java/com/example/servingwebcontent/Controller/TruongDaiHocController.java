@@ -21,15 +21,14 @@ public class TruongDaiHocController {
     public String showTruongDaiHocPage(Model model) {
         List<TruongDaiHoc> dsTruong = truongService.getDanhSachTruong();
         model.addAttribute("truongList", dsTruong);
+        System.out.println("Danh sách trường: " + dsTruong);
         return "truongdaihoc";
     }
-    @GetMapping("/truongdaihoc/{id}/cosovatchat")
-public String xemChiTietCoSoVatChat(@PathVariable int id, Model model) {
-    // TruongDaiHoc truong = truongService.findById(id);
-    // model.addAttribute("truong", truong);
-    // model.addAttribute("cosoVatChat", truong.getCoSoVatChat());
-    return "cosovatchat-detail";
-}
- 
-
+//     @GetMapping("/truongdaihoc/{id}/cosovatchat")
+// public String xemChiTietCoSoVatChat(@PathVariable int id, Model model) {
+//     // TruongDaiHoc truong = truongService.findById(id);
+//     // model.addAttribute("truong", truong);
+//     // model.addAttribute("cosoVatChat", truong.getCoSoVatChat());
+//     return "cosovatchat-detail";
+// }
 }
