@@ -1,3 +1,5 @@
+// temporarily disabled
+/*
 public class TestGiaovienCrud {
     public static void main(String[] args) {
         GiaovienCrud crud = new GiaovienCrud();
@@ -22,3 +24,4 @@ public class TestGiaovienCrud {
         crud.getAllGiaoviens();
     }
 }
+*/

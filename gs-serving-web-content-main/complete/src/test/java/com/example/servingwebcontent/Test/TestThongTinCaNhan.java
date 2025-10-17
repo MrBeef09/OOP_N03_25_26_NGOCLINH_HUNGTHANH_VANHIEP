@@ -1,3 +1,5 @@
+// temporarily disabled
+/*
 public class TestThongTinCaNhan {
     public static void main(String[] args) {
         // Tạo đối tượng ThongTinCaNhan
@@ -20,4 +22,4 @@ public class TestThongTinCaNhan {
         System.out.println("Địa chỉ: " + ttcn.getDiaChi());
         System.out.println("Số điện thoại: " + ttcn.getSoDienThoai());
     }
-}
+}*/

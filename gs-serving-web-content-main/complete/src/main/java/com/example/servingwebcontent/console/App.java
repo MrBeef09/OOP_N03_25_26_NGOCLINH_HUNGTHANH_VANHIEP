@@ -1,3 +1,4 @@
+/*
 package com.example.servingwebcontent.console;
 import com.example.servingwebcontent.Test.TestCoSoVatChat;
 import com.example.servingwebcontent.Test.TestNganhHoc;
@@ -36,3 +37,4 @@ public class App {
     }
 }
 
+*/

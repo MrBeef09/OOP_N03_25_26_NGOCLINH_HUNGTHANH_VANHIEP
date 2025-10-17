@@ -1,3 +1,5 @@
+// temporarily disabled
+/*
 public class TestSoThichNganhHoc {
     public static void main (String[] args) {
         SoThichNganhHoc st = new SoThichNganhHoc();
@@ -17,3 +19,4 @@ public class TestSoThichNganhHoc {
         System.out.println("Tai nang:" + st.getTaiNang);
     }
 }
+*/

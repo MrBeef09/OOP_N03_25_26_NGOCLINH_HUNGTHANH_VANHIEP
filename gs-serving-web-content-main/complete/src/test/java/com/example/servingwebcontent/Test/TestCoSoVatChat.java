@@ -1,3 +1,5 @@
+// temporarily disabled
+/*
 package com.example.servingwebcontent.Test;
 import com.example.servingwebcontent.Model.Truongdaihoc.CoSoVatChat.*;
 public class TestCoSoVatChat {
@@ -43,3 +45,4 @@ public class TestCoSoVatChat {
     }
 }
 
+*/

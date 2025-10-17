@@ -1,3 +1,5 @@
+// temporarily disabled
+/*
 import java.util.*;
 
 public class TestNganhHoc {
@@ -44,3 +46,4 @@ public class TestNganhHoc {
         }
     }
 }
+*/

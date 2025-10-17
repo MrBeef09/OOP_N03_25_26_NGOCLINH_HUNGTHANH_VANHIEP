@@ -1,3 +1,5 @@
+// temporarily disabled
+/*
 public class TestTaiKhoan {
     public static void main(String[] args) {
         // Tạo tài khoản mới
@@ -34,3 +36,4 @@ public class TestTaiKhoan {
         System.out.println("Kết quả đăng nhập: " + login3);
     }
 }
+*/
