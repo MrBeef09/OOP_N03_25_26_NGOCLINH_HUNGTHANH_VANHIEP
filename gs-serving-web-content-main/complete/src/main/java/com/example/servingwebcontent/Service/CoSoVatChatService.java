@@ -1,4 +1,4 @@
-package com.example.servingwebcontent.service;
+package com.example.servingwebcontent.Service;
 
 import com.example.servingwebcontent.Model.Truongdaihoc.*;
 import org.springframework.stereotype.Service;

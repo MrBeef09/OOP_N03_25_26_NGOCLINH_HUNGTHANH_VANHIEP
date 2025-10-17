@@ -4,18 +4,14 @@
             "type": "java",
             "name": "App",
             "request": "launch",
-<<<<<<< HEAD
-<<<<<<< HEAD
+            "mainClass": "com.example.servingwebcontent.console.App",
+            "projectName": "serving-web-content-complete",
+
             "mainClass": "App",
-            "projectName": "OOP_N03_25_26_NGOCLINH_HUNGTHANH_VANHIEP_92c838d4"
-=======
+            "projectName": "OOP_N03_25_26_NGOCLINH_HUNGTHANH_VANHIEP_92c838d4",
+
             "mainClass": "com.example.servingwebcontent.console.App",
             "projectName": "serving-web-content-complete"
->>>>>>> refs/remotes/origin/main
-=======
-            "mainClass": "com.example.servingwebcontent.console.App",
-            "projectName": "serving-web-content-complete"
->>>>>>> b12222aec21690143de4f2c72cdc0ed4f8d5290a
         },
         {
             "type": "java",

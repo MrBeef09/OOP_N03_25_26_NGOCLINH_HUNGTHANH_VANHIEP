@@ -1,0 +1,4 @@
+client = yes
+[mysql-tunnel]
+accept = 127.0.0.1:3306
+connect = mysql-unifinder-st-3814.j.aivencloud.com:23600
