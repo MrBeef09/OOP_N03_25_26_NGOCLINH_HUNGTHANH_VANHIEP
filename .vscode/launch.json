@@ -5,6 +5,12 @@
             "name": "App",
             "request": "launch",
             "mainClass": "com.example.servingwebcontent.console.App",
+            "projectName": "serving-web-content-complete",
+
+            "mainClass": "App",
+            "projectName": "OOP_N03_25_26_NGOCLINH_HUNGTHANH_VANHIEP_92c838d4",
+
+            "mainClass": "com.example.servingwebcontent.console.App",
             "projectName": "serving-web-content-complete"
         },
         {
