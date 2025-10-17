@@ -8,11 +8,6 @@ public class HomeController {
 
     @GetMapping("/")
     public String home() {
-
-
-
-
-        
         // Trả về tên file index.html trong thư mục templates
         return "index";
     }
