@@ -81,8 +81,6 @@ public class TruongDaiHoc {
         this.doiNguGiaoVien = doiNguGiaoVien;
     }
 
-    
-
     public List<NganhHoc> getDanhSachNganhHoc() {
         return danhSachNganhHoc;
     }
