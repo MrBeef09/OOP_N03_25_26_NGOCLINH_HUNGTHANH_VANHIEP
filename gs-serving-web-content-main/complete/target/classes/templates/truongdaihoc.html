@@ -1,117 +1,161 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Danh sách Trường Đại học</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f5f7fa;
-      margin: 0;
-      padding: 40px;
-    }
+    <meta charset="UTF-8">
+    <title>Eschool - Danh sách các Trường Đại học</title>
 
-    h1 {
-      text-align: center;
-      color: #333;
-      margin-bottom: 30px;
-    }
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    table {
-      width: 90%;
-      margin: 0 auto;
-      border-collapse: collapse;
-      background-color: white;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+        }
 
-    th, td {
-      border: 1px solid #ddd;
-      padding: 12px 15px;
-      text-align: center;
-    }
+        header {
+            position: sticky;
+            top: 0;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
 
-    th {
-      background-color: #ffb606;
-      color: white;
-      font-weight: bold;
-    }
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+        }
 
-    tr:hover {
-      background-color: #f9f9f9;
-    }
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2563eb;
+        }
 
-    .back-btn {
-      display: block;
-      width: 150px;
-      margin: 30px auto;
-      text-align: center;
-      background-color: #ffb606;
-      color: white;
-      padding: 10px 15px;
-      border-radius: 5px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s;
-    }
+        .nav {
+            display: flex;
+            gap: 25px;
+        }
 
-    .back-btn:hover {
-      background-color: #e09e05;
-    }
-  </style>
+        .nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: #2563eb;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        th {
+            background-color: #facc15;
+            text-align: center;
+        }
+
+        .btn-detail {
+            color: #2563eb;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .btn-detail:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
 
-  <h1>Danh sách các Trường Đại học</h1>
+<header>
+    <div class="nav-container">
+        <div class="logo">Eschool</div>
+        <div class="nav">
+            <a th:href="@{/}" class="active">Home</a>
+            <a href="#">About</a>
+            <a href="#">Courses</a>
+            <a href="#">Blog</a>
+            <a href="#">Contact</a>
+        </div>
+    </div>
+</header>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Tên trường</th>
-        <th>Mã trường</th>
-        <th>Cơ sở vật chất</th>
-        <th>Đội ngũ giảng viên</th>
-        <th>Ngành học</th>
-        <th>Điểm tổng kết</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Đại học Bách Khoa Hà Nội</td>
-        <td>BKA</td>
-        <td>Hiện đại, nhiều phòng thí nghiệm</td>
-        <td>Giảng viên trình độ cao</td>
-        <td>Kỹ thuật, CNTT, Cơ khí</td>
-        <td>9.2 / 10</td>
-      </tr>
-      <tr>
-        <td>Đại học Kinh tế Quốc dân</td>
-        <td>NEU</td>
-        <td>Tốt, có nhiều khu học tập</td>
-        <td>Giảng viên chuyên sâu lĩnh vực kinh tế</td>
-        <td>Kinh tế, Quản trị, Tài chính</td>
-        <td>8.7 / 10</td>
-      </tr>
-      <tr>
-        <td>Đại học Quốc gia TP.HCM</td>
-        <td>VNUHCM</td>
-        <td>Quy mô lớn, nhiều cơ sở</td>
-        <td>Giảng viên nhiều kinh nghiệm</td>
-        <td>Đa ngành, khoa học - xã hội</td>
-        <td>8.9 / 10</td>
-      </tr>
-      <tr>
-        <td>Đại học FPT</td>
-        <td>FPTU</td>
-        <td>Hiện đại, cơ sở vật chất tốt</td>
-        <td>Trẻ trung, chuyên nghiệp</td>
-        <td>CNTT, Kinh tế, Thiết kế</td>
-        <td>9.0 / 10</td>
-      </tr>
-    </tbody>
-  </table>
+<div class="container">
+    <h1 class="text-center text-primary mb-4">Danh sách các Trường Đại học</h1>
 
-  <a href="/" class="back-btn">← Quay lại</a>
+    <table class="table table-bordered table-hover align-middle text-center">
+        <thead>
+            <tr>
+                <th>Tên trường</th>
+                <th>Mã trường</th>
+                <th>Địa chỉ</th>
+                <th>Cơ sở vật chất</th>
+                <th>Đội ngũ giảng viên</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="truong : ${truongList}">
+                <td th:text="${truong.tenTruong}"></td>
+                <td th:text="${truong.maTruong}"></td>
+                <td th:text="${truong.diaChi}"></td>
+                <td>
+                  <a href="#" class="btn-detail" 
+                  th:attr="data-csvc=${truong.coSoVatChat != null ? truong.coSoVatChat.moTa : 'Không có thông tin'}"
+                  onclick="showDetail(this)">Xem chi tiết</a>
+                </td>
+                <td>Giảng viên trình độ cao</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a th:href="@{/}" class="btn btn-primary d-block mx-auto mt-3" style="width:200px;">← Quay lại</a>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="csvcModal" tabindex="-1" aria-labelledby="csvcModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="csvcModalLabel">Chi tiết Cơ sở vật chất</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- JS chèn nội dung vào -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Hiển thị chi tiết trong popup
+    function showDetail(element) {
+        const content = element.getAttribute("data-csvc") || "Không có thông tin chi tiết.";
+        const modalBody = document.getElementById("modalBody");
+        modalBody.innerHTML = `
+            <ul class="list-group">
+                <li class="list-group-item">${content}</li>
+            </ul>`;
+        new bootstrap.Modal(document.getElementById('csvcModal')).show();
+    }
+</script>
 
 </body>
 </html>

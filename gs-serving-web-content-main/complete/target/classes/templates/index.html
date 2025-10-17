@@ -1,15 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Eschool - Best Learning Institutions">
     <title>Eschool - Best Learning Institutions</title>
     
-    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -20,25 +17,27 @@
         }
 
         :root {
-            --primary-color: #ffb606;
-            --secondary-color: #442e66;
-            --text-color: #999999;
-            --heading-color: #222222;
-            --white: #ffffff;
+            --primary-blue: #2563eb;
+            --dark-blue: #1e40af;
+            --light-blue: #dbeafe;
+            --accent-blue: #3b82f6;
+            --bg-white: #ffffff;
+            --bg-gray: #f8f9fa;
+            --text-dark: #1f2937;
+            --text-gray: #6b7280;
         }
 
         body {
             font-family: 'Open Sans', sans-serif;
             line-height: 1.6;
-            color: var(--text-color);
+            color: var(--text-gray);
             font-size: 14px;
         }
 
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Poppins', sans-serif;
             font-weight: 700;
-            color: var(--heading-color);
-            margin-bottom: 1rem;
+            color: var(--text-dark);
         }
 
         .container {
@@ -49,13 +48,19 @@
 
         /* Header */
         .header {
-            background: var(--secondary-color);
+            background: var(--primary-blue);
             padding: 20px 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .header.scrolled {
+            background: var(--dark-blue);
+            padding: 15px 0;
         }
 
         .header .container {
@@ -64,8 +69,16 @@
             align-items: center;
         }
 
-        .logo img {
-            height: 50px;
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--bg-white);
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         .nav-menu {
@@ -75,36 +88,55 @@
         }
 
         .nav-menu a {
-            color: var(--white);
+            color: var(--bg-white);
             text-decoration: none;
             font-weight: 600;
-            transition: color 0.3s;
+            transition: all 0.3s;
+            position: relative;
+            padding: 5px 0;
         }
 
-        .nav-menu a:hover {
-            color: var(--primary-color);
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--bg-white);
+            transition: width 0.3s;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
         }
 
         .menu-button {
             display: none;
+            background: none;
+            border: none;
+            color: var(--bg-white);
+            font-size: 1.5rem;
+            cursor: pointer;
         }
 
-        /* Hero Section */
+        /* Hero */
         .hero {
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+            background: linear-gradient(rgba(37, 99, 235, 0.85), rgba(30, 64, 175, 0.85)), 
                         url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1920') center/cover;
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            color: var(--white);
+            color: var(--bg-white);
             margin-top: 70px;
+            position: relative;
         }
 
         .hero-content h1 {
             font-size: 3.5rem;
-            color: var(--white);
+            color: var(--bg-white);
             margin-bottom: 20px;
             animation: fadeInUp 1s ease;
         }
@@ -112,29 +144,30 @@
         .hero-content p {
             font-size: 1.2rem;
             margin-bottom: 30px;
-            color: #b2b2b2;
+            color: var(--light-blue);
         }
 
         .btn {
             display: inline-block;
             padding: 15px 40px;
-            background: var(--primary-color);
-            color: var(--white);
+            background: var(--bg-white);
+            color: var(--primary-blue);
             text-decoration: none;
             border-radius: 30px;
             font-weight: 600;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(255, 182, 6, 0.3);
+            box-shadow: 0 10px 25px rgba(255,255,255,0.3);
         }
 
         /* Icon Boxes */
         .icon-boxes {
             padding: 80px 0;
-            background: var(--secondary-color);
+            background: var(--primary-blue);
         }
 
         .icon-boxes .container {
@@ -146,23 +179,37 @@
         .icon-box {
             display: flex;
             gap: 20px;
-            color: var(--white);
+            color: var(--bg-white);
+            padding: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            transition: all 0.3s;
+            text-decoration: none;
         }
 
-        .icon-box img {
-            width: 50px;
-            height: 50px;
-            object-fit: contain;
+        .icon-box:hover {
+            background: var(--dark-blue);
+            transform: translateY(-5px);
+        }
+
+        .icon-box i {
+            font-size: 3rem;
+            color: var(--bg-white);
         }
 
         .icon-box h3 {
-            color: var(--white);
+            color: var(--bg-white);
             margin-bottom: 10px;
         }
 
-        /* About Section */
+        .icon-box p {
+            color: var(--light-blue);
+        }
+
+        /* About */
         .about {
             padding: 80px 0;
+            background: var(--bg-white);
         }
 
         .about .container {
@@ -174,14 +221,20 @@
 
         .about img {
             width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(37,99,235,0.2);
         }
 
-        /* Stats Section */
+        .about h2 {
+            color: var(--primary-blue);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        /* Stats */
         .stats {
             padding: 80px 0;
-            background: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
             text-align: center;
         }
 
@@ -192,7 +245,8 @@
         }
 
         .stat-box {
-            color: var(--white);
+            color: var(--bg-white);
+            padding: 20px;
         }
 
         .stat-box .number {
@@ -200,17 +254,26 @@
             font-weight: 700;
             display: block;
             margin-bottom: 10px;
+            counter-reset: count;
+            animation: countUp 2s ease-out;
         }
 
-        /* Courses Section */
+        @keyframes countUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Courses */
         .courses {
             padding: 80px 0;
+            background: var(--bg-gray);
         }
 
         .section-title {
             text-align: center;
             font-size: 2.5rem;
             margin-bottom: 50px;
+            color: var(--primary-blue);
         }
 
         .courses-grid {
@@ -220,15 +283,16 @@
         }
 
         .course-card {
-            background: var(--white);
-            border-radius: 10px;
+            background: var(--bg-white);
+            border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            transition: all 0.3s;
         }
 
         .course-card:hover {
             transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(37,99,235,0.2);
         }
 
         .course-card img {
@@ -238,35 +302,39 @@
         }
 
         .course-content {
-            padding: 20px;
+            padding: 25px;
         }
 
         .course-title {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             margin-bottom: 10px;
+            color: var(--text-dark);
         }
 
         .course-price {
-            color: var(--primary-color);
+            color: var(--primary-blue);
             font-weight: 700;
             font-size: 1.5rem;
+            margin: 15px 0;
         }
 
         .course-price.free {
-            color: #28a745;
+            color: #10b981;
         }
 
         /* Newsletter */
         .newsletter {
             padding: 80px 0;
-            background: linear-gradient(rgba(68,46,102,0.9), rgba(68,46,102,0.9)), 
+            background: linear-gradient(rgba(37,99,235,0.95), rgba(30,64,175,0.95)), 
                         url('https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=1920') center/cover;
             text-align: center;
-            color: var(--white);
+            color: var(--bg-white);
         }
 
         .newsletter h2 {
-            color: var(--white);
+            color: var(--bg-white);
+            font-size: 2.5rem;
+            margin-bottom: 15px;
         }
 
         .newsletter-form {
@@ -278,30 +346,32 @@
 
         .newsletter-form input {
             flex: 1;
-            padding: 15px;
+            padding: 15px 20px;
             border: none;
-            border-radius: 5px;
+            border-radius: 30px;
+            font-size: 16px;
         }
 
         .newsletter-form button {
-            padding: 15px 30px;
-            background: var(--primary-color);
-            color: var(--white);
+            padding: 15px 35px;
+            background: var(--bg-white);
+            color: var(--primary-blue);
             border: none;
-            border-radius: 5px;
+            border-radius: 30px;
             cursor: pointer;
             font-weight: 600;
-            transition: background 0.3s;
+            transition: all 0.3s;
         }
 
         .newsletter-form button:hover {
-            background: #e5a500;
+            background: var(--light-blue);
+            transform: translateY(-2px);
         }
 
-        /* Blog Section */
+        /* Blog */
         .blog {
             padding: 80px 0;
-            background: #f8f9fa;
+            background: var(--bg-white);
         }
 
         .blog-grid {
@@ -311,10 +381,16 @@
         }
 
         .blog-card {
-            background: var(--white);
-            border-radius: 10px;
+            background: var(--bg-white);
+            border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(37,99,235,0.2);
         }
 
         .blog-card img {
@@ -324,19 +400,24 @@
         }
 
         .blog-content {
-            padding: 20px;
+            padding: 25px;
         }
 
         .blog-meta {
-            color: var(--text-color);
+            color: var(--text-gray);
             font-size: 0.9rem;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .blog-meta i {
+            margin-right: 5px;
+            color: var(--primary-blue);
         }
 
         /* Footer */
         .footer {
-            background: var(--secondary-color);
-            color: var(--white);
+            background: var(--dark-blue);
+            color: var(--bg-white);
             padding: 60px 0 20px;
         }
 
@@ -348,7 +429,7 @@
         }
 
         .footer h4 {
-            color: var(--white);
+            color: var(--bg-white);
             margin-bottom: 20px;
         }
 
@@ -361,13 +442,13 @@
         }
 
         .footer a {
-            color: var(--white);
+            color: var(--light-blue);
             text-decoration: none;
             transition: color 0.3s;
         }
 
         .footer a:hover {
-            color: var(--primary-color);
+            color: var(--bg-white);
         }
 
         .social-links {
@@ -384,17 +465,48 @@
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            transition: background 0.3s;
+            transition: all 0.3s;
         }
 
         .social-links a:hover {
-            background: var(--primary-color);
+            background: var(--primary-blue);
+            transform: translateY(-3px);
         }
 
         .copyright {
             text-align: center;
             padding-top: 20px;
             border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--light-blue);
+        }
+
+        /* Back to Top */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-blue);
+            color: var(--bg-white);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(37,99,235,0.4);
+        }
+
+        .back-to-top:hover {
+            background: var(--dark-blue);
+            transform: translateY(-5px);
+        }
+
+        .back-to-top.show {
+            display: flex;
         }
 
         /* Animations */
@@ -413,15 +525,22 @@
         @media (max-width: 768px) {
             .nav-menu {
                 display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: var(--dark-blue);
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+            }
+
+            .nav-menu.active {
+                display: flex;
             }
 
             .menu-button {
                 display: block;
-                background: none;
-                border: none;
-                color: var(--white);
-                font-size: 1.5rem;
-                cursor: pointer;
             }
 
             .hero-content h1 {
@@ -436,44 +555,12 @@
                 flex-direction: column;
             }
         }
-
-        /* Back to Top */
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background: var(--primary-color);
-            color: var(--white);
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            transition: background 0.3s;
-        }
-
-        .back-to-top:hover {
-            background: var(--secondary-color);
-        }
-
-        .back-to-top.show {
-            display: flex;
-        }
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header class="header">
         <div class="container">
-            <div class="logo">
-                <a href="#home">
-                    <img src="https://via.placeholder.com/150x50/442e66/ffffff?text=ESCHOOL" alt="Eschool Logo">
-                </a>
-            </div>
+            <a href="#home" class="logo">ESCHOOL</a>
             <nav>
                 <ul class="nav-menu">
                     <li><a href="#home">Home</a></li>
@@ -489,7 +576,6 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-content">
             <h1>Welcome to Eschool<br>Best Learning Institutions</h1>
@@ -498,36 +584,32 @@
         </div>
     </section>
 
-    <!-- Icon Boxes -->
     <section class="icon-boxes">
         <div class="container">
-          <a href="/truongdaihoc" class="icon-box">
-            <div class="icon-box">
-                <img src="https://via.placeholder.com/50/ffb606/ffffff?text=📚" alt="Programs Icon">
+            <a href="/truongdaihoc" class="icon-box">
+                <i class="fas fa-university"></i>
                 <div>
                     <h3>Trường đại học</h3>
                     <p>Biết chắc để nắm chắc tương lai</p>
                 </div>
-            </div>
-          </a>
-            <div class="icon-box">
-                <img src="https://via.placeholder.com/50/ffb606/ffffff?text=🎓" alt="Certificate Icon">
+            </a>
+            <a href="/tuvan" class="icon-box">
+                <i class="fas fa-user-graduate"></i>
                 <div>
                     <h3>Tư vấn</h3>
                     <p>Đưa ra lựa chọn ngành học phù hợp</p>
                 </div>
-            </div>
+            </a>
             <div class="icon-box">
-                <img src="https://via.placeholder.com/50/ffb606/ffffff?text=💰" alt="Affordability Icon">
+                <i class="fas fa-star"></i>
                 <div>
                     <h3>Đánh giá</h3>
-                    <p>hãy để lại bình luận cho ngôi trường bạn </p>
+                    <p>Hãy để lại bình luận cho ngôi trường bạn</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
     <section class="about" id="about">
         <div class="container">
             <div>
@@ -541,222 +623,24 @@
         </div>
     </section>
 
-    <!-- Stats Section -->
     <section class="stats">
         <div class="container">
             <div class="stat-box">
-                <span class="number">6789</span>
+                <span class="number" data-target="6789">0</span>
                 <span class="text">Class of 2024</span>
             </div>
             <div class="stat-box">
-                <span class="number">4562</span>
+                <span class="number" data-target="4562">0</span>
                 <span class="text">People Working</span>
             </div>
             <div class="stat-box">
-                <span class="number">23</span>
+                <span class="number" data-target="23">0</span>
                 <span class="text">Years Experience</span>
             </div>
             <div class="stat-box">
-                <span class="number">1500</span>
-                <span class="text">Students</span>
-            </div>
-        </div>
-    </section>
+                <div class="stat-box">
+    <span class="number" data-target="23">0</span>
+    <span class="text">Years Experience</span>
+</div>
 
-    <!-- Courses Section -->
-    <section class="courses" id="courses">
-        <div class="container">
-            <h2 class="section-title">Latest Courses</h2>
-            <div class="courses-grid">
-                <div class="course-card">
-                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400" alt="Python Course">
-                    <div class="course-content">
-                        <h3 class="course-title">Complete Python Bootcamp</h3>
-                        <p>Learn Python programming from scratch</p>
-                        <div class="course-price free">Free</div>
-                        <a href="#" class="btn">View More</a>
-                    </div>
-                </div>
-                <div class="course-card">
-                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400" alt="Web Development Course">
-                    <div class="course-content">
-                        <h3 class="course-title">Web Developer Bootcamp</h3>
-                        <p>Master HTML, CSS, JavaScript and more</p>
-                        <div class="course-price">$45.00</div>
-                        <a href="#" class="btn">View More</a>
-                    </div>
-                </div>
-                <div class="course-card">
-                    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400" alt="Programming Course">
-                    <div class="course-content">
-                        <h3 class="course-title">Learn PERL Programming</h3>
-                        <p>Advanced programming concepts</p>
-                        <div class="course-price">$99.00</div>
-                        <a href="#" class="btn">View More</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Newsletter -->
-    <section class="newsletter">
-        <div class="container">
-            <h2>Newsletter</h2>
-            <p>Subscribe to our newsletters now and stay up to date with new collections</p>
-            <form class="newsletter-form">
-                <input type="email" placeholder="Your email address" required>
-                <button type="submit">Subscribe</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- Blog Section -->
-    <section class="blog" id="blog">
-        <div class="container">
-            <h2 class="section-title">Latest Blog</h2>
-            <div class="blog-grid">
-                <article class="blog-card">
-                    <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400" alt="Blog Post">
-                    <div class="blog-content">
-                        <div class="blog-meta">
-                            <i class="far fa-calendar"></i> August 19, 2024
-                            <i class="far fa-comment"></i> 3 Comments
-                        </div>
-                        <h3>Latest Education Trends in 2024</h3>
-                        <p>Discover the newest approaches to learning and teaching...</p>
-                    </div>
-                </article>
-                <article class="blog-card">
-                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400" alt="Blog Post">
-                    <div class="blog-content">
-                        <div class="blog-meta">
-                            <i class="far fa-calendar"></i> August 15, 2024
-                            <i class="far fa-comment"></i> 5 Comments
-                        </div>
-                        <h3>Tips for Online Learning Success</h3>
-                        <p>How to make the most of your online education experience...</p>
-                    </div>
-                </article>
-                <article class="blog-card">
-                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=400" alt="Blog Post">
-                    <div class="blog-content">
-                        <div class="blog-meta">
-                            <i class="far fa-calendar"></i> August 10, 2024
-                            <i class="far fa-comment"></i> 2 Comments
-                        </div>
-                        <h3>Career Development Resources</h3>
-                        <p>Essential tools and resources for career advancement...</p>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer" id="contact">
-        <div class="container">
-            <div class="footer-grid">
-                <div>
-                    <h4>About Us</h4>
-                    <p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat.</p>
-                    <div class="social-links">
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div>
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#courses">Courses</a></li>
-                        <li><a href="#blog">Blog</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4>My Account</h4>
-                    <ul>
-                        <li><a href="#">My Account</a></li>
-                        <li><a href="#">My Wishlist</a></li>
-                        <li><a href="#">My Orders</a></li>
-                        <li><a href="#">Order Tracking</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4>Contact Info</h4>
-                    <p><i class="fas fa-map-marker-alt"></i> Trafford Centre, London</p>
-                    <p><i class="fas fa-phone"></i> +00 123 456 789</p>
-                    <p><i class="fas fa-envelope"></i> info@eschool.com</p>
-                </div>
-            </div>
-            <div class="copyright">
-                <p>&copy; 2024 Eschool University. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Back to Top Button -->
-    <button class="back-to-top" aria-label="Back to top">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <script>
-        // Mobile Menu Toggle
-        const menuButton = document.querySelector('.menu-button');
-        const navMenu = document.querySelector('.nav-menu');
-
-        if (menuButton) {
-            menuButton.addEventListener('click', () => {
-                navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
-            });
-        }
-
-        // Back to Top Button
-        const backToTop = document.querySelector('.back-to-top');
-
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                backToTop.classList.add('show');
-            } else {
-                backToTop.classList.remove('show');
-            }
-        });
-
-        backToTop.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
-        // Smooth Scroll for Links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Newsletter Form
-        const newsletterForm = document.querySelector('.newsletter-form');
-        if (newsletterForm) {
-            newsletterForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const email = newsletterForm.querySelector('input[type="email"]').value;
-                alert(`Thank you for subscribing with: ${email}`);
-                newsletterForm.reset();
-            });
-        }
-    </script>
-</body>
-</html>
+        

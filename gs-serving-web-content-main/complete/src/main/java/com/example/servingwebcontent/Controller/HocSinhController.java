@@ -1,7 +1,8 @@
 package com.example.servingwebcontent.Controller;
 
 import com.example.servingwebcontent.Model.User.HocSinh;
-import com.example.servingwebcontent.service.HocSinhService;
+import com.example.servingwebcontent.Service.HocSinhService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
