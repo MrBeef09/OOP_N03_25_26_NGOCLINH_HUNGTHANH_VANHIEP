@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Eschool - Best Learning Institutions">
     <title>Eschool - Best Learning Institutions</title>
-    
+
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
         * {
             margin: 0;
@@ -111,6 +111,24 @@
             width: 100%;
         }
 
+        .profile-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--bg-white);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .profile-link i {
+            font-size: 1.2rem;
+        }
+
+        .profile-link:hover {
+            color: var(--light-blue);
+        }
+
         .menu-button {
             display: none;
             background: none;
@@ -122,7 +140,7 @@
 
         /* Hero */
         .hero {
-            background: linear-gradient(rgba(37, 99, 235, 0.85), rgba(30, 64, 175, 0.85)), 
+            background: linear-gradient(rgba(37, 99, 235, 0.85), rgba(30, 64, 175, 0.85)),
                         url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1920') center/cover;
             height: 100vh;
             display: flex;
@@ -254,13 +272,6 @@
             font-weight: 700;
             display: block;
             margin-bottom: 10px;
-            counter-reset: count;
-            animation: countUp 2s ease-out;
-        }
-
-        @keyframes countUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         /* Courses */
@@ -325,7 +336,7 @@
         /* Newsletter */
         .newsletter {
             padding: 80px 0;
-            background: linear-gradient(rgba(37,99,235,0.95), rgba(30,64,175,0.95)), 
+            background: linear-gradient(rgba(37,99,235,0.95), rgba(30,64,175,0.95)),
                         url('https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=1920') center/cover;
             text-align: center;
             color: var(--bg-white);
@@ -413,6 +424,84 @@
             margin-right: 5px;
             color: var(--primary-blue);
         }
+
+        .blog-card h3 a {
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .blog-card h3 a:hover {
+            color: var(--primary-blue);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 0;
+            background: var(--bg-gray);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 50px;
+        }
+
+        .contact-info div {
+            margin-bottom: 25px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .contact-info i {
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+        }
+
+        .contact-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .contact-form label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            resize: vertical;
+        }
+
+        .contact-form textarea {
+            min-height: 150px;
+        }
+
+        .contact-form button {
+            background: var(--primary-blue);
+            color: var(--bg-white);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .contact-form button:hover {
+            background: var(--dark-blue);
+            transform: translateY(-2px);
+        }
+
 
         /* Footer */
         .footer {
@@ -522,6 +611,12 @@
         }
 
         /* Responsive */
+        @media (max-width: 992px) {
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media (max-width: 768px) {
             .nav-menu {
                 display: none;
@@ -568,6 +663,7 @@
                     <li><a href="#courses">Courses</a></li>
                     <li><a href="#blog">Blog</a></li>
                     <li><a href="#contact">Contact</a></li>
+                    <li><a href="/profile-page" class="profile-link"><i class="fas fa-user-circle"></i> Profile</a></li>
                 </ul>
                 <button class="menu-button" aria-label="Toggle menu">
                     <i class="fas fa-bars"></i>
@@ -638,9 +734,311 @@
                 <span class="text">Years Experience</span>
             </div>
             <div class="stat-box">
-                <div class="stat-box">
-    <span class="number" data-target="23">0</span>
-    <span class="text">Years Experience</span>
-</div>
+                <span class="number" data-target="1500">0</span>
+                <span class="text">Students</span>
+            </div>
+        </div>
+    </section>
 
-        
+    <section class="courses" id="courses">
+        <div class="container">
+            <h2 class="section-title">Latest Courses</h2>
+            <div class="courses-grid">
+                <div class="course-card">
+                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400" alt="Python Course">
+                    <div class="course-content">
+                        <h3 class="course-title">Complete Python Bootcamp</h3>
+                        <p>Learn Python programming from scratch</p>
+                        <div class="course-price free">Free</div>
+                        <a href="#" class="btn">View More</a>
+                    </div>
+                </div>
+                <div class="course-card">
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400" alt="Web Development">
+                    <div class="course-content">
+                        <h3 class="course-title">Web Developer Bootcamp</h3>
+                        <p>Master HTML, CSS, JavaScript and more</p>
+                        <div class="course-price">$45.00</div>
+                        <a href="#" class="btn">View More</a>
+                    </div>
+                </div>
+                <div class="course-card">
+                    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400" alt="Programming">
+                    <div class="course-content">
+                        <h3 class="course-title">Learn PERL Programming</h3>
+                        <p>Advanced programming concepts</p>
+                        <div class="course-price">$99.00</div>
+                        <a href="#" class="btn">View More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="newsletter">
+        <div class="container">
+            <h2>Newsletter</h2>
+            <p>Subscribe to our newsletters now and stay up to date with new collections</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Your email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="blog" id="blog">
+        <div class="container">
+            <h2 class="section-title">Latest Blog</h2>
+            <div class="blog-grid">
+                <article class="blog-card">
+                    <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400" alt="Blog Post">
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <i class="far fa-calendar"></i> August 19, 2024
+                            <i class="far fa-comment"></i> 3 Comments
+                        </div>
+                        <h3><a href="#">Latest Education Trends in 2024</a></h3>
+                        <p>Discover the newest approaches to learning and teaching...</p>
+                    </div>
+                </article>
+                <article class="blog-card">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400" alt="Blog Post">
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <i class="far fa-calendar"></i> August 15, 2024
+                            <i class="far fa-comment"></i> 5 Comments
+                        </div>
+                        <h3><a href="#">Tips for Online Learning Success</a></h3>
+                        <p>How to make the most of your online education experience...</p>
+                    </div>
+                </article>
+                <article class="blog-card">
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=400" alt="Blog Post">
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <i class="far fa-calendar"></i> August 10, 2024
+                            <i class="far fa-comment"></i> 2 Comments
+                        </div>
+                        <h3><a href="#">Career Development Resources</a></h3>
+                        <p>Essential tools and resources for career advancement...</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Address</h4>
+                            <p>Trafford Centre, London</p>
+                        </div>
+                    </div>
+                    <div>
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+00 123 456 789</p>
+                        </div>
+                    </div>
+                    <div>
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@eschool.com</p>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="email_contact">Your Email</label>
+                    <input type="email" id="email_contact" name="email" required>
+
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" required>
+
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h4>About Us</h4>
+                    <p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#courses">Courses</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>My Account</h4>
+                    <ul>
+                        <li><a href="/profile-page">Profile</a></li>
+                        <li><a href="#">My Wishlist</a></li>
+                        <li><a href="#">My Orders</a></li>
+                        <li><a href="#">Order Tracking</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Trafford Centre, London</p>
+                    <p><i class="fas fa-phone"></i> +00 123 456 789</p>
+                    <p><i class="fas fa-envelope"></i> info@eschool.com</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 Eschool University. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <button class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Mobile Menu
+        const menuBtn = document.querySelector('.menu-button');
+        const navMenu = document.querySelector('.nav-menu');
+
+        menuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Header Scroll Effect
+        const header = document.querySelector('.header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Counter Animation
+        const counters = document.querySelectorAll('.number');
+        const speed = 200;
+        let animated = false;
+
+        const animateCounters = () => {
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+                const inc = target / speed;
+
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + inc);
+                    setTimeout(() => animateCounters(), 1);
+                } else {
+                    counter.innerText = target;
+                }
+            });
+        };
+
+        const statsSection = document.querySelector('.stats');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !animated) {
+                    animated = true;
+                    animateCounters();
+                }
+            });
+        }, { threshold: 0.5 });
+
+        observer.observe(statsSection);
+
+        // Back to Top
+        const backToTop = document.querySelector('.back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+
+        // Newsletter and Contact Form Submission
+        const newsletterForm = document.querySelector('.newsletter-form');
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = newsletterForm.querySelector('input[type="email"]').value;
+            alert(`Cảm ơn bạn đã đăng ký với email: ${email}`);
+            newsletterForm.reset();
+        });
+
+        const contactForm = document.querySelector('.contact-form');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Cảm ơn bạn. Tin nhắn của bạn đã được gửi thành công!');
+            contactForm.reset();
+        });
+
+        // Course Card Animation (retained for Blog/Course consistency)
+        const allCards = document.querySelectorAll('.course-card, .blog-card');
+        const cardObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '0';
+                    entry.target.style.transform = 'translateY(30px)';
+                    setTimeout(() => {
+                        entry.target.style.transition = 'all 0.6s ease';
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, 100);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        allCards.forEach(card => cardObserver.observe(card));
+    </script>
+</body>
+</html>
