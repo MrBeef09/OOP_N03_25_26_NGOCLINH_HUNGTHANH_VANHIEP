@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 // Interface này tự động kế thừa các phương thức CRUD cơ bản (findAll, save, findById,...)
 // Long là kiểu dữ liệu của khóa chính (id) trong lớp TruongDaiHoc
 @Repository
-public interface TruongDaiHocRepository extends JpaRepository<TruongDaiHoc, Long> {
+public interface TruongDaiHocRepository extends JpaRepository<TruongDaiHoc, Integer> {
 }

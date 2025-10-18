@@ -1,23 +1,26 @@
 package com.example.servingwebcontent.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.servingwebcontent.Model.Truongdaihoc.TruongDaiHoc;
+import com.example.servingwebcontent.Repository.TruongDaiHocRepository; // Import Repository
 
 @Service
 public class TruongDaiHocService {
 
+    @Autowired
+    private TruongDaiHocRepository truongRepository; // Inject Repository
+
     public List<TruongDaiHoc> getDanhSachTruong() {
-        List<TruongDaiHoc> ds = new ArrayList<>();
-
-        ds.add(new TruongDaiHoc(1, "Đại học Bách Khoa Hà Nội", "Hà Nội"));
-        ds.add(new TruongDaiHoc(2, "Đại học Kinh tế Quốc dân", "Hà Nội"));
-        ds.add(new TruongDaiHoc(3, "Đại học Quốc gia TP.HCM", "TP.HCM"));
-        ds.add(new TruongDaiHoc(4, "Đại học FPT", "Hà Nội / TP.HCM"));
-
-        return ds;
+        // Sử dụng phương thức findAll() của JpaRepository để lấy dữ liệu từ DB
+        return truongRepository.findAll(); 
+    }
+    
+    // Bạn có thể thêm các phương thức khác như tìm theo ID
+    public TruongDaiHoc getTruongById(Long id) {
+        return truongRepository.findbyID(id).orElse(null);
     }
 }
