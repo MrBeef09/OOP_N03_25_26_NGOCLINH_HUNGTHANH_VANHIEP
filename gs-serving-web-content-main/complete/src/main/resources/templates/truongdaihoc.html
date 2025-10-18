@@ -4,64 +4,91 @@
     <meta charset="UTF-8">
     <title>Eschool - Danh sách các Trường Đại học</title>
 
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #2563eb;
+            --dark-blue: #1e40af;
+            --light-blue: #dbeafe;
+            --bg-white: #ffffff;
+            --text-dark: #1f2937;
+            --text-gray: #6b7280;
+            --border-color: #e5e7eb;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* Đồng nhất màu nền gradient */
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            margin: 0;
+            padding: 20px; /* Thêm padding để container không dính sát mép */
         }
 
-        header {
-            position: sticky;
-            top: 0;
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            z-index: 10;
-        }
-
-        .nav-container {
-            max-width: 1100px;
+        /* Container ngoài cùng để giới hạn chiều rộng trang */
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
+        }
+
+        /* Header - Style giống trang tư vấn */
+        .header {
+            background: var(--bg-white);
+            padding: 15px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            margin-bottom: 30px;
+            position: sticky; /* Giữ header cố định */
+            top: 20px; /* Giữ khoảng cách 20px so với mép trên (do body có padding) */
+            z-index: 10;
         }
 
         .logo {
             font-size: 28px;
             font-weight: bold;
-            color: #2563eb;
+            color: var(--primary-blue);
         }
 
         .nav {
             display: flex;
-            gap: 25px;
+            gap: 30px;
         }
 
         .nav a {
             text-decoration: none;
-            color: #333;
+            color: var(--text-dark);
             font-weight: 500;
-            position: relative;
             transition: color 0.3s;
         }
 
-        .nav a:hover {
-            color: #2563eb;
+        .nav a:hover, .nav a.active {
+            color: var(--primary-blue);
         }
 
-        .container {
-            max-width: 1100px;
-            margin: 40px auto;
-            background: white;
+        /* Content Box - Thùng chứa bảng, style giống Form/Result section */
+        .content-box {
+            background: var(--bg-white);
             border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            padding: 40px; /* Tăng padding để đồng nhất */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+
+        /* Thêm style cho tiêu đề để đồng nhất */
+        .content-box h1 {
+            font-size: 32px;
+            color: var(--primary-blue);
+            margin-bottom: 30px !important;
+            text-align: center;
         }
 
         th {
@@ -79,55 +106,69 @@
         .btn-detail:hover {
             text-decoration: underline;
         }
+        
+        /* Responsive cho header khi màn hình nhỏ */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 20px;
+            }
+            .nav {
+                gap: 15px;
+            }
+            .content-box {
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="nav-container">
+<div class="container">
+    <header class="header">
         <div class="logo">Eschool</div>
-        <div class="nav">
+        <nav class="nav">
             <a th:href="@{/}" class="active">Home</a>
             <a href="#">About</a>
             <a href="#">Courses</a>
             <a href="#">Blog</a>
             <a href="#">Contact</a>
-        </div>
+        </nav>
+    </header>
+
+    <div class="content-box">
+        <h1 class="text-center">Danh sách các Trường Đại học</h1>
+
+        <table class="table table-bordered table-hover align-middle text-center">
+            <thead>
+                <tr>
+                    <th>Tên trường</th>
+                    <th>Mã trường</th>
+                    <th>Địa chỉ</th>
+                    <th>Cơ sở vật chất</th>
+                    <th>Đội ngũ giảng viên</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="truong : ${truongList}">
+                    <td th:text="${truong.tenTruong}"></td>
+                    <td th:text="${truong.maTruong}"></td>
+                    <td th:text="${truong.diaChi}"></td>
+                    <td>
+                      <a href="#" class="btn-detail"
+                      th:attr="data-csvc=${truong.coSoVatChat != null ? truong.coSoVatChat.moTa : 'Không có thông tin'}"
+                      onclick="showDetail(this)">Xem chi tiết</a>
+                    </td>
+                    <td>Giảng viên trình độ cao</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a th:href="@{/}" class="btn btn-primary d-block mx-auto mt-3" style="width:200px;">← Quay lại</a>
     </div>
-</header>
-
-<div class="container">
-    <h1 class="text-center text-primary mb-4">Danh sách các Trường Đại học</h1>
-
-    <table class="table table-bordered table-hover align-middle text-center">
-        <thead>
-            <tr>
-                <th>Tên trường</th>
-                <th>Mã trường</th>
-                <th>Địa chỉ</th>
-                <th>Cơ sở vật chất</th>
-                <th>Đội ngũ giảng viên</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="truong : ${truongList}">
-                <td th:text="${truong.tenTruong}"></td>
-                <td th:text="${truong.maTruong}"></td>
-                <td th:text="${truong.diaChi}"></td>
-                <td>
-                  <a href="#" class="btn-detail" 
-                  th:attr="data-csvc=${truong.coSoVatChat != null ? truong.coSoVatChat.moTa : 'Không có thông tin'}"
-                  onclick="showDetail(this)">Xem chi tiết</a>
-                </td>
-                <td>Giảng viên trình độ cao</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a th:href="@{/}" class="btn btn-primary d-block mx-auto mt-3" style="width:200px;">← Quay lại</a>
 </div>
 
-<!-- Modal -->
 <div class="modal fade" id="csvcModal" tabindex="-1" aria-labelledby="csvcModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -136,13 +177,11 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body" id="modalBody">
-                <!-- JS chèn nội dung vào -->
-            </div>
+                </div>
         </div>
     </div>
 </div>
 
-<!-- JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     // Hiển thị chi tiết trong popup
