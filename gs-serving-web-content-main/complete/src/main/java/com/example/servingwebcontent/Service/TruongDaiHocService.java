@@ -20,7 +20,7 @@ public class TruongDaiHocService {
     }
     
     // Bạn có thể thêm các phương thức khác như tìm theo ID
-    public TruongDaiHoc getTruongById(Long id) {
-        return truongRepository.findbyID(id).orElse(null);
+    public TruongDaiHoc getTruongById(Integer id) {
+        return truongRepository.findById(id).orElse(null);
     }
 }

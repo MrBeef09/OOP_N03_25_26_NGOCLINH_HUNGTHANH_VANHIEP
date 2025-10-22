@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 // Long là kiểu dữ liệu của khóa chính (id) trong lớp TruongDaiHoc
 @Repository
 public interface TruongDaiHocRepository extends JpaRepository<TruongDaiHoc, Integer> {
+    
 }

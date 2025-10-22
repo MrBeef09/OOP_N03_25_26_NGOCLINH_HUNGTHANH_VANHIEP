@@ -84,4 +84,16 @@ public class NganhHoc {
     public String getMaNganh() { return maNganh; }
     public String getToHopMon() { return toHopMon; }
     public double getDiemChuan() { return diemChuan; }
+
+    // ===== Thêm thuộc tính tạm để lưu điểm phù hợp =====
+private transient double diemPhuHop; // transient để không bị JPA map vào DB
+
+public double getDiemPhuHop() {
+    return diemPhuHop;
+}
+
+public void setDiemPhuHop(double diemPhuHop) {
+    this.diemPhuHop = diemPhuHop;
+}
+
 }

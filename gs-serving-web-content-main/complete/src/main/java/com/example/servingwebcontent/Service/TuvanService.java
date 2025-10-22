@@ -52,18 +52,18 @@ public class TuvanService {
     }
 
     // ===== Tư vấn ngành phù hợp =====
-    public NganhHoc tuVanNganh(double diemThiHS, String toHopHS, List<String> soThichHS) {
-        NganhHoc nganhPhuHop = null;
-        double diemMax = -1;
+    public List<NganhHoc> tuVanTatCaNganh(double diemThiHS, String toHopHS, List<String> soThichHS) {
+    List<NganhHoc> ketQua = new ArrayList<>();
 
-        for (NganhHoc n : dsNganh) {
-            double diem = n.tinhDiemNganh(diemThiHS, toHopHS, soThichHS);
-            if (diem > diemMax) {
-                diemMax = diem;
-                nganhPhuHop = n;
-            }
-        }
-
-        return nganhPhuHop;
+    for (NganhHoc n : dsNganh) {
+        double diem = n.tinhDiemNganh(diemThiHS, toHopHS, soThichHS);
+        n.setDiemPhuHop(diem); // bạn thêm 1 trường tạm trong NganhHoc để lưu điểm
+        ketQua.add(n);
     }
+
+    // Sắp xếp giảm dần theo điểm phù hợp
+    ketQua.sort((a, b) -> Double.compare(b.getDiemPhuHop(), a.getDiemPhuHop()));
+    return ketQua;
+}
+
 }
