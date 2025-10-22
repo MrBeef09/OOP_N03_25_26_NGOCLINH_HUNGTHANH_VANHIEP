@@ -1,81 +1,84 @@
 package com.example.servingwebcontent.Model.Truongdaihoc;
+
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "co_so_vat_chat")
 public class CoSoVatChat {
-    private List<PhongHoc> dsPhongHoc;
-    private List<KyTucXa> dsKTX;
-    private List<ThuVien> dsThuVien;
-    private List<TrangThietBi> dsTrangThietBi;
-    private List<TienIch> dsTienIch;
-    private List<HaTangKiThuat> dsHaTang;
 
-    public CoSoVatChat() {
-        dsPhongHoc = new ArrayList<>();
-        dsKTX = new ArrayList<>();
-        dsThuVien = new ArrayList<>();
-        dsTrangThietBi = new ArrayList<>();
-        dsTienIch = new ArrayList<>();
-        dsHaTang = new ArrayList<>();
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    private int soPhongHoc;
+    private int soKyTucXa;
+    private int soThuVien;
+    private int soTrangThietBi;
+    private int soTienIch;
+    private int soHaTangKiThuat;
+    private int tongDiem; // tổng điểm được tính
+
+    // ===== Quan hệ 1-1 với TruongDaiHoc =====
+    @OneToOne
+    @JoinColumn(name = "ma_truong") // liên kết với cột ma_truong trong bảng truong_dai_hoc
+    private TruongDaiHoc truongDaiHoc;
+
+    // ===== Constructor =====
+    public CoSoVatChat() {}
+
+    public CoSoVatChat(int soPhongHoc, int soKyTucXa, int soThuVien, int soTrangThietBi, int soTienIch, int soHaTangKiThuat) {
+        this.soPhongHoc = soPhongHoc;
+        this.soKyTucXa = soKyTucXa;
+        this.soThuVien = soThuVien;
+        this.soTrangThietBi = soTrangThietBi;
+        this.soTienIch = soTienIch;
+        this.soHaTangKiThuat = soHaTangKiThuat;
+        this.tongDiem = tinhTongDiem();
     }
 
-    // ====== Thêm đối tượng ======
-    public void themPhongHoc(PhongHoc p) { dsPhongHoc.add(p); }
-    public void themKTX(KyTucXa k) { dsKTX.add(k); }
-    public void themThuVien(ThuVien t) { dsThuVien.add(t); }
-    public void themTrangThietBi(TrangThietBi tb) { dsTrangThietBi.add(tb); }
-    public void themTienIch(TienIch ti) { dsTienIch.add(ti); }
-    public void themHaTang(HaTangKiThuat ht) { dsHaTang.add(ht); }
-
-    // ====== Xem thông tin toàn bộ ======
-    public void xemThongTin() {
-        System.out.println("===== DANH SÁCH PHÒNG HỌC =====");
-        for (PhongHoc p : dsPhongHoc) {
-            p.xemThongTin();
-            System.out.println("Điểm: " + p.danhGia() + "\n");
-        }
-
-        System.out.println("===== DANH SÁCH KÝ TÚC XÁ =====");
-        for (KyTucXa k : dsKTX) {
-            k.xemThongTin();
-            System.out.println("Điểm: " + k.danhGia() + "\n");
-        }
-
-        System.out.println("===== DANH SÁCH THƯ VIỆN =====");
-        for (ThuVien t : dsThuVien) {
-            t.xemThongTin();
-            System.out.println("Điểm: " + t.danhGia() + "\n");
-        }
-
-        System.out.println("===== DANH SÁCH TRANG THIẾT BỊ =====");
-        for (TrangThietBi tb : dsTrangThietBi) {
-            tb.XemThongTin();
-            System.out.println("Điểm: " + tb.danhGia() + "\n");
-        }
-
-        System.out.println("===== DANH SÁCH TIỆN ÍCH =====");
-        for (TienIch ti : dsTienIch) {
-            ti.XemThongTin();
-            System.out.println("Điểm: " + ti.DanhGia() + "\n");
-        }
-
-        System.out.println("===== DANH SÁCH HẠ TẦNG KỸ THUẬT =====");
-        for (HaTangKiThuat ht : dsHaTang) {
-            ht.hienThiThongTin();
-            System.out.println("Điểm: " + ht.danhGia() + "\n");
-        }
-    }
-
-    // ====== Tính tổng điểm ======
+    // ===== Tính điểm =====
     public int tinhTongDiem() {
-        int tong = 0;
-        for (PhongHoc p : dsPhongHoc) tong += p.danhGia();
-        for (KyTucXa k : dsKTX) tong += k.danhGia();
-        for (ThuVien t : dsThuVien) tong += t.danhGia();
-        for (TrangThietBi tb : dsTrangThietBi) tong += tb.danhGia();
-        for (TienIch ti : dsTienIch) tong += ti.DanhGia();
-        for (HaTangKiThuat ht : dsHaTang) tong += ht.danhGia();
-        return tong;
+        // ví dụ mỗi hạng mục đóng góp 10 điểm
+        return (soPhongHoc + soKyTucXa + soThuVien + soTrangThietBi + soTienIch + soHaTangKiThuat) * 10;
+    }
+
+    // ===== Getter & Setter =====
+    public int getId() { return id; }
+
+    public int getSoPhongHoc() { return soPhongHoc; }
+    public void setSoPhongHoc(int soPhongHoc) { this.soPhongHoc = soPhongHoc; }
+
+    public int getSoKyTucXa() { return soKyTucXa; }
+    public void setSoKyTucXa(int soKyTucXa) { this.soKyTucXa = soKyTucXa; }
+
+    public int getSoThuVien() { return soThuVien; }
+    public void setSoThuVien(int soThuVien) { this.soThuVien = soThuVien; }
+
+    public int getSoTrangThietBi() { return soTrangThietBi; }
+    public void setSoTrangThietBi(int soTrangThietBi) { this.soTrangThietBi = soTrangThietBi; }
+
+    public int getSoTienIch() { return soTienIch; }
+    public void setSoTienIch(int soTienIch) { this.soTienIch = soTienIch; }
+
+    public int getSoHaTangKiThuat() { return soHaTangKiThuat; }
+    public void setSoHaTangKiThuat(int soHaTangKiThuat) { this.soHaTangKiThuat = soHaTangKiThuat; }
+
+    public int getTongDiem() { return tongDiem; }
+    public void setTongDiem(int tongDiem) { this.tongDiem = tongDiem; }
+
+    public TruongDaiHoc getTruongDaiHoc() { return truongDaiHoc; }
+    public void setTruongDaiHoc(TruongDaiHoc truongDaiHoc) { this.truongDaiHoc = truongDaiHoc; }
+
+    // ===== Hiển thị =====
+    public void xemThongTin() {
+        System.out.println("Phòng học: " + soPhongHoc);
+        System.out.println("Ký túc xá: " + soKyTucXa);
+        System.out.println("Thư viện: " + soThuVien);
+        System.out.println("Trang thiết bị: " + soTrangThietBi);
+        System.out.println("Tiện ích: " + soTienIch);
+        System.out.println("Hạ tầng kỹ thuật: " + soHaTangKiThuat);
+        System.out.println("=> Tổng điểm: " + tinhTongDiem());
     }
 }
-

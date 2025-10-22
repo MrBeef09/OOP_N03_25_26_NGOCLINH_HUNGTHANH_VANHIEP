@@ -10,7 +10,7 @@ public class HeThongDien implements HaTangKiThuat {
     }
 
     @Override
-    public void hienThiThongTin() {
+    public void xemThongTin() {
         System.out.println("Hệ thống điện | Công suất: " + congSuatToiDa +
                            " | Máy phát: " + soLuongMayPhat);
     }

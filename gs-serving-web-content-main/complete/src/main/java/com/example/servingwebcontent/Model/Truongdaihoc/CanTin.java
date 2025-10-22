@@ -12,13 +12,13 @@ public class CanTin implements TienIch {
     public int GetSucChua() { return SucChua; }
 
     @Override
-    public void XemThongTin() {
+    public void xemThongTin() {
         System.out.println("Căn tin | Mã: " + MaCanTin +
                            " | Sức chứa: " + SucChua);
     }
 
     @Override
-    public int DanhGia() {
+    public int danhGia() {
         return SucChua / 100; // cứ 100 chỗ = 1 điểm
     }
 }

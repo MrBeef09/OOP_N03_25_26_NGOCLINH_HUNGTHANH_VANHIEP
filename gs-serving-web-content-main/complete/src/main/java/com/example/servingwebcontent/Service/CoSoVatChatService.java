@@ -39,7 +39,7 @@ public class CoSoVatChatService {
         for (KyTucXa k : dsKTX) tong += k.danhGia();
         for (ThuVien t : dsThuVien) tong += t.danhGia();
         for (TrangThietBi tb : dsTrangThietBi) tong += tb.danhGia();
-        for (TienIch ti : dsTienIch) tong += ti.DanhGia();
+        for (TienIch ti : dsTienIch) tong += ti.danhGia();
         for (HaTangKiThuat ht : dsHaTang) tong += ht.danhGia();
         return tong;
     }

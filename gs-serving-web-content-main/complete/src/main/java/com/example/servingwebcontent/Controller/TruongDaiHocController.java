@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -19,16 +18,14 @@ public class TruongDaiHocController {
 
     @GetMapping("/truongdaihoc")
     public String showTruongDaiHocPage(Model model) {
-        List<TruongDaiHoc> dsTruong = truongService.getDanhSachTruong();
+        List<TruongDaiHoc> dsTruong = truongService.getDanhSachTruongSapXepTheoDiem();
         model.addAttribute("truongList", dsTruong);
-        System.out.println("Danh sách trường: " + dsTruong);
-        return "truongdaihoc";
+        return "truongdaihoc"; 
     }
-//     @GetMapping("/truongdaihoc/{id}/cosovatchat")
-// public String xemChiTietCoSoVatChat(@PathVariable int id, Model model) {
-//     // TruongDaiHoc truong = truongService.findById(id);
-//     // model.addAttribute("truong", truong);
-//     // model.addAttribute("cosoVatChat", truong.getCoSoVatChat());
-//     return "cosovatchat-detail";
-// }
+
+
+    @GetMapping("/")
+    public String home() {
+        return "redirect:/truongdaihoc";
+    }
 }

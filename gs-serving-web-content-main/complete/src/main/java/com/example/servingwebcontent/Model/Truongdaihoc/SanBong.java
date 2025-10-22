@@ -12,13 +12,13 @@ public class SanBong implements TienIch {
     public int GetSucChua() { return SucChua; }
 
     @Override
-    public void XemThongTin() {
+    public void xemThongTin() {
         System.out.println("Sân bóng | Loại sân: " + LoaiSan +
                            " | Sức chứa: " + SucChua);
     }
 
     @Override
-    public int DanhGia() {
+    public int danhGia() {
         return SucChua / 50; // cứ 50 chỗ ngồi = 1 điểm
     }
 }

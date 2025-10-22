@@ -7,7 +7,7 @@ public class Quat implements TrangThietBi {
     }
 
     @Override
-    public void XemThongTin() {
+    public void xemThongTin() {
         System.out.println("Quạt | Số lượng: " + soLuong);
     }
 

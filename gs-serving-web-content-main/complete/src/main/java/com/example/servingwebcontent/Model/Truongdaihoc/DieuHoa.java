@@ -9,7 +9,7 @@ public class DieuHoa implements TrangThietBi {
     }
 
     @Override
-    public void XemThongTin() {
+    public void xemThongTin() {
         System.out.println("Điều Hòa | Công suất lạnh: " + congSuatLanh +
                            " | Số lượng: " + soLuong);
     }

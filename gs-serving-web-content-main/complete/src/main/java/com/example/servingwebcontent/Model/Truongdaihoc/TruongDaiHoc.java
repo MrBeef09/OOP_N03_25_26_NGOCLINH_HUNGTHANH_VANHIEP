@@ -15,7 +15,11 @@ public class TruongDaiHoc {
     private String tenTruong;
     private String diaChi;
 
-    // Các phần này tạm thời chưa lưu vào DB
+    // ✅ Thêm trường điểm đánh giá để lưu trong database
+    @Column(name = "diem_danh_gia")
+    private int diemDanhGia;
+
+    // Nếu bạn không cần ánh xạ với bảng khác, thì giữ @Transient để tránh lỗi JPA
     @Transient
     private CoSoVatChat coSoVatChat;
 
@@ -25,20 +29,22 @@ public class TruongDaiHoc {
     @Transient
     private List<NganhHoc> danhSachNganhHoc;
 
-    public TruongDaiHoc() {} // Bắt buộc có constructor rỗng cho JPA
-
-    public TruongDaiHoc(int maTruong, String tenTruong, String diaChi) {
-        this.maTruong = maTruong;
-        this.tenTruong = tenTruong;
-        this.diaChi = diaChi;
+    // ====== Constructor ======
+    public TruongDaiHoc() {
         this.coSoVatChat = new CoSoVatChat();
         this.doiNguGiaoVien = new DoiNguGiaoVien(0, 0, 0, 0);
         this.danhSachNganhHoc = new ArrayList<>();
     }
 
-
-
-
+    public TruongDaiHoc(int maTruong, String tenTruong, String diaChi, int diemDanhGia) {
+        this.maTruong = maTruong;
+        this.tenTruong = tenTruong;
+        this.diaChi = diaChi;
+        this.diemDanhGia = diemDanhGia;
+        this.coSoVatChat = new CoSoVatChat();
+        this.doiNguGiaoVien = new DoiNguGiaoVien(0, 0, 0, 0);
+        this.danhSachNganhHoc = new ArrayList<>();
+    }
 
     // ===== Getter & Setter =====
     public int getMaTruong() {
@@ -65,6 +71,14 @@ public class TruongDaiHoc {
         this.diaChi = diaChi;
     }
 
+    public int getDiemDanhGia() {
+        return diemDanhGia;
+    }
+
+    public void setDiemDanhGia(int diemDanhGia) {
+        this.diemDanhGia = diemDanhGia;
+    }
+
     public CoSoVatChat getCoSoVatChat() {
         return coSoVatChat;
     }
@@ -85,14 +99,11 @@ public class TruongDaiHoc {
         return danhSachNganhHoc;
     }
 
-    // ====== Các phương thức thêm dữ liệu ======
-   
-
     public void themNganhHoc(NganhHoc nganh) {
         danhSachNganhHoc.add(nganh);
     }
 
-    // ====== Tính điểm tổng đánh giá trường ======
+    // ====== Tính điểm tổng (nếu muốn cập nhật tự động) ======
     public int tinhDiemDanhGia() {
         int diemCSVC = (coSoVatChat != null) ? coSoVatChat.tinhTongDiem() : 0;
         int diemGV = (doiNguGiaoVien != null) ? doiNguGiaoVien.danhGia() : 0;
@@ -105,11 +116,25 @@ public class TruongDaiHoc {
         System.out.println("Mã trường: " + maTruong);
         System.out.println("Tên trường: " + tenTruong);
         System.out.println("Địa chỉ: " + diaChi);
+        System.out.println("Điểm đánh giá: " + diemDanhGia);
+
         System.out.println("----- Cơ sở vật chất -----");
-        coSoVatChat.xemThongTin();
+        if (coSoVatChat != null) {
+            coSoVatChat.xemThongTin();
+            System.out.println("Tổng điểm CSVC: " + coSoVatChat.tinhTongDiem());
+        } else {
+            System.out.println("Chưa có dữ liệu cơ sở vật chất.");
+        }
+
         System.out.println("----- Đội ngũ giáo viên -----");
-        doiNguGiaoVien.xemThongTin();
-        System.out.println("Điểm đánh giá tổng: " + tinhDiemDanhGia());
+        if (doiNguGiaoVien != null) {
+            doiNguGiaoVien.xemThongTin();
+            System.out.println("Điểm GV: " + doiNguGiaoVien.danhGia());
+        } else {
+            System.out.println("Chưa có dữ liệu đội ngũ giáo viên.");
+        }
+
+        System.out.println("=> Tổng điểm đánh giá (tính toán): " + tinhDiemDanhGia());
         System.out.println("======================================");
     }
 }

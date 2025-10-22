@@ -1,26 +1,40 @@
 package com.example.servingwebcontent.Service;
 
-import java.util.List;
-
+import com.example.servingwebcontent.Model.Truongdaihoc.TruongDaiHoc;
+import com.example.servingwebcontent.Repository.TruongDaiHocRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.servingwebcontent.Model.Truongdaihoc.TruongDaiHoc;
-import com.example.servingwebcontent.Repository.TruongDaiHocRepository; // Import Repository
+import java.util.List;
 
 @Service
 public class TruongDaiHocService {
 
     @Autowired
-    private TruongDaiHocRepository truongRepository; // Inject Repository
+    private TruongDaiHocRepository truongRepository;
 
-    public List<TruongDaiHoc> getDanhSachTruong() {
-        // Sử dụng phương thức findAll() của JpaRepository để lấy dữ liệu từ DB
-        return truongRepository.findAll(); 
+    // ✅ Lấy danh sách các trường sắp xếp theo điểm đánh giá giảm dần
+    public List<TruongDaiHoc> getDanhSachTruongSapXepTheoDiem() {
+        return truongRepository.findAllByOrderByDiemDanhGiaDesc();
     }
-    
-    // Bạn có thể thêm các phương thức khác như tìm theo ID
-    public TruongDaiHoc getTruongById(Long id) {
-        return truongRepository.findbyID(id).orElse(null);
+
+    // ✅ Thêm mới hoặc cập nhật thông tin trường
+    public void saveTruong(TruongDaiHoc truong) {
+        truongRepository.save(truong);
+    }
+
+    // ✅ Xóa trường theo mã
+    public void deleteTruong(int id) {
+        truongRepository.deleteById(id);
+    }
+
+    // ✅ Tìm trường theo ID
+    public TruongDaiHoc getTruongById(int id) {
+        return truongRepository.findById(id).orElse(null);
+    }
+
+    // ✅ Lấy tất cả trường (không sắp xếp)
+    public List<TruongDaiHoc> getAllTruong() {
+        return truongRepository.findAll();
     }
 }
