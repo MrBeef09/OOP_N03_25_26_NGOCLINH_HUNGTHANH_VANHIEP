@@ -24,13 +24,14 @@ public class TruongDaiHocService {
         return truongRepository.findById(id).orElse(null);
 
 
-    // ✅ Tìm trường theo ID
-    public TruongDaiHoc getTruongById(int id) {
-        return truongRepository.findById(id).orElse(null);
-    }
+    // // ✅ Tìm trường theo ID
+    // public TruongDaiHoc getTruongById(int id) {
+    //     return truongRepository.findById(id).orElse(null);
+    // }
 
-    // ✅ Lấy tất cả trường (không sắp xếp)
-    public List<TruongDaiHoc> getAllTruong() {
-        return truongRepository.findAll();
-    }
+    // // ✅ Lấy tất cả trường (không sắp xếp)
+    // public List<TruongDaiHoc> getAllTruong() {
+    //     return truongRepository.findAll();
+    // }
+}
 }

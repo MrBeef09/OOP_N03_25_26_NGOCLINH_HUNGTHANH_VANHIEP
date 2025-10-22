@@ -35,7 +35,7 @@ public class TuVanController {
         List<String> dsSoThich = Arrays.asList(soThich.split(","));
 
         // Gọi service để tìm ngành phù hợp nhất
-        NganhHoc nganhPhuHop = tuvanService.tuVanNganh(diemThi, toHop, dsSoThich);
+        NganhHoc nganhPhuHop = tuvanService.tuVanTatCaNganh(diemThi, toHop, dsSoThich);
 
         // Gửi dữ liệu sang giao diện
         model.addAttribute("nganhPhuHop", nganhPhuHop);
