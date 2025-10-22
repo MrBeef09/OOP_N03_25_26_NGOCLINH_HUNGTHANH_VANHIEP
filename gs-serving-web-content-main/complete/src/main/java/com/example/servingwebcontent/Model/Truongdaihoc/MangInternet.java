@@ -12,7 +12,7 @@ public class MangInternet implements HaTangKiThuat {
     }
 
     @Override
-    public void hienThiThongTin() {
+    public void xemThongTin() {
         System.out.println("Mạng Internet | Nhà cung cấp: " + nhaCungCap +
                            " | Tốc độ: " + tocDo + "Mbps" +
                            " | Router: " + soLuongRouter);

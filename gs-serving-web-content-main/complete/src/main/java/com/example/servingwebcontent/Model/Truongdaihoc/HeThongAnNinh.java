@@ -9,7 +9,7 @@ public class HeThongAnNinh implements HaTangKiThuat {
     }
 
     @Override
-    public void hienThiThongTin() {
+    public void xemThongTin() {
         System.out.println("Hệ thống an ninh | Camera: " + soLuongCamera +
                            " | Báo cháy: " + (coBaoChay ? "Có" : "Không"));
     }

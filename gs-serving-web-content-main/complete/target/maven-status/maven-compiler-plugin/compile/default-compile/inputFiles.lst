@@ -4,6 +4,7 @@
 /workspaces/OOP_N03_25_26_NGOCLINH_HUNGTHANH_VANHIEP/gs-serving-web-content-main/complete/src/main/java/com/example/servingwebcontent/Controller/HomeController.java
 /workspaces/OOP_N03_25_26_NGOCLINH_HUNGTHANH_VANHIEP/gs-serving-web-content-main/complete/src/main/java/com/example/servingwebcontent/Controller/QuanLyPhongHoc.java
 /workspaces/OOP_N03_25_26_NGOCLINH_HUNGTHANH_VANHIEP/gs-serving-web-content-main/complete/src/main/java/com/example/servingwebcontent/Controller/TruongDaiHocController.java
+/workspaces/OOP_N03_25_26_NGOCLINH_HUNGTHANH_VANHIEP/gs-serving-web-content-main/complete/src/main/java/com/example/servingwebcontent/Controller/TruongDaiHocRepository.java
 /workspaces/OOP_N03_25_26_NGOCLINH_HUNGTHANH_VANHIEP/gs-serving-web-content-main/complete/src/main/java/com/example/servingwebcontent/Controller/TuVanController.java
 /workspaces/OOP_N03_25_26_NGOCLINH_HUNGTHANH_VANHIEP/gs-serving-web-content-main/complete/src/main/java/com/example/servingwebcontent/GreetingController.java
 /workspaces/OOP_N03_25_26_NGOCLINH_HUNGTHANH_VANHIEP/gs-serving-web-content-main/complete/src/main/java/com/example/servingwebcontent/Model/Truongdaihoc/BeBoi.java
@@ -38,6 +39,8 @@
 /workspaces/OOP_N03_25_26_NGOCLINH_HUNGTHANH_VANHIEP/gs-serving-web-content-main/complete/src/main/java/com/example/servingwebcontent/Model/User/SoThichNganhHoc.java
 /workspaces/OOP_N03_25_26_NGOCLINH_HUNGTHANH_VANHIEP/gs-serving-web-content-main/complete/src/main/java/com/example/servingwebcontent/Model/User/TaiKhoan.java
 /workspaces/OOP_N03_25_26_NGOCLINH_HUNGTHANH_VANHIEP/gs-serving-web-content-main/complete/src/main/java/com/example/servingwebcontent/Model/User/ThongTinCaNhan.java
+/workspaces/OOP_N03_25_26_NGOCLINH_HUNGTHANH_VANHIEP/gs-serving-web-content-main/complete/src/main/java/com/example/servingwebcontent/Repository/CoSoVatChatRepository.java
+/workspaces/OOP_N03_25_26_NGOCLINH_HUNGTHANH_VANHIEP/gs-serving-web-content-main/complete/src/main/java/com/example/servingwebcontent/Repository/TruongDaiHocRepository.java
 /workspaces/OOP_N03_25_26_NGOCLINH_HUNGTHANH_VANHIEP/gs-serving-web-content-main/complete/src/main/java/com/example/servingwebcontent/Service/CoSoVatChatService.java
 /workspaces/OOP_N03_25_26_NGOCLINH_HUNGTHANH_VANHIEP/gs-serving-web-content-main/complete/src/main/java/com/example/servingwebcontent/Service/GiaoVienService.java
 /workspaces/OOP_N03_25_26_NGOCLINH_HUNGTHANH_VANHIEP/gs-serving-web-content-main/complete/src/main/java/com/example/servingwebcontent/Service/HocSinhService.java

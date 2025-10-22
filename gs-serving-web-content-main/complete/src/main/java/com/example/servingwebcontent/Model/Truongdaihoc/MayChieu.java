@@ -9,7 +9,7 @@ public class MayChieu implements TrangThietBi {
     }
 
     @Override
-    public void XemThongTin() {
+    public void xemThongTin() {
         System.out.println("Máy Chiếu | Độ phân giải: " + doPhanGiai +
                            " | Công suất: " + congSuat);
     }

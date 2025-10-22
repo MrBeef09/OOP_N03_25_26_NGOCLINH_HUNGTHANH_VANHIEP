@@ -12,13 +12,13 @@ public class BeBoi implements TienIch {
     public double GetDoSau() { return DoSau; }
 
     @Override
-    public void XemThongTin() {
+    public void xemThongTin() {
         System.out.println("Bể bơi | Diện tích: " + DienTich + " m2" +
                            " | Độ sâu: " + DoSau + " m");
     }
 
     @Override
-    public int DanhGia() {
+    public int danhGia() {
         return (int)(DienTich / 50 + DoSau);
         // ví dụ: mỗi 50m2 được 1 điểm, cộng thêm số điểm bằng độ sâu
     }

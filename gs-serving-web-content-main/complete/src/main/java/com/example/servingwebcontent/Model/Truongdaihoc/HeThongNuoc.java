@@ -9,7 +9,7 @@ public class HeThongNuoc implements HaTangKiThuat{
     }
 
     @Override
-    public void hienThiThongTin() {
+    public void xemThongTin() {
         System.out.println("Hệ thống nước | Bể chứa: " + sucChuaBeNuoc + " m3" +
                            " | Máy bơm: " + soLuongMayBom);
     }

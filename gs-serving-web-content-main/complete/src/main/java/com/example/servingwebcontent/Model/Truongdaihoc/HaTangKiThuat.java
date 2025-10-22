@@ -1,6 +1,6 @@
 package com.example.servingwebcontent.Model.Truongdaihoc;
 public interface HaTangKiThuat {
-    void hienThiThongTin();
+    void xemThongTin();
     int danhGia();
 }
 

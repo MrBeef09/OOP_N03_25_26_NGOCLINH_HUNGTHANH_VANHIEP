@@ -11,7 +11,7 @@ public class MayTinh implements TrangThietBi {
     }
 
     @Override
-    public void XemThongTin() {
+    public void xemThongTin() {
         System.out.println("Máy Tính | CPU: " + CPU +
                            " | RAM: " + RAM + "GB" +
                            " | Ổ cứng: " + oCung);
