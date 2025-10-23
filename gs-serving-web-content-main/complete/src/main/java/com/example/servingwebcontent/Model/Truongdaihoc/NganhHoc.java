@@ -35,10 +35,15 @@ public class NganhHoc {
     @Column(name = "ho_so")
     private int hoSo;
 
-    @ElementCollection
-    @CollectionTable(name = "so_thich_lien_quan", joinColumns = @JoinColumn(name = "nganh_id"))
-    @Column(name = "so_thich")
-    private List<String> soThichLienQuan;
+   @ElementCollection
+@CollectionTable(
+    name = "so_thich_lien_quan",
+    joinColumns = @JoinColumn(name = "nganh_id")
+)
+@Column(name = "so_thich")
+@OrderColumn(name = "id") // thêm dòng này để Hibernate tạo cột id làm khóa chính
+private List<String> soThichLienQuan;
+
 
     // ===== Constructor =====
     public NganhHoc() {}
