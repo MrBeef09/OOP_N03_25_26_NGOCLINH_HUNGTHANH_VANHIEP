@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface TruongDaiHocRepository extends JpaRepository<TruongDaiHoc, Integer> {
 
-    
     List<TruongDaiHoc> findAllByOrderByDiemDanhGiaDesc();
 }
+

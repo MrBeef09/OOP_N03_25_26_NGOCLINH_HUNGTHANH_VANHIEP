@@ -127,6 +127,7 @@ private List<String> soThichLienQuan;
     public void setToHopMon(String toHopMon) { this.toHopMon = toHopMon; }
 
     public double getDiemChuan() { return diemChuan; }
+
     public void setDiemChuan(double diemChuan) { this.diemChuan = diemChuan; }
 
     public double getCoHoiViecLam() { return coHoiViecLam; }
@@ -143,4 +144,5 @@ private List<String> soThichLienQuan;
 
     public List<String> getSoThichLienQuan() { return soThichLienQuan; }
     public void setSoThichLienQuan(List<String> soThichLienQuan) { this.soThichLienQuan = soThichLienQuan; }
+
 }

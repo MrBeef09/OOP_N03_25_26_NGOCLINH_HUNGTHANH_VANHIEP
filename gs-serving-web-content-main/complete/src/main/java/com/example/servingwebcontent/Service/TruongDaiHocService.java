@@ -18,23 +18,20 @@ public class TruongDaiHocService {
         return truongRepository.findAllByOrderByDiemDanhGiaDesc();
     }
 
-    // ✅ Thêm mới hoặc cập nhật thông tin trường
-    public void saveTruong(TruongDaiHoc truong) {
-        truongRepository.save(truong);
-    }
-
-    // ✅ Xóa trường theo mã
-    public void deleteTruong(int id) {
-        truongRepository.deleteById(id);
-    }
-
-    // ✅ Tìm trường theo ID
-    public TruongDaiHoc getTruongById(int id) {
+    
+    // Bạn có thể thêm các phương thức khác như tìm theo ID
+    public TruongDaiHoc getTruongById(Integer id) {
         return truongRepository.findById(id).orElse(null);
-    }
 
-    // ✅ Lấy tất cả trường (không sắp xếp)
-    public List<TruongDaiHoc> getAllTruong() {
-        return truongRepository.findAll();
-    }
+
+    // // ✅ Tìm trường theo ID
+    // public TruongDaiHoc getTruongById(int id) {
+    //     return truongRepository.findById(id).orElse(null);
+    // }
+
+    // // ✅ Lấy tất cả trường (không sắp xếp)
+    // public List<TruongDaiHoc> getAllTruong() {
+    //     return truongRepository.findAll();
+    // }
+}
 }
