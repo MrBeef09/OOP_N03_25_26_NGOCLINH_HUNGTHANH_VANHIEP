@@ -19,9 +19,9 @@ public class TruongDaiHocService {
     }
 
     
-    // Bạn có thể thêm các phương thức khác như tìm theo ID
-    public TruongDaiHoc getTruongById(Integer id) {
-        return truongRepository.findById(id).orElse(null);
+    // // Bạn có thể thêm các phương thức khác như tìm theo ID
+    // public TruongDaiHoc getTruongById(Integer id) {
+    //     return truongRepository.findById(id).orElse(null);
 
 
     // // ✅ Tìm trường theo ID
@@ -29,9 +29,8 @@ public class TruongDaiHocService {
     //     return truongRepository.findById(id).orElse(null);
     // }
 
-    // // ✅ Lấy tất cả trường (không sắp xếp)
+    // ✅ Lấy tất cả trường (không sắp xếp)
     // public List<TruongDaiHoc> getAllTruong() {
     //     return truongRepository.findAll();
     // }
-}
 }

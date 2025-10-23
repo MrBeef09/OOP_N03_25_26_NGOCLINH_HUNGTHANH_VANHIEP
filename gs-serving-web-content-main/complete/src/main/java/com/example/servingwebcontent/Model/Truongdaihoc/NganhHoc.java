@@ -20,6 +20,9 @@ public class NganhHoc {
     @Column(name = "to_hop_mon")
     private String toHopMon;
 
+    @Column(name = "diem_phu_hop")
+    private double diemPhuHop;
+
     @Column(name = "diem_chuan")
     private double diemChuan;
 
@@ -127,8 +130,10 @@ private List<String> soThichLienQuan;
     public void setToHopMon(String toHopMon) { this.toHopMon = toHopMon; }
 
     public double getDiemChuan() { return diemChuan; }
-
     public void setDiemChuan(double diemChuan) { this.diemChuan = diemChuan; }
+
+    public double getDiemPhuHop() { return diemPhuHop; }
+    public void setDiemPhuHop(double diemPhuHop) { this.diemPhuHop = diemPhuHop;}
 
     public double getCoHoiViecLam() { return coHoiViecLam; }
     public void setCoHoiViecLam(double coHoiViecLam) { this.coHoiViecLam = coHoiViecLam; }
