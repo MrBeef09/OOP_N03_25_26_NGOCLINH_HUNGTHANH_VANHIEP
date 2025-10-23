@@ -22,10 +22,4 @@ public class TruongDaiHocController {
         model.addAttribute("truongList", dsTruong);
         return "truongdaihoc"; 
     }
-
-
-    @GetMapping("/")
-    public String home() {
-        return "redirect:/truongdaihoc";
-    }
 }
