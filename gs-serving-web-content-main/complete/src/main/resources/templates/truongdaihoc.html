@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <title>Eschool - Danh sách các Trường Đại học</title>
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -24,38 +24,41 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* Đồng nhất màu nền gradient */
+            font-family: 'Open Sans', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px; /* Thêm padding để container không dính sát mép */
+            padding: 20px;
         }
 
-        /* Container ngoài cùng để giới hạn chiều rộng trang */
         .container {
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        /* Header - Style giống trang tư vấn */
         .header {
-            background: var(--bg-white);
-            padding: 15px 40px;
+            background: var(--primary-blue);
+            padding: 20px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             border-radius: 10px;
             margin-bottom: 30px;
-            position: sticky; /* Giữ header cố định */
-            top: 20px; /* Giữ khoảng cách 20px so với mép trên (do body có padding) */
+            position: sticky;
+            top: 20px;
             z-index: 10;
         }
 
         .logo {
             font-size: 28px;
             font-weight: bold;
-            color: var(--primary-blue);
+            color: var(--bg-white);
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         .nav {
@@ -64,36 +67,50 @@
         }
 
         .nav a {
+            color: var(--bg-white);
             text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 500;
-            transition: color 0.3s;
+            font-weight: 600;
+            transition: all 0.3s;
+            position: relative;
+            padding: 5px 0;
         }
 
-        .nav a:hover, .nav a.active {
-            color: var(--primary-blue);
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--bg-white);
+            transition: width 0.3s;
         }
 
-        /* Content Box - Thùng chứa bảng, style giống Form/Result section */
+        .nav a:hover::after, .nav a.active::after {
+            width: 100%;
+        }
+
         .content-box {
             background: var(--bg-white);
             border-radius: 20px;
-            padding: 40px; /* Tăng padding để đồng nhất */
+            padding: 40px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             margin-bottom: 30px;
         }
 
-        /* Thêm style cho tiêu đề để đồng nhất */
         .content-box h1 {
             font-size: 32px;
             color: var(--primary-blue);
             margin-bottom: 30px !important;
             text-align: center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
         }
 
         th {
             background-color: #facc15;
             text-align: center;
+            font-weight: 600;
         }
 
         .btn-detail {
@@ -106,8 +123,66 @@
         .btn-detail:hover {
             text-decoration: underline;
         }
+
+        .score-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .score-high {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .score-medium {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .score-low {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .detail-table {
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .detail-table th {
+            background-color: #667eea !important;
+            color: white;
+            font-weight: 600;
+            padding: 12px;
+            text-align: left;
+            width: 40%;
+        }
+
+        .detail-table td {
+            padding: 12px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .detail-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .icon-cell {
+            font-size: 18px;
+            margin-right: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary-blue);
+            border: none;
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background: var(--dark-blue);
+        }
         
-        /* Responsive cho header khi màn hình nhỏ */
         @media (max-width: 768px) {
             .header {
                 flex-direction: column;
@@ -116,9 +191,14 @@
             }
             .nav {
                 gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
             }
             .content-box {
                 padding: 20px;
+            }
+            .table-responsive {
+                font-size: 12px;
             }
         }
     </style>
@@ -127,74 +207,324 @@
 
 <div class="container">
     <header class="header">
-        <div class="logo">Eschool</div>
+        <a href="#home" class="logo">ESCHOOL</a>
         <nav class="nav">
-            <a th:href="@{/}" class="active">Home</a>
-            <a href="#">About</a>
-            <a href="#">Courses</a>
-            <a href="#">Blog</a>
-            <a href="#">Contact</a>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#courses">Courses</a>
+            <a href="#blog">Blog</a>
+            <a href="#contact">Contact</a>
+            <a href="#" class="active"><i class="fas fa-university"></i> Trường ĐH</a>
         </nav>
     </header>
 
     <div class="content-box">
-        <h1 class="text-center">Danh sách các Trường Đại học</h1>
+        <h1><i class="fas fa-graduation-cap"></i> Danh sách các Trường Đại học</h1>
 
-        <table class="table table-bordered table-hover align-middle text-center">
-            <thead>
-                <tr>
-                    <th>Tên trường</th>
-                    <th>Mã trường</th>
-                    <th>Địa chỉ</th>
-                    <th>Cơ sở vật chất</th>
-                    <th>Đội ngũ giảng viên</th>
-                    <th>Điểm danh gia theo tiêu chuẩn quốc tế</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="truong : ${truongList}">
-                    <td th:text="${truong.tenTruong}"></td>
-                    <td th:text="${truong.maTruong}"></td>
-                    <td th:text="${truong.diaChi}"></td>
-                    <td>
-                      <a href="#" class="btn-detail"
-                      th:attr="data-csvc=${truong.coSoVatChat != null ? truong.coSoVatChat.moTa : 'Không có thông tin'}"
-                      onclick="showDetail(this)">Xem chi tiết</a>
-                    </td>
-                    <td>Giảng viên trình độ cao</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle text-center">
+                <thead>
+                    <tr>
+                        <th>Tên trường</th>
+                        <th>Mã trường</th>
+                        <th>Địa chỉ</th>
+                        <th>Cơ sở vật chất</th>
+                        <th>Đội ngũ giảng viên</th>
+                        <th>Điểm đánh giá</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Dữ liệu sẽ được render bằng JavaScript -->
+                </tbody>
+            </table>
+        </div>
 
-        <a th:href="@{/}" class="btn btn-primary d-block mx-auto mt-3" style="width:200px;">← Quay lại</a>
+        <button onclick="goHome()" class="btn btn-primary d-block mx-auto mt-4" style="width:200px;">
+            <i class="fas fa-arrow-left"></i> Quay lại
+        </button>
     </div>
 </div>
 
+<!-- Modal Cơ sở vật chất -->
 <div class="modal fade" id="csvcModal" tabindex="-1" aria-labelledby="csvcModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
-            <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title" id="csvcModalLabel">Chi tiết Cơ sở vật chất</h5>
+            <div class="modal-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                <h5 class="modal-title" id="csvcModalLabel">
+                    <i class="fas fa-building"></i> Chi tiết Cơ sở vật chất
+                </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
-            <div class="modal-body" id="modalBody">
-                </div>
+            <div class="modal-body" id="modalBodyCSVC"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Đội ngũ giảng viên -->
+<div class="modal fade" id="giangvienModal" tabindex="-1" aria-labelledby="giangvienModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white;">
+                <h5 class="modal-title" id="giangvienModalLabel">
+                    <i class="fas fa-chalkboard-teacher"></i> Chi tiết Đội ngũ Giảng viên
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="modalBodyGiangVien"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
         </div>
     </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Hiển thị chi tiết trong popup
-    function showDetail(element) {
-        const content = element.getAttribute("data-csvc") || "Không có thông tin chi tiết.";
-        const modalBody = document.getElementById("modalBody");
+    // Dữ liệu demo với object đầy đủ
+    const truongList = [
+        {
+            tenTruong: "Đại học Quốc gia Hà Nội",
+            maTruong: "QHN",
+            diaChi: "144 Xuân Thủy, Cầu Giấy, Hà Nội",
+            coSoVatChat: {
+                thuVien: "Thư viện 5 tầng với 500.000 đầu sách, phòng đọc hiện đại, hệ thống tra cứu điện tử",
+                phongLab: "20 phòng lab công nghệ cao (AI, IoT, Robotics), trang thiết bị hiện đại nhập khẩu",
+                kyTucXa: "10 tòa ký túc xá hiện đại, phòng 4 người có điều hòa, nước nóng, wifi miễn phí",
+                sanVanDong: "Sân vận động quốc tế 10.000 chỗ ngồi, đạt chuẩn FIFA",
+                phongHoc: "50 phòng học thông minh có máy chiếu 4K, điều hòa, âm thanh Bose",
+                canTin: "3 căng tin phục vụ 2000 người/buổi, đa dạng món ăn, đạt chuẩn ATTP"
+            },
+            doiNguGiangVien: {
+                tongSo: "850 giảng viên",
+                tienSi: "95% có học vị Tiến sĩ (800 người)",
+                thacSi: "5% Thạc sĩ (50 người)",
+                giaoSu: "120 Giáo sư, Phó Giáo sư",
+                ngoaiNgu: "80% thông thạo tiếng Anh, 30% biết thêm ngôn ngữ khác",
+                kinhNghiem: "Trung bình 15 năm kinh nghiệm giảng dạy"
+            },
+            diemDanhGia: 9.2
+        },
+        {
+            tenTruong: "Đại học Bách Khoa Hà Nội",
+            maTruong: "HUST",
+            diaChi: "Số 1 Đại Cồ Việt, Hai Bà Trưng, Hà Nội",
+            coSoVatChat: {
+                thuVien: "Thư viện điện tử với 200.000 tài liệu kỹ thuật, database quốc tế IEEE, Springer",
+                phongLab: "15 phòng lab cơ khí, điện tử, xưởng CNC 5 trục, máy in 3D công nghiệp",
+                kyTucXa: "5 tòa KTX với 3000 chỗ ở, phòng đôi và đơn, bảo vệ 24/7",
+                sanVanDong: "Sân bóng đá cỏ nhân tạo, 4 sân tennis, phòng gym 500m²",
+                phongHoc: "80 phòng học có bảng tương tác, máy chiếu laser, hệ thống ghi hình",
+                canTin: "2 căng tin lớn, 1 food court 20 gian hàng, cafe sinh viên"
+            },
+            doiNguGiangVien: {
+                tongSo: "720 giảng viên",
+                tienSi: "90% có học vị Tiến sĩ (650 người)",
+                thacSi: "10% Thạc sĩ (70 người)",
+                giaoSu: "95 Giáo sư, Phó Giáo sư",
+                ngoaiNgu: "75% thông thạo tiếng Anh",
+                kinhNghiem: "Nhiều giảng viên từng làm việc tại các công ty công nghệ hàng đầu"
+            },
+            diemDanhGia: 9.0
+        },
+        {
+            tenTruong: "Đại học Kinh tế Quốc dân",
+            maTruong: "NEU",
+            diaChi: "207 Giải Phóng, Hai Bà Trưng, Hà Nội",
+            coSoVatChat: {
+                thuVien: "Thư viện kinh tế chuyên ngành 100.000 đầu sách, tạp chí quốc tế Bloomberg",
+                phongLab: "10 phòng máy tính iMac, 1 trading room mô phỏng chứng khoán real-time",
+                kyTucXa: "KTX 8 tầng với 1500 sinh viên, phòng 4-6 người, khu vực tự học",
+                sanVanDong: "Nhà thi đấu đa năng 500 chỗ, bể bơi 4 mùa, phòng yoga",
+                phongHoc: "40 phòng học có projector Sony, âm thanh tốt, ghế ngồi ergonomic",
+                canTin: "2 căng tin sạch sẽ, giá sinh viên 15-30k/suất, menu đa dạng"
+            },
+            doiNguGiangVien: {
+                tongSo: "550 giảng viên",
+                tienSi: "85% có học vị Tiến sĩ (470 người)",
+                thacSi: "15% Thạc sĩ (80 người)",
+                giaoSu: "65 Giáo sư, Phó Giáo sư",
+                ngoaiNgu: "90% thông thạo tiếng Anh, nhiều người từng học tập tại nước ngoài",
+                kinhNghiem: "Nhiều giảng viên là chuyên gia tư vấn cho doanh nghiệp"
+            },
+            diemDanhGia: 8.5
+        },
+        {
+            tenTruong: "Đại học Ngoại thương",
+            maTruong: "FTU",
+            diaChi: "91 Chùa Láng, Đống Đa, Hà Nội",
+            coSoVatChat: {
+                thuVien: "Thư viện ngoại ngữ với sách 7 thứ tiếng (Anh, Trung, Nhật, Hàn, Pháp, Đức, Nga)",
+                phongLab: "Trung tâm ngoại ngữ 20 phòng có thiết bị nghe chuẩn TOEIC/IELTS",
+                kyTucXa: "KTX 6 tầng cho 1000 sinh viên, phòng 4 người, khu giặt tự động",
+                sanVanDong: "Sân thể thao ngoài trời đa năng, sân cầu lông trong nhà",
+                phongHoc: "35 phòng học multimedia, hệ thống nghe hiện đại cho học ngoại ngữ",
+                canTin: "2 căng tin + 1 quán cafe phong cách Hàn Quốc"
+            },
+            doiNguGiangVien: {
+                tongSo: "480 giảng viên",
+                tienSi: "80% có học vị Tiến sĩ (385 người)",
+                thacSi: "20% Thạc sĩ (95 người)",
+                giaoSu: "50 Giáo sư, Phó Giáo sư",
+                ngoaiNgu: "100% thông thạo ít nhất 2 ngoại ngữ, 40% biết 3 ngôn ngữ trở lên",
+                kinhNghiem: "Nhiều giảng viên là dịch giả, biên phiên dịch viên chuyên nghiệp"
+            },
+            diemDanhGia: 8.3
+        },
+        {
+            tenTruong: "Đại học Y Hà Nội",
+            maTruong: "HMU",
+            diaChi: "Số 1 Tôn Thất Tùng, Đống Đa, Hà Nội",
+            coSoVatChat: {
+                thuVien: "Thư viện y học với 80.000 tài liệu chuyên ngành, database PubMed, Cochrane",
+                phongLab: "Phòng lab giải phẫu, sinh học phân tử, kính hiển vi điện tử Zeiss",
+                kyTucXa: "KTX 4 tầng cho 800 sinh viên y khoa, phòng học nhóm, tủ thuốc",
+                sanVanDong: "Sân tập thể dục, yoga, phòng gym cho sinh viên y khoa",
+                phongHoc: "25 phòng học + 5 phòng mô phỏng bệnh viện, mô hình người 3D",
+                canTin: "1 căng tin lớn đạt chuẩn vệ sinh 5*, thực đơn dinh dưỡng"
+            },
+            doiNguGiangVien: {
+                tongSo: "620 giảng viên",
+                tienSi: "92% có học vị Tiến sĩ Y khoa (570 người)",
+                thacSi: "8% Thạc sĩ (50 người)",
+                giaoSu: "85 Giáo sư, Phó Giáo sư - Bác sĩ",
+                ngoaiNgu: "70% thông thạo tiếng Anh y khoa",
+                kinhNghiem: "Đội ngũ bác sĩ giảng viên hàng đầu VN, nhiều người là chuyên gia đầu ngành"
+            },
+            diemDanhGia: 8.8
+        }
+    ];
+
+    // Render bảng
+    function renderTable() {
+        const tbody = document.getElementById('tableBody');
+        tbody.innerHTML = truongList.map((truong, index) => {
+            let scoreClass = 'score-low';
+            if (truong.diemDanhGia >= 9.0) scoreClass = 'score-high';
+            else if (truong.diemDanhGia >= 8.5) scoreClass = 'score-medium';
+            
+            return `
+                <tr>
+                    <td><strong>${truong.tenTruong}</strong></td>
+                    <td>${truong.maTruong}</td>
+                    <td>${truong.diaChi}</td>
+                    <td>
+                        <a href="#" class="btn-detail" 
+                           onclick="showDetailCSVC(event, ${index})">
+                           <i class="fas fa-eye"></i> Xem chi tiết
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#" class="btn-detail" 
+                           onclick="showDetailGiangVien(event, ${index})">
+                           <i class="fas fa-eye"></i> Xem chi tiết
+                        </a>
+                    </td>
+                    <td>
+                        <span class="score-badge ${scoreClass}">
+                            <i class="fas fa-star"></i> ${truong.diemDanhGia}/10
+                        </span>
+                    </td>
+                </tr>
+            `;
+        }).join('');
+    }
+
+    // Hiển thị chi tiết CƠ SỞ VẬT CHẤT
+    function showDetailCSVC(event, index) {
+        event.preventDefault();
+        const csvc = truongList[index].coSoVatChat;
+        const tenTruong = truongList[index].tenTruong;
+        
+        const modalBody = document.getElementById("modalBodyCSVC");
         modalBody.innerHTML = `
-            <ul class="list-group">
-                <li class="list-group-item">${content}</li>
-            </ul>`;
+            <div class="alert alert-info">
+                <i class="fas fa-university"></i> <strong>${tenTruong}</strong>
+            </div>
+            <table class="detail-table table table-bordered">
+                <tbody>
+                    <tr>
+                        <th><span class="icon-cell">📚</span>Thư viện</th>
+                        <td>${csvc.thuVien || 'Chưa cập nhật'}</td>
+                    </tr>
+                    <tr>
+                        <th><span class="icon-cell">🔬</span>Phòng Lab</th>
+                        <td>${csvc.phongLab || 'Chưa cập nhật'}</td>
+                    </tr>
+                    <tr>
+                        <th><span class="icon-cell">🏠</span>Ký túc xá</th>
+                        <td>${csvc.kyTucXa || 'Chưa cập nhật'}</td>
+                    </tr>
+                    <tr>
+                        <th><span class="icon-cell">⚽</span>Sân vận động</th>
+                        <td>${csvc.sanVanDong || 'Chưa cập nhật'}</td>
+                    </tr>
+                    <tr>
+                        <th><span class="icon-cell">🎓</span>Phòng học</th>
+                        <td>${csvc.phongHoc || 'Chưa cập nhật'}</td>
+                    </tr>
+                    <tr>
+                        <th><span class="icon-cell">🍽️</span>Căng tin</th>
+                        <td>${csvc.canTin || 'Chưa cập nhật'}</td>
+                    </tr>
+                </tbody>
+            </table>
+        `;
         new bootstrap.Modal(document.getElementById('csvcModal')).show();
     }
+
+    // Hiển thị chi tiết ĐỘI NGŨ GIẢNG VIÊN
+    function showDetailGiangVien(event, index) {
+        event.preventDefault();
+        const gv = truongList[index].doiNguGiangVien;
+        const tenTruong = truongList[index].tenTruong;
+        
+        const modalBody = document.getElementById("modalBodyGiangVien");
+        modalBody.innerHTML = `
+            <div class="alert alert-success">
+                <i class="fas fa-university"></i> <strong>${tenTruong}</strong>
+            </div>
+            <table class="detail-table table table-bordered">
+                <tbody>
+                    <tr>
+                        <th><span class="icon-cell">👥</span>Tổng số giảng viên</th>
+                        <td>${gv.tongSo || 'Chưa cập nhật'}</td>
+                    </tr>
+                    <tr>
+                        <th><span class="icon-cell">🎓</span>Tiến sĩ</th>
+                        <td>${gv.tienSi || 'Chưa cập nhật'}</td>
+                    </tr>
+                    <tr>
+                        <th><span class="icon-cell">📖</span>Thạc sĩ</th>
+                        <td>${gv.thacSi || 'Chưa cập nhật'}</td>
+                    </tr>
+                    <tr>
+                        <th><span class="icon-cell">👨‍🏫</span>Giáo sư, Phó GS</th>
+                        <td>${gv.giaoSu || 'Chưa cập nhật'}</td>
+                    </tr>
+                    <tr>
+                        <th><span class="icon-cell">🌍</span>Ngoại ngữ</th>
+                        <td>${gv.ngoaiNgu || 'Chưa cập nhật'}</td>
+                    </tr>
+                    <tr>
+                        <th><span class="icon-cell">💼</span>Kinh nghiệm</th>
+                        <td>${gv.kinhNghiem || 'Chưa cập nhật'}</td>
+                    </tr>
+                </tbody>
+            </table>
+        `;
+        new bootstrap.Modal(document.getElementById('giangvienModal')).show();
+    }
+
+    // Quay về trang chủ
+    function goHome() {
+        alert('Quay về trang chủ Eschool');
+    }
+
+    // Khởi chạy
+    renderTable();
 </script>
 
 </body>
