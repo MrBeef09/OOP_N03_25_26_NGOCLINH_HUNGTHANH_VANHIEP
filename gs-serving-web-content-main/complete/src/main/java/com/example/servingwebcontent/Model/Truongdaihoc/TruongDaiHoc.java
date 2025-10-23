@@ -17,13 +17,13 @@ public class TruongDaiHoc {
 
     // ✅ Thêm trường điểm đánh giá để lưu trong database
     @Column(name = "diem_danh_gia")
-    private int diemDanhGia;
+    private double diemDanhGia;
 
     // Nếu bạn không cần ánh xạ với bảng khác, thì giữ @Transient để tránh lỗi JPA
-    @Transient
+    @OneToOne(mappedBy = "truongDaiHoc", cascade = CascadeType.ALL)
     private CoSoVatChat coSoVatChat;
 
-    @Transient
+    @OneToOne(mappedBy = "truongDaiHoc", cascade = CascadeType.ALL)
     private DoiNguGiaoVien doiNguGiaoVien;
 
     @Transient
@@ -71,7 +71,7 @@ public class TruongDaiHoc {
         this.diaChi = diaChi;
     }
 
-    public int getDiemDanhGia() {
+    public double getDiemDanhGia() {
         return diemDanhGia;
     }
 
