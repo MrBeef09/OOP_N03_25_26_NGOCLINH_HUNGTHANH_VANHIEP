@@ -17,14 +17,16 @@
         }
 
         :root {
-            --primary-blue: #2563eb;
-            --dark-blue: #1e40af;
-            --light-blue: #dbeafe;
-            --accent-blue: #3b82f6;
-            --bg-white: #ffffff;
-            --bg-gray: #f8f9fa;
-            --text-dark: #1f2937;
-            --text-gray: #6b7280;
+            --primary-blue: #48360c;
+            --dark-blue: #452e0c;
+            --light-blue: #272206;
+            --accent-blue: #aead8d;
+            --bg-white: #f9f8ee;
+            --bg-gray: #8e6b52;
+            --text-dark: #d2d3b6;
+            --text-gray: #d49817;
+            --primary-yellow: #090801;
+            --primary-black: #060200;
         }
 
         body {
@@ -48,7 +50,8 @@
 
         /* Header */
         .header {
-            background: var(--primary-blue);
+            background: #492c02;
+            color: #574617;
             padding: 20px 0;
             position: fixed;
             width: 100%;
@@ -59,7 +62,7 @@
         }
 
         .header.scrolled {
-            background: var(--dark-blue);
+            background: #775d05;
             padding: 15px 0;
         }
 
@@ -140,7 +143,7 @@
 
         /* Hero */
         .hero {
-            background: linear-gradient(rgba(37, 99, 235, 0.85), rgba(30, 64, 175, 0.85)),
+            background: linear-gradient(rgba(200, 182, 78, 0.85), rgba(176, 120, 30, 0.85)),
                         url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1920') center/cover;
             height: 100vh;
             display: flex;
@@ -185,7 +188,7 @@
         /* Icon Boxes */
         .icon-boxes {
             padding: 80px 0;
-            background: var(--primary-blue);
+            background: #573a0d;
         }
 
         .icon-boxes .container {
@@ -206,7 +209,7 @@
         }
 
         .icon-box:hover {
-            background: var(--dark-blue);
+            background: #9b8d4d;
             transform: translateY(-5px);
         }
 
@@ -468,7 +471,7 @@
             display: block;
             font-weight: 600;
             margin-bottom: 8px;
-            color: var(--text-dark);
+            color: #d2d3b6;
         }
 
         .contact-form input,
@@ -487,7 +490,7 @@
         }
 
         .contact-form button {
-            background: var(--primary-blue);
+            background: #d2d3b6;
             color: var(--bg-white);
             border: none;
             padding: 15px 30px;
@@ -505,7 +508,7 @@
 
         /* Footer */
         .footer {
-            background: var(--dark-blue);
+            background: #997034;
             color: var(--bg-white);
             padding: 60px 0 20px;
         }
@@ -655,7 +658,7 @@
 <body>
     <header class="header">
         <div class="container">
-            <a href="#home" class="logo">ESCHOOL</a>
+            <a href="#home" class="logo">UNIFINDER</a>
             <nav>
                 <ul class="nav-menu">
                     <li><a href="#home">Home</a></li>
@@ -663,6 +666,8 @@
                     <li><a href="#courses">Courses</a></li>
                     <li><a href="#blog">Blog</a></li>
                     <li><a href="#contact">Contact</a></li>
+                    <li><a href="login.html" class="signin-link"><i class="fas fa-sign-in-alt"></i> Sign in</a></li>
+
                     <li><a href="/profile-page" class="profile-link"><i class="fas fa-user-circle"></i> Profile</a></li>
                 </ul>
                 <button class="menu-button" aria-label="Toggle menu">
