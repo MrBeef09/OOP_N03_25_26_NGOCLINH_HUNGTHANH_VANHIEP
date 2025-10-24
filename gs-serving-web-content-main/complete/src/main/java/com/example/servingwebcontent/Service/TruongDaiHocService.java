@@ -15,7 +15,7 @@ public class TruongDaiHocService {
 
     @Autowired
     private TruongDaiHocRepository truongRepository;
-public List<TruongDaiHoc> getDanhSachTruongSapXepTheoDiem() {
+    public List<TruongDaiHoc> getDanhSachTruongSapXepTheoDiem() {
         // 1. Lấy tất cả các trường từ database
         List<TruongDaiHoc> allTruong = truongRepository.findAll();
 
@@ -54,3 +54,4 @@ public List<TruongDaiHoc> getDanhSachTruongSapXepTheoDiem() {
     
 }
 }
+
