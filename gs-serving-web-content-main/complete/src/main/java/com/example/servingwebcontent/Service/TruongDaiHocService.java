@@ -4,6 +4,7 @@ import com.example.servingwebcontent.Model.Truongdaihoc.TruongDaiHoc;
 import com.example.servingwebcontent.Repository.TruongDaiHocRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.example.servingwebcontent.Exception.DataNotFoundException;
 
 import java.util.Comparator;
 import java.util.stream.Collectors;
@@ -17,6 +18,10 @@ public class TruongDaiHocService {
 public List<TruongDaiHoc> getDanhSachTruongSapXepTheoDiem() {
         // 1. Lấy tất cả các trường từ database
         List<TruongDaiHoc> allTruong = truongRepository.findAll();
+
+        if (allTruong == null || allTruong.isEmpty()) {
+        throw new DataNotFoundException("Không tìm thấy dữ liệu Trường Đại Học trong hệ thống.");
+    }
 
         // 2. Lặp qua từng trường để tính toán và cập nhật điểm đánh giá
         for (TruongDaiHoc truong : allTruong) {
