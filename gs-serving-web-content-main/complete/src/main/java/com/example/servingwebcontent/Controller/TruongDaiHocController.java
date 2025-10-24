@@ -16,10 +16,20 @@ public class TruongDaiHocController {
     @Autowired
     private TruongDaiHocService truongService;
 
+    //  Trang hiển thị danh sách trường đại học, tự động tính và cập nhật điểm
     @GetMapping("/truongdaihoc")
     public String showTruongDaiHocPage(Model model) {
+        // Lấy danh sách trường đã tính điểm và sắp xếp
         List<TruongDaiHoc> dsTruong = truongService.getDanhSachTruongSapXepTheoDiem();
-        model.addAttribute("truongList", dsTruong);
-        return "truongdaihoc"; 
+
+        // Đảm bảo không null
+        if (dsTruong == null || dsTruong.isEmpty()) {
+            model.addAttribute("message", "Chưa có dữ liệu trường đại học trong hệ thống!");
+        } else {
+            model.addAttribute("truongList", dsTruong);
+        }
+
+        // Trả về tên file HTML (resources/templates/truongdaihoc.html)
+        return "truongdaihoc";
     }
 }
