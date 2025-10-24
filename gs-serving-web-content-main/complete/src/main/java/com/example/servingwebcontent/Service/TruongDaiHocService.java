@@ -12,14 +12,7 @@ import java.util.List;
 public class TruongDaiHocService {
 
     @Autowired
-<<<<<<< HEAD
-    private TruongDaiHocRepository truongRepository;
-    public List<TruongDaiHoc> getDanhSachTruongSapXepTheoDiem() {
-        // 1. Lấy tất cả các trường từ database
-        List<TruongDaiHoc> allTruong = truongRepository.findAll();
-=======
     private TruongDaiHocRepository truongRepo;
->>>>>>> origin/main
 
     public List<TruongDaiHoc> getDanhSachTruongSapXepTheoDiem() {
         // 1. Lấy tất cả các trường từ DB
@@ -38,4 +31,3 @@ public class TruongDaiHocService {
         return ds;
     }
 }
-
