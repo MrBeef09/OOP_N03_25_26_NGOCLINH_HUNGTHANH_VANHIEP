@@ -7,7 +7,7 @@ public class MyException extends Exception {
     public MyException(String message) {
         super(message);  // Gọi constructor của lớp cha (Exception)
     }
-
+    
     // (Tuỳ chọn) có thể thêm constructor thứ 2 nhận cả nguyên nhân gốc (Throwable)
     public MyException(String message, Throwable cause) {
         super(message, cause);
