@@ -8,10 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @Controller
 public class GreetingController {
 
-	@GetMapping("/greeting")
+	@GetMapping("/index")
 	public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
 		model.addAttribute("name", name);
-		return "greeting";
+		return "index";
 	}
 
 }
