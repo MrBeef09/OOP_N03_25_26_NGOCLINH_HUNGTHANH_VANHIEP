@@ -27,6 +27,9 @@
             --text-gray: #d49817;
             --primary-yellow: #090801;
             --primary-black: #060200;
+            --primary-blue: #0056b3;
+            --light-blue: #dbeafe;
+            --bg-white: #ffffff;
         }
 
         body {
@@ -143,6 +146,7 @@
 
         /* Hero */
         .hero {
+            /* lớp nền cơ bản */
             background: linear-gradient(rgba(200, 182, 78, 0.85), rgba(176, 120, 30, 0.85)),
                         url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1920') center/cover;
             height: 100vh;
@@ -153,22 +157,40 @@
             color: var(--bg-white);
             margin-top: 70px;
             position: relative;
-        }
 
-        .hero-content h1 {
+            /* hiệu ứng đổi ảnh nền */
+            animation: changeBackground 15s infinite ease-in-out;
+            transition: background-image 2s ease;
+            }
+
+            .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4); /* lớp mờ phủ để chữ nổi bật */
+            z-index: 1;
+            }
+
+            .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 0 20px;
+            }
+
+            .hero-content h1 {
             font-size: 3.5rem;
             color: var(--bg-white);
             margin-bottom: 20px;
             animation: fadeInUp 1s ease;
-        }
+            }
 
-        .hero-content p {
+            .hero-content p {
             font-size: 1.2rem;
             margin-bottom: 30px;
             color: var(--light-blue);
-        }
+            }
 
-        .btn {
+            .btn {
             display: inline-block;
             padding: 15px 40px;
             background: var(--bg-white);
@@ -178,13 +200,57 @@
             font-weight: 600;
             transition: all 0.3s;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
+            }
 
-        .btn:hover {
+            .btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 25px rgba(255,255,255,0.3);
-        }
+            }
 
+            /* ===== HIỆU ỨNG FADE CHỮ ===== */
+            @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            }
+
+            /* ===== HIỆU ỨNG ĐỔI ẢNH NỀN ===== */
+            @keyframes changeBackground {
+            0% {
+                background-image: linear-gradient(rgba(200, 182, 78, 0.85), rgba(176, 120, 30, 0.85)),
+                                url('https://hoanghamobile.com/tin-tuc/wp-content/webp-express/webp-images/uploads/2024/07/anh-truong-hoc-8.jpg.webp');
+            }
+            33% {
+                background-image: linear-gradient(rgba(200, 182, 78, 0.85), rgba(176, 120, 30, 0.85)),
+                                url('https://hoanghamobile.com/tin-tuc/wp-content/webp-express/webp-images/uploads/2024/07/anh-truong-hoc-10.jpg.webp');
+            }
+            66% {
+                background-image: linear-gradient(rgba(200, 182, 78, 0.85), rgba(176, 120, 30, 0.85)),
+                                url('https://hoanghamobile.com/tin-tuc/wp-content/webp-express/webp-images/uploads/2024/07/anh-truong-hoc-11.jpg.webp');
+            }
+            100% {
+                background-image: linear-gradient(rgba(200, 182, 78, 0.85), rgba(176, 120, 30, 0.85)),
+                                url('https://hoanghamobile.com/tin-tuc/wp-content/webp-express/webp-images/uploads/2024/07/anh-truong-hoc-13.jpg.webp');
+            }
+            }
+
+            /* ===== RESPONSIVE ===== */
+            @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+            .hero-content p {
+                font-size: 1rem;
+            }
+            .btn {
+                padding: 12px 30px;
+            }
+            }
         /* Icon Boxes */
         .icon-boxes {
             padding: 80px 0;
