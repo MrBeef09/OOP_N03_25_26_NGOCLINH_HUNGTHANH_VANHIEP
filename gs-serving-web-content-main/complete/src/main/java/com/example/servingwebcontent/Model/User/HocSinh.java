@@ -1,117 +1,157 @@
 package com.example.servingwebcontent.Model.User;
 
-//package User;
+import java.time.LocalDate;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "hoc_sinh")
 public class HocSinh extends Nguoi {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "ma_hoc_sinh", nullable = false, unique = true)
     private String maHocSinh;
-    private ThongTinCaNhan thongTinCaNhan;
-    private KetQuaHocTap ketQuaHocTap;
-    private SoThichNganhHoc soThichNganhHoc;
+
+    @Column(name = "ho_ten", nullable = false)
+    private String hoTen;
+
+    @Column(name = "ngay_sinh")
+    private LocalDate ngaySinh;
+
+    @Column(name = "gioi_tinh")
+    private String gioiTinh;
+
+    @Column(name = "dia_chi")
+    private String diaChi;
+
+    @Column(name = "so_dien_thoai")
+    private String soDienThoai;
+
+    @Column(name = "diem_thi")
+    private Double diemThi;
+
+    //  Mối quan hệ 1-1 với tài khoản
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "tai_khoan_id", referencedColumnName = "id")
     private TaiKhoan taiKhoan;
 
-    //constructor
-    public HocSinh(String maHocSinh, ThongTinCaNhan thongTinCaNhan,
-                   KetQuaHocTap ketQuaHocTap, SoThichNganhHoc soThichNganhHoc,
-                   TaiKhoan taiKhoan) {
+    // ✅ Constructors
+    public HocSinh() {}
+
+    public HocSinh(String maHocSinh, String hoTen, String ngaySinh, String gioiTinh,
+                   String diaChi, String soDienThoai, Double diemThi, TaiKhoan taiKhoan) {
         this.maHocSinh = maHocSinh;
-        this.thongTinCaNhan = thongTinCaNhan;
-        this.ketQuaHocTap = ketQuaHocTap;
-        this.soThichNganhHoc = soThichNganhHoc;
+        this.hoTen = hoTen;
+        this.ngaySinh = ngaySinh;
+        this.gioiTinh = gioiTinh;
+        this.diaChi = diaChi;
+        this.soDienThoai = soDienThoai;
+        this.diemThi = diemThi;
         this.taiKhoan = taiKhoan;
     }
 
-    //getter setter
-    public String getMaHocSinh(){
+    //  Getter & Setter
+    public Long getId() {
+        return id;
+    }
+
+    public String getMaHocSinh() {
         return maHocSinh;
     }
+
     public void setMaHocSinh(String maHocSinh) {
-        if (maHocSinh != null && !maHocSinh.trim().isEmpty()) {
-            this.maHocSinh = maHocSinh;
-        }
+        this.maHocSinh = maHocSinh;
     }
 
-    //method
-    public void XemThongTin() {
-        System.out.println("Ma hoc sinh: " + maHocSinh +
-                           " | Ho ten: " + getHoTen() +
-                           " | Ngay sinh: " + getNgaySinh() +
-                           " | Gioi tinh: " + getGioiTinh() +
-                           " | Dia chi: " + (thongTinCaNhan != null ? thongTinCaNhan.getDiaChi() : "Chua cap nhat") +
-                           " | So dien thoai: " + (thongTinCaNhan != null ? thongTinCaNhan.getSoDienThoai() : "Chua cap nhat")+
-                           " | Diem thi: " + (ketQuaHocTap != null ? ketQuaHocTap.getDiemThi() : "Chua cap nhat") +
-                           " | Nganh quan tam: " + (soThichNganhHoc != null ? soThichNganhHoc.getNganhQuanTam() : "Chua cap nhat") +
-                           " | So thich: " + (soThichNganhHoc != null ? soThichNganhHoc.getSoThich() : "Chua cap nhat") +
-                           " | Tai nang: " + (soThichNganhHoc != null ? soThichNganhHoc.getTaiNang() : "Chua cap nhat"));
+    public String getHoTen() {
+        return hoTen;
     }
 
-
-    public void CapNhatThongTinCaNhan(String hoTen, int ngaySinh, String gioiTinh, 
-                                  String maHocSinh, String diaChi, int soDienThoai, 
-                                  KetQuaHocTap ketQuaHocTap, 
-                                  SoThichNganhHoc soThichNganhHoc, 
-                                  TaiKhoan taiKhoan) {
-    
-    this.setHoTen(hoTen);
-    this.setNgaySinh(ngaySinh); 
-    this.setGioiTinh(gioiTinh);
-    this.setMaHocSinh(maHocSinh);
-
-    if (this.thongTinCaNhan != null) {
-        this.thongTinCaNhan.CapNhatThongTin(diaChi, soDienThoai);
-    } else {
-        System.out.println("Thong tin ca nhan chua duoc khoi tao.");
+    public void setHoTen(String hoTen) {
+        this.hoTen = hoTen;
     }
 
-    if (ketQuaHocTap != null) {
-        this.ketQuaHocTap = ketQuaHocTap;
-    } else {
-        System.out.println("Ket qua hoc tap chua duoc khoi tao.");
+    public LocalDate getNgaySinh() {
+        return ngaySinh;
     }
 
-    if (soThichNganhHoc != null) {
-        this.soThichNganhHoc = soThichNganhHoc;
-    } else {
-        System.out.println("So thich nganh hoc chua duoc khoi tao.");}
-                                  }
-
-    public boolean dangNhap(String password, String username) {
-    if (taiKhoan != null) {
-        return taiKhoan.Dangnhap(password, username);
-    }
-    return false; 
-   }
-
-    public void chonTruongDaiHoc(String maTruong) {
-        System.out.println(getHoTen() + " đã chọn trường có mã: " + maTruong);
+    public LocalDate setNgaySinh(LocalDate ngaySinh) {
+        this.ngaySinh = ngaySinh;
     }
 
-    public void xemDanhSachTruongGoiY() {
-        System.out.println("Danh sach truong goi y cho hoc sinh " + getHoTen() + ":");
-        if (soThichNganhHoc != null) {
-            System.out.println("- Goi y dua theo nganh: " + soThichNganhHoc.getNganhQuanTam());
-        } else {
-            System.out.println("- Hien chua có du lieu ve so thich nganh hoc.");
-        }
-        if (ketQuaHocTap != null) {
-            System.out.println("- Goi y dua theo điểm thi: " + ketQuaHocTap.getDiemThi());
-        } else {
-            System.out.println("- Hien chua có du lieu ve diem thi.");
-        }
-        if (soThichNganhHoc.getTaiNang() != null) {
-            System.out.println("- Goi y dua theo tai nang: " + soThichNganhHoc.getTaiNang());
-        } else {
-            System.out.println("- Hien chua có du lieu ve tai nang.");
-            
-        }
+    public String getGioiTinh() {
+        return gioiTinh;
     }
+
+    public void setGioiTinh(String gioiTinh) {
+        this.gioiTinh = gioiTinh;
+    }
+
+    public String getDiaChi() {
+        return diaChi;
+    }
+
+    public void setDiaChi(String diaChi) {
+        this.diaChi = diaChi;
+    }
+
+    public String getSoDienThoai() {
+        return soDienThoai;
+    }
+
+    public void setSoDienThoai(String soDienThoai) {
+        this.soDienThoai = soDienThoai;
+    }
+
+    public Double getDiemThi() {
+        return diemThi;
+    }
+
+    public void setDiemThi(Double diemThi) {
+        this.diemThi = diemThi;
+    }
+
+    public TaiKhoan getTaiKhoan() {
+        return taiKhoan;
+    }
+
+    public void setTaiKhoan(TaiKhoan taiKhoan) {
+        this.taiKhoan = taiKhoan;
+    }
+
+    //  Một vài method tiện ích
+    public void capNhatThongTin(String diaChiMoi, String sdtMoi, Double diemMoi) {
+        if (diaChiMoi != null && !diaChiMoi.isEmpty()) this.diaChi = diaChiMoi;
+        if (sdtMoi != null && !sdtMoi.isEmpty()) this.soDienThoai = sdtMoi;
+        if (diemMoi != null) this.diemThi = diemMoi;
+    }
+
     @Override
-public String toString() {
-    return "Học sinh {" +
-            "Mã HS='" + maHocSinh + '\'' +
-            ", Họ tên='" + getHoTen() + '\'' +
-            ", Ngày sinh=" + getNgaySinh() +
-            ", Giới tính='" + getGioiTinh() + '\'' +
-            '}';
-}
+    public void XemThongTin() {
+        System.out.println("Học sinh: " + hoTen);
+        System.out.println("Mã HS: " + maHocSinh);
+        System.out.println("Giới tính: " + gioiTinh);
+        System.out.println("Ngày sinh: " + ngaySinh);
+        System.out.println("Địa chỉ: " + diaChi);
+        System.out.println("Điện thoại: " + soDienThoai);
+        System.out.println("Điểm thi: " + diemThi);
+        System.out.println("Tài khoản: " + (taiKhoan != null ? taiKhoan.getTenDangNhap() : "Chưa có"));
+    }
 
-    
+    @Override
+    public String toString() {
+        return "HocSinh{" +
+                "maHocSinh='" + maHocSinh + '\'' +
+                ", hoTen='" + hoTen + '\'' +
+                ", ngaySinh='" + ngaySinh + '\'' +
+                ", gioiTinh='" + gioiTinh + '\'' +
+                ", diaChi='" + diaChi + '\'' +
+                ", soDienThoai='" + soDienThoai + '\'' +
+                ", diemThi=" + diemThi +
+                ", taiKhoan=" + (taiKhoan != null ? taiKhoan.getTenDangNhap() : "null") +
+                '}';
+    }
 }

@@ -1,65 +1,75 @@
 package com.example.servingwebcontent.Model.User;
 
-public class TaiKhoan {
-    private String tenDangNhap;
-    private String matKhau;
-    private String vaiTro;
+import jakarta.persistence.*;
 
-    //getter setter 
-    public String getMatKhau(){
-        return matKhau;
+@Entity
+@Table(name = "tai_khoan")
+public class TaiKhoan {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "ten_dang_nhap", nullable = false, unique = true)
+    private String tenDangNhap;
+
+    @Column(name = "mat_khau", nullable = false)
+    private String matKhau;
+
+    @Column(name = "vai_tro", nullable = false)
+    private String vaiTro; // "ADMIN" hoặc "HOCSINH"
+
+    public TaiKhoan() {}
+
+    public TaiKhoan(String tenDangNhap, String matKhau, String vaiTro) {
+        this.tenDangNhap = tenDangNhap;
+        this.matKhau = matKhau;
+        this.vaiTro = vaiTro;
     }
-    public String getTenDangNhap(){
+
+    // Getter và Setter
+    public Long getId() {
+        return id;
+    }
+
+    public String getTenDangNhap() {
         return tenDangNhap;
     }
-    public String getVaiTro(){
+
+    public void setTenDangNhap(String tenDangNhap) {
+        this.tenDangNhap = tenDangNhap;
+    }
+
+    public String getMatKhau() {
+        return matKhau;
+    }
+
+    public void setMatKhau(String matKhau) {
+        this.matKhau = matKhau;
+    }
+
+    public String getVaiTro() {
         return vaiTro;
     }
-    public void setMatKhau(String matKhau , String tenDangNhap ,String vaiTro){
-        if (matKhau != null && matKhau.length() > 0 ){
-            this.matKhau = matKhau;
-        }
-        if(tenDangNhap!= null && tenDangNhap.length() > 0){
-            this.tenDangNhap = tenDangNhap;
-        }
-        if(vaiTro != null && vaiTro.equals("Hoc sinh") || vaiTro.equals("Admin")){
-            this.vaiTro = vaiTro;
+
+    public void setVaiTro(String vaiTro) {
+        if (vaiTro.equalsIgnoreCase("ADMIN") || vaiTro.equalsIgnoreCase("HOCSINH")) {
+            this.vaiTro = vaiTro.toUpperCase();
+        } else {
+            throw new IllegalArgumentException("Vai trò không hợp lệ. Chỉ chấp nhận ADMIN hoặc HOCSINH.");
         }
     }
 
-
-    // method
-    public boolean Xacnhanmatkhau(String nhapLai){
+    // Các method tiện ích
+    public boolean xacNhanMatKhau(String nhapLai) {
         return this.matKhau.equals(nhapLai);
     }
-    public void Dangky(String matkhau,String tenDangnhap ,String vaiTro){
-        setMatKhau(matkhau, tenDangnhap, vaiTro);
-        System.out.println("Dang ky tai khoan thanh cong");
-    }
-    public boolean Dangnhap(String matkhau,String tenDangnhap){
-        boolean check = false;
-        while (!check){
-            if(this.matKhau.equals(matkhau) && this.tenDangNhap.equals(tenDangnhap)){
-            System.out.println("Dang nhap thanh cong voi vai tro" + this.vaiTro);
-            check = true;
-            
-        }
-        else{
-            System.out.println("Sai ten dang nhap hoac mat khau , vui long nhap lai");
-        }
-        }
-        return check;
-    }
-    
-    public boolean Doimatkhau(String MatKhauCu , String MatKhauMoi){
-        if(this.matKhau.equals(MatKhauCu)){
-            this.matKhau.equals(MatKhauMoi);
-            System.out.println("Doi mat khau thanh cong");
+
+    public boolean doiMatKhau(String matKhauCu, String matKhauMoi) {
+        if (this.matKhau.equals(matKhauCu)) {
+            this.matKhau = matKhauMoi;
             return true;
         }
-        else{
-            System.out.println("Mat khau cu khong dung");
-            return false;
-        }
+        return false;
     }
 }
