@@ -1,41 +1,57 @@
 package com.example.servingwebcontent.Model.User;
 
+import jakarta.persistence.Embeddable;
+
+@Embeddable
 public class KetQuaHocTap {
     private float diemThi;
     private String hocLuc;
     private String toHopMon;
 
-    //getter setter
-    public float getDiemThi(){
+    public KetQuaHocTap() {}
+
+    public KetQuaHocTap(float diemThi, String hocLuc, String toHopMon) {
+        this.diemThi = diemThi;
+        this.hocLuc = hocLuc;
+        this.toHopMon = toHopMon;
+    }
+
+    public float getDiemThi() {
         return diemThi;
     }
-    public String getHocLuc(){
-        return hocLuc;
-    }
-    public String gettoHopMon(){
-        return toHopMon;
-    }
-    public void setDiemThi(float diemThi){
+
+    public void setDiemThi(float diemThi) {
         this.diemThi = diemThi;
     }
-    public void setHocLuc(String hocLuc){
+
+    public String getHocLuc() {
+        return hocLuc;
+    }
+
+    public void setHocLuc(String hocLuc) {
         this.hocLuc = hocLuc;
     }
-    public void setToHopMon(String toHopMon){
+
+    public String getToHopMon() {
+        return toHopMon;
+    }
+
+    public void setToHopMon(String toHopMon) {
         this.toHopMon = toHopMon;
     }
-    
-    //constructor
-    public KetQuaHocTap(float DiemThi, String hocLuc, String toHopMon){
-        this.diemThi = DiemThi;
-        this.hocLuc = hocLuc;
-        this.toHopMon = toHopMon;
-    }
+
     //method 
     public void CapNhatDiemThi(float diemThi, String hocLuc, String toHopMon) {
         this.diemThi = diemThi;
         this.hocLuc = hocLuc;
         this.toHopMon = toHopMon;
     }
-    public void Tinhhocluc(){}
+    @Override
+    public String toString() {
+        return "KetQuaHocTap{" +
+                "diemThi=" + diemThi +
+                ", hocLuc='" + hocLuc + '\'' +
+                ", toHopMon='" + toHopMon + '\'' +
+                '}';
+    }
 }
