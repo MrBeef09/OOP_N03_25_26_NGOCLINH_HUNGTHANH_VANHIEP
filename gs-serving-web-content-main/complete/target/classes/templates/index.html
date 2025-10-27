@@ -8,28 +8,22 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <style>
-        * {
+    * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
         :root {
-            --primary-blue: #48360c;
-            --dark-blue: #452e0c;
-            --light-blue: #272206;
-            --accent-blue: #aead8d;
-            --bg-white: #f9f8ee;
-            --bg-gray: #8e6b52;
-            --text-dark: #d2d3b6;
-            --text-gray: #d49817;
-            --primary-yellow: #090801;
-            --primary-black: #060200;
-            --primary-blue: #0056b3;
+            --primary-blue: #2563eb;
+            --dark-blue: #1e40af;
             --light-blue: #dbeafe;
+            --accent-blue: #60a5fa;
             --bg-white: #ffffff;
+            --bg-gray: #f3f4f6;
+            --text-dark: #1f2937;
+            --text-gray: #6b7280;
         }
 
         body {
@@ -53,8 +47,8 @@
 
         /* Header */
         .header {
-            background: #492c02;
-            color: #574617;
+            background: #1e40af;
+            color: #ffffff;
             padding: 20px 0;
             position: fixed;
             width: 100%;
@@ -65,7 +59,7 @@
         }
 
         .header.scrolled {
-            background: #775d05;
+            background: #2563eb;
             padding: 15px 0;
         }
 
@@ -146,8 +140,7 @@
 
         /* Hero */
         .hero {
-            /* lớp nền cơ bản */
-            background: linear-gradient(rgba(200, 182, 78, 0.85), rgba(176, 120, 30, 0.85)),
+            background: linear-gradient(rgba(37, 99, 235, 0.85), rgba(30, 64, 175, 0.85)),
                         url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1920') center/cover;
             height: 100vh;
             display: flex;
@@ -157,40 +150,38 @@
             color: var(--bg-white);
             margin-top: 70px;
             position: relative;
-
-            /* hiệu ứng đổi ảnh nền */
             animation: changeBackground 15s infinite ease-in-out;
             transition: background-image 2s ease;
-            }
+        }
 
-            .hero::before {
+        .hero::before {
             content: "";
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, 0.4); /* lớp mờ phủ để chữ nổi bật */
+            background: rgba(0, 0, 0, 0.4);
             z-index: 1;
-            }
+        }
 
-            .hero-content {
+        .hero-content {
             position: relative;
             z-index: 2;
             padding: 0 20px;
-            }
+        }
 
-            .hero-content h1 {
+        .hero-content h1 {
             font-size: 3.5rem;
             color: var(--bg-white);
             margin-bottom: 20px;
             animation: fadeInUp 1s ease;
-            }
+        }
 
-            .hero-content p {
+        .hero-content p {
             font-size: 1.2rem;
             margin-bottom: 30px;
             color: var(--light-blue);
-            }
+        }
 
-            .btn {
+        .btn {
             display: inline-block;
             padding: 15px 40px;
             background: var(--bg-white);
@@ -200,15 +191,14 @@
             font-weight: 600;
             transition: all 0.3s;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            }
+        }
 
-            .btn:hover {
+        .btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 25px rgba(255,255,255,0.3);
-            }
+        }
 
-            /* ===== HIỆU ỨNG FADE CHỮ ===== */
-            @keyframes fadeInUp {
+        @keyframes fadeInUp {
             0% {
                 opacity: 0;
                 transform: translateY(20px);
@@ -217,30 +207,28 @@
                 opacity: 1;
                 transform: translateY(0);
             }
-            }
+        }
 
-            /* ===== HIỆU ỨNG ĐỔI ẢNH NỀN ===== */
-            @keyframes changeBackground {
+        @keyframes changeBackground {
             0% {
-                background-image: linear-gradient(rgba(200, 182, 78, 0.85), rgba(176, 120, 30, 0.85)),
+                background-image: linear-gradient(rgba(37, 99, 235, 0.85), rgba(30, 64, 175, 0.85)),
                                 url('https://hoanghamobile.com/tin-tuc/wp-content/webp-express/webp-images/uploads/2024/07/anh-truong-hoc-8.jpg.webp');
             }
             33% {
-                background-image: linear-gradient(rgba(200, 182, 78, 0.85), rgba(176, 120, 30, 0.85)),
+                background-image: linear-gradient(rgba(37, 99, 235, 0.85), rgba(30, 64, 175, 0.85)),
                                 url('https://hoanghamobile.com/tin-tuc/wp-content/webp-express/webp-images/uploads/2024/07/anh-truong-hoc-10.jpg.webp');
             }
             66% {
-                background-image: linear-gradient(rgba(200, 182, 78, 0.85), rgba(176, 120, 30, 0.85)),
+                background-image: linear-gradient(rgba(37, 99, 235, 0.85), rgba(30, 64, 175, 0.85)),
                                 url('https://hoanghamobile.com/tin-tuc/wp-content/webp-express/webp-images/uploads/2024/07/anh-truong-hoc-11.jpg.webp');
             }
             100% {
-                background-image: linear-gradient(rgba(200, 182, 78, 0.85), rgba(176, 120, 30, 0.85)),
+                background-image: linear-gradient(rgba(37, 99, 235, 0.85), rgba(30, 64, 175, 0.85)),
                                 url('https://hoanghamobile.com/tin-tuc/wp-content/webp-express/webp-images/uploads/2024/07/anh-truong-hoc-13.jpg.webp');
             }
-            }
+        }
 
-            /* ===== RESPONSIVE ===== */
-            @media (max-width: 768px) {
+        @media (max-width: 768px) {
             .hero-content h1 {
                 font-size: 2.2rem;
             }
@@ -250,11 +238,12 @@
             .btn {
                 padding: 12px 30px;
             }
-            }
+        }
+
         /* Icon Boxes */
         .icon-boxes {
             padding: 80px 0;
-            background: #573a0d;
+            background: #2563eb;
         }
 
         .icon-boxes .container {
@@ -275,7 +264,7 @@
         }
 
         .icon-box:hover {
-            background: #9b8d4d;
+            background: #60a5fa;
             transform: translateY(-5px);
         }
 
@@ -346,7 +335,7 @@
         /* Courses */
         .courses {
             padding: 80px 0;
-            background: var(--bg-gray);
+            background: #f3f4f6;
         }
 
         .section-title {
@@ -507,7 +496,7 @@
         /* Contact Section */
         .contact {
             padding: 80px 0;
-            background: var(--bg-gray);
+            background: #f3f4f6;
         }
 
         .contact-content {
@@ -537,7 +526,7 @@
             display: block;
             font-weight: 600;
             margin-bottom: 8px;
-            color: #d2d3b6;
+            color: #1f2937;
         }
 
         .contact-form input,
@@ -556,7 +545,7 @@
         }
 
         .contact-form button {
-            background: #d2d3b6;
+            background: #2563eb;
             color: var(--bg-white);
             border: none;
             padding: 15px 30px;
@@ -567,14 +556,13 @@
         }
 
         .contact-form button:hover {
-            background: var(--dark-blue);
+            background: #1e40af;
             transform: translateY(-2px);
         }
 
-
         /* Footer */
         .footer {
-            background: #997034;
+            background: #1e40af;
             color: var(--bg-white);
             padding: 60px 0 20px;
         }
@@ -667,18 +655,6 @@
             display: flex;
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         /* Responsive */
         @media (max-width: 992px) {
             .contact-content {
@@ -727,14 +703,14 @@
             <a href="#home" class="logo">UNIFINDER</a>
             <nav>
                 <ul class="nav-menu">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#courses">Courses</a></li>
-                    <li><a href="#blog">Blog</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li><a href="login.html" class="signin-link"><i class="fas fa-sign-in-alt"></i> Sign in</a></li>
+                    <li><a href="#home">Trang chủ</a></li>
+                    <li><a href="#about">Giới Thiệu</a></li>
+                    <li><a href="#courses">Khóa Học</a></li>
+                    <li><a href="#blog">Tin Tức</a></li>
+                    <li><a href="#contact">Liên Hệ</a></li>
+                    <li><a href="login.html" class="signin-link"><i class="fas fa-sign-in-alt"></i> Đăng Nhập</a></li>
 
-                    <li><a href="/profile-page" class="profile-link"><i class="fas fa-user-circle"></i> Profile</a></li>
+                    <li><a href="/profile-page" class="profile-link"><i class="fas fa-user-circle"></i> Hồ Sơ</a></li>
                 </ul>
                 <button class="menu-button" aria-label="Toggle menu">
                     <i class="fas fa-bars"></i>
@@ -745,9 +721,9 @@
 
     <section class="hero" id="home">
         <div class="hero-content">
-            <h1>Welcome to Eschool<br>Best Learning Institutions</h1>
-            <p>How do I get to the University?</p>
-            <a href="#courses" class="btn">Visit Campus</a>
+            <h1>Chào Mừng Đến Với UNIFINDER<br>Hướng Tới Tương Lai, Tìm Kiếm Cơ Hội</h1>
+            <p>Làm thế nào để tôi có thể chọn được trường đại học?</p>
+            <a href="#courses" class="btn">Khóa Học</a>
         </div>
     </section>
 
@@ -780,9 +756,9 @@
     <section class="about" id="about">
         <div class="container">
             <div>
-                <h2>Eschool University</h2>
-                <p>For 23 years of existence, Ed Foundation has implemented more than 1,700 activities, the total value about 10 million euros.</p>
-                <p>We are home to 1,500 students (aged 12 to 16) and 100 expert faculty and staff, a community representing over 40 different nations. We are proud of our international and multi-cultural ethos, and the way our community.</p>
+                <h2>GIỚI THIỆU UNIFINDER</h2>
+                <p>nền tảng giúp học sinh và phụ huynh tìm kiếm, so sánh và lựa chọn ngôi trường phù hợp nhất với năng lực và đam mê.</p>
+                <p>Tại đây, bạn có thể tìm hiểu thông tin tuyển sinh, điểm chuẩn, ngành học, cơ hội việc làm và nhận gợi ý chọn trường cá nhân hóa, để mỗi quyết định hôm nay trở thành bước khởi đầu vững chắc cho tương lai ngày mai.</p>
             </div>
             <div>
                 <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800" alt="University Campus">
@@ -794,26 +770,26 @@
         <div class="container">
             <div class="stat-box">
                 <span class="number" data-target="6789">0</span>
-                <span class="text">Class of 2024</span>
+                <span class="text">Số người dùng</span>
             </div>
             <div class="stat-box">
                 <span class="number" data-target="4562">0</span>
-                <span class="text">People Working</span>
+                <span class="text">Số học sinh đã chọn thành công</span>
             </div>
             <div class="stat-box">
-                <span class="number" data-target="23">0</span>
-                <span class="text">Years Experience</span>
+                <span class="number" data-target="1000">0</span>
+                <span class="text">Ngành Học</span>
             </div>
             <div class="stat-box">
                 <span class="number" data-target="1500">0</span>
-                <span class="text">Students</span>
+                <span class="text">Bài Đánh Giá</span>
             </div>
         </div>
     </section>
 
     <section class="courses" id="courses">
         <div class="container">
-            <h2 class="section-title">Latest Courses</h2>
+            <h2 class="section-title">Khóa Học</h2>
             <div class="courses-grid">
                 <div class="course-card">
                     <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400" alt="Python Course">
@@ -848,8 +824,8 @@
 
     <section class="newsletter">
         <div class="container">
-            <h2>Newsletter</h2>
-            <p>Subscribe to our newsletters now and stay up to date with new collections</p>
+            <h2>Hãy Để Lại Cho Chúng Tôi Những Lời Góp Ý</h2>
+            <p>Đăng ký để nhận bản tin của chúng tôi ngay bây giờ và cập nhật những thông tin mới nhất</p>
             <form class="newsletter-form">
                 <input type="email" placeholder="Your email address" required>
                 <button type="submit">Subscribe</button>
@@ -859,7 +835,7 @@
 
     <section class="blog" id="blog">
         <div class="container">
-            <h2 class="section-title">Latest Blog</h2>
+            <h2 class="section-title">Tin Tức</h2>
             <div class="blog-grid">
                 <article class="blog-card">
                     <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400" alt="Blog Post">
@@ -868,30 +844,30 @@
                             <i class="far fa-calendar"></i> August 19, 2024
                             <i class="far fa-comment"></i> 3 Comments
                         </div>
-                        <h3><a href="#">Latest Education Trends in 2024</a></h3>
-                        <p>Discover the newest approaches to learning and teaching...</p>
+                        <h3><a href="#">Cập nhật điểm chuẩn Đại học 2025 mới nhất trên toàn quốc</a></h3>
+                        <p>Bộ GD&ĐT và các trường đại học đã chính thức công bố điểm chuẩn 2025....</p>
                     </div>
                 </article>
                 <article class="blog-card">
                     <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400" alt="Blog Post">
                     <div class="blog-content">
                         <div class="blog-meta">
-                            <i class="far fa-calendar"></i> August 15, 2024
-                            <i class="far fa-comment"></i> 5 Comments
+                            <i class="far fa-calendar"></i> 27/10/2025
+                            <i class="far fa-comment"></i> 5 Bình Luận
                         </div>
-                        <h3><a href="#">Tips for Online Learning Success</a></h3>
-                        <p>How to make the most of your online education experience...</p>
+                        <h3><a href="#">Top 10 ngành học có cơ hội việc làm cao nhất năm 2025</a></h3>
+                        <p>Theo thống kê của Trung tâm Dự báo nhân lực, các ngành như Công nghệ thông tin, Khoa học dữ liệu, Marketing số, tiếp tục dẫn đầu về nhu cầu tuyển dụng...</p>
                     </div>
                 </article>
                 <article class="blog-card">
                     <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=400" alt="Blog Post">
                     <div class="blog-content">
                         <div class="blog-meta">
-                            <i class="far fa-calendar"></i> August 10, 2024
-                            <i class="far fa-comment"></i> 2 Comments
+                            <i class="far fa-calendar"></i> 28/10/2025
+                            <i class="far fa-comment"></i> 2 Bình Luận
                         </div>
-                        <h3><a href="#">Career Development Resources</a></h3>
-                        <p>Essential tools and resources for career advancement...</p>
+                        <h3><a href="#">Các trường đại học công bố chương trình học bổng 2025</a></h3>
+                        <p>Nhiều trường như Đại học Quốc gia TP.HCM, Đại học FPT đang mở rộng các suất học bổng hấp dẫn lên tới 100% học phí...</p>
                     </div>
                 </article>
             </div>
@@ -900,20 +876,20 @@
 
     <section class="contact" id="contact">
         <div class="container">
-            <h2 class="section-title">Contact Us</h2>
+            <h2 class="section-title">Liên Hệ</h2>
             <div class="contact-content">
                 <div class="contact-info">
                     <div>
                         <i class="fas fa-map-marker-alt"></i>
                         <div>
-                            <h4>Address</h4>
-                            <p>Trafford Centre, London</p>
+                            <h4>Địa Chỉ</h4>
+                            <p>Hà Đông, Hà Nội</p>
                         </div>
                     </div>
                     <div>
                         <i class="fas fa-phone"></i>
                         <div>
-                            <h4>Phone</h4>
+                            <h4>Điện Thoại</h4>
                             <p>+00 123 456 789</p>
                         </div>
                     </div>
@@ -926,19 +902,19 @@
                     </div>
                 </div>
                 <form class="contact-form">
-                    <label for="name">Your Name</label>
+                    <label for="name">Tên Của Bạn</label>
                     <input type="text" id="name" name="name" required>
 
-                    <label for="email_contact">Your Email</label>
+                    <label for="email_contact">Email Của Bạn</label>
                     <input type="email" id="email_contact" name="email" required>
 
-                    <label for="subject">Subject</label>
+                    <label for="subject">Chủ Đề</label>
                     <input type="text" id="subject" name="subject" required>
 
-                    <label for="message">Message</label>
+                    <label for="message">Nội Dung</label>
                     <textarea id="message" name="message" required></textarea>
 
-                    <button type="submit">Send Message</button>
+                    <button type="submit">Gửi Tin Nhắn</button>
                 </form>
             </div>
         </div>
@@ -948,8 +924,8 @@
         <div class="container">
             <div class="footer-grid">
                 <div>
-                    <h4>About Us</h4>
-                    <p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat.</p>
+                    <h4>Về Chúng Tôi</h4>
+                    <p>Công cụ định hướng tương lai học tập thông minh, giúp bạn tìm ra ngôi trường và ngành học lý tưởng.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
@@ -958,33 +934,33 @@
                     </div>
                 </div>
                 <div>
-                    <h4>Quick Links</h4>
+                    <h4>Liên Kết Nhanh</h4>
                     <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#courses">Courses</a></li>
-                        <li><a href="#blog">Blog</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#home">Trang Chủ</a></li>
+                        <li><a href="#about">Giới Thiệu</a></li>
+                        <li><a href="#courses">Khóa Học</a></li>
+                        <li><a href="#blog">Tin Tức</a></li>
+                        <li><a href="#contact">Liên Hệ</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4>My Account</h4>
+                    <h4>Tài Khoản Của Tôi</h4>
                     <ul>
-                        <li><a href="/profile-page">Profile</a></li>
-                        <li><a href="#">My Wishlist</a></li>
-                        <li><a href="#">My Orders</a></li>
-                        <li><a href="#">Order Tracking</a></li>
+                        <li><a href="/profile-page">Hồ Sơ Của Tôi</a></li>
+                        <li><a href="#">Danh Sách Yêu Thích</a></li>
+                        <li><a href="#">Đơn Đặt Hàng Của Tôi</a></li>
+                        <li><a href="#">Theo Dõi Đơn Hàng</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4>Contact Info</h4>
-                    <p><i class="fas fa-map-marker-alt"></i> Trafford Centre, London</p>
+                    <h4>Thông Tin Liên Hệ</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Hà Đông, Hà Nội</p>
                     <p><i class="fas fa-phone"></i> +00 123 456 789</p>
                     <p><i class="fas fa-envelope"></i> info@eschool.com</p>
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2024 Eschool University. All rights reserved.</p>
+                <p>&copy; 2025 UNIFINDER - Chọn Trường Tương Lai</p>
             </div>
         </div>
     </footer>
