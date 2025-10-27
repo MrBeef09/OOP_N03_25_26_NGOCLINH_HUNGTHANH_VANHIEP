@@ -89,19 +89,25 @@
 
         .nav-menu {
             display: flex;
+            align-items: center; /* 🟢 Căn các mục menu (kể cả Profile) cùng hàng ngang */
             list-style: none;
             gap: 30px;
         }
 
+        /* Căn icon và chữ trong mỗi mục menu, đặc biệt là Profile */
         .nav-menu a {
+            display: inline-flex;  /* 🟢 Đặt icon và chữ trên cùng 1 hàng */
+            align-items: center;   /* 🟢 Căn giữa icon và chữ theo chiều dọc */
+            gap: 6px;              /* Khoảng cách giữa icon và chữ */
             color: var(--bg-white);
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s;
             position: relative;
-            padding: 5px 0;
+            padding: 10px 0;
         }
 
+        /* Hiệu ứng gạch chân khi hover */
         .nav-menu a::after {
             content: '';
             position: absolute;
@@ -116,6 +122,7 @@
         .nav-menu a:hover::after {
             width: 100%;
         }
+
 
         .profile-link {
             display: flex;
@@ -143,6 +150,52 @@
             font-size: 1.5rem;
             cursor: pointer;
         }
+                /* Tạo khoảng đệm giữa link và menu con */
+        .dropdown {
+        position: relative;
+        }
+
+        /* Ẩn menu mặc định */
+        .dropdown .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%; /* nằm ngay dưới nút Profile */
+        left: 0;
+        background-color: #3e2600;
+        padding: 8px 0;
+        list-style: none;
+        border-radius: 4px;
+        min-width: 140px;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(5px);
+        transition: all 0.25s ease;
+        }
+
+        /* Khi hover vào dropdown hoặc menu con thì hiển thị */
+        .dropdown:hover .dropdown-menu,
+        .dropdown .dropdown-menu:hover {
+        display: block;
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        }
+
+        /* Style các mục con */
+        .dropdown-menu li a {
+        color: #fff;
+        text-decoration: none;
+        display: block;
+        padding: 8px 16px;
+        white-space: nowrap;
+        }
+
+        .dropdown-menu li a:hover {
+        background-color: #3e2603;
+        }
+
+
 
         /* Hero */
         .hero {
@@ -724,7 +777,7 @@
 <body>
     <header class="header">
         <div class="container">
-            <a href="#home" class="logo">UNIFINDER</a>
+            <a href="#home" class="logo">UniFinder</a>
             <nav>
                 <ul class="nav-menu">
                     <li><a href="#home">Home</a></li>
@@ -732,9 +785,10 @@
                     <li><a href="#courses">Courses</a></li>
                     <li><a href="#blog">Blog</a></li>
                     <li><a href="#contact">Contact</a></li>
-                    <li><a href="login.html" class="signin-link"><i class="fas fa-sign-in-alt"></i> Sign in</a></li>
-
-                    <li><a href="/profile-page" class="profile-link"><i class="fas fa-user-circle"></i> Profile</a></li>
+                    <li class="dropdown">
+                        <a href="/profile-page" class="profile-link"><i class="fas fa-user-circle"></i> Profile</a>
+                    <ul class="dropdown-menu"><li><a href="index.html">Log Out</a></li></ul>
+                    </li>
                 </ul>
                 <button class="menu-button" aria-label="Toggle menu">
                     <i class="fas fa-bars"></i>
