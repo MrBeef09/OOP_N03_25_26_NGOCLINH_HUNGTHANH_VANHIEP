@@ -1,11 +1,11 @@
 package com.example.servingwebcontent.Model.User;
 
 import jakarta.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "tai_khoan")
 public class TaiKhoan {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,9 +16,19 @@ public class TaiKhoan {
     @Column(name = "mat_khau", nullable = false)
     private String matKhau;
 
-    @Column(name = "vai_tro", nullable = false)
-    private String vaiTro; // "ADMIN" hoặc "HOCSINH"
+    @Column(name = "email", nullable = false)
+    private String email;
 
+    @Column(name = "vai_tro")  // Giữ tạm để backward compatibility, có thể xóa sau
+    private String vaiTro; // "ADMIN" hoặc "HOCSINH" (sẽ migrate sang roles)
+
+    @ManyToMany(fetch = FetchType.EAGER)  // EAGER để load roles ngay
+    @JoinTable(name = "tai_khoan_roles",
+               joinColumns = @JoinColumn(name = "tai_khoan_id"),
+               inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
+
+    // Constructors
     public TaiKhoan() {}
 
     public TaiKhoan(String tenDangNhap, String matKhau, String vaiTro) {
@@ -27,7 +37,7 @@ public class TaiKhoan {
         this.vaiTro = vaiTro;
     }
 
-    // Getter và Setter
+    // Getters & Setters
     public Long getId() {
         return id;
     }
@@ -48,19 +58,34 @@ public class TaiKhoan {
         this.matKhau = matKhau;
     }
 
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getVaiTro() {
         return vaiTro;
     }
 
     public void setVaiTro(String vaiTro) {
-        if (vaiTro.equalsIgnoreCase("ADMIN") || vaiTro.equalsIgnoreCase("HOCSINH")) {
+        if (vaiTro != null && (vaiTro.equalsIgnoreCase("ADMIN") || vaiTro.equalsIgnoreCase("HOCSINH"))) {
             this.vaiTro = vaiTro.toUpperCase();
         } else {
             throw new IllegalArgumentException("Vai trò không hợp lệ. Chỉ chấp nhận ADMIN hoặc HOCSINH.");
         }
     }
 
-    // Các method tiện ích
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    // Các method tiện ích 
     public boolean xacNhanMatKhau(String nhapLai) {
         return this.matKhau.equals(nhapLai);
     }
@@ -71,5 +96,10 @@ public class TaiKhoan {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "TaiKhoan{tenDangNhap='" + tenDangNhap + "', roles=" + roles + "}";
     }
 }

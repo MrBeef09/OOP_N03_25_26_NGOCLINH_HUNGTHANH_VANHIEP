@@ -1,7 +1,8 @@
 package com.example.servingwebcontent.Config;
 
-import com.example.servingwebcontent.Exception.MyException;
 import com.example.servingwebcontent.Exception.DataNotFoundException;
+
+
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -26,4 +27,5 @@ public class GlobalExceptionHandler {
         model.addAttribute("errorMessage", "Đã xảy ra lỗi: " + ex.getMessage());
         return "error";
     }
+
 }
