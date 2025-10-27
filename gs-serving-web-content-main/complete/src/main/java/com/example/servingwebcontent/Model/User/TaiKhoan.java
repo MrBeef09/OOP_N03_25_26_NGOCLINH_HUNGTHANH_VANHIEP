@@ -22,12 +22,6 @@ public class TaiKhoan {
     @Column(name = "vai_tro")  // Giữ tạm để backward compatibility, có thể xóa sau
     private String vaiTro; // "ADMIN" hoặc "HOCSINH" (sẽ migrate sang roles)
 
-    @ManyToMany(fetch = FetchType.EAGER)  // EAGER để load roles ngay
-    @JoinTable(name = "tai_khoan_roles",
-               joinColumns = @JoinColumn(name = "tai_khoan_id"),
-               inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
-
     // Constructors
     public TaiKhoan() {}
 
@@ -77,14 +71,6 @@ public class TaiKhoan {
         }
     }
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
     // Các method tiện ích 
     public boolean xacNhanMatKhau(String nhapLai) {
         return this.matKhau.equals(nhapLai);
@@ -100,6 +86,6 @@ public class TaiKhoan {
 
     @Override
     public String toString() {
-        return "TaiKhoan{tenDangNhap='" + tenDangNhap + "', roles=" + roles + "}";
+        return "TaiKhoan{tenDangNhap='" + tenDangNhap + "', roles=" + vaiTro + "}";
     }
 }

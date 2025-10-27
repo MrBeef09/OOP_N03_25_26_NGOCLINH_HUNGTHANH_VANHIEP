@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Eschool - Best Learning Institutions">
-    <title>Eschool - Best Learning Institutions</title>
+    <title>UNIFINDER - Hệ thống tư vấn tuyển sinh</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -162,6 +162,42 @@
             cursor: pointer;
         }
 
+        /* Welcome Banner - Hiển thị khi đã đăng nhập */
+        .welcome-banner {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            margin-top: 70px;
+            animation: slideDown 0.5s ease;
+        }
+
+        .welcome-banner p {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .welcome-banner .role-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 3px 12px;
+            border-radius: 15px;
+            margin-left: 10px;
+            font-size: 14px;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Hero */
         .hero {
             background: linear-gradient(rgba(37, 99, 235, 0.85), rgba(30, 64, 175, 0.85)),
@@ -172,10 +208,17 @@
             justify-content: center;
             text-align: center;
             color: var(--bg-white);
-            margin-top: 70px;
             position: relative;
             animation: changeBackground 15s infinite ease-in-out;
             transition: background-image 2s ease;
+        }
+
+        .hero.with-banner {
+            margin-top: 0;
+        }
+
+        .hero.no-banner {
+            margin-top: 70px;
         }
 
         .hero::before {
@@ -743,7 +786,6 @@
             <a th:href="@{/}" href="/" class="logo">UNIFINDER</a>
             <nav>
                 <ul class="nav-menu">
-                    <!-- Link luôn hiển thị cho mọi người -->
                     <li><a href="#home">Trang chủ</a></li>
                     <li><a href="#about">Giới Thiệu</a></li>
                     <li><a href="#courses">Khóa Học</a></li>
@@ -764,9 +806,9 @@
                         </a>
                     </li>
                     
-                    <!-- Nút Đăng xuất khi đã đăng nhập -->
                     <li sec:authorize="isAuthenticated()">
                         <form th:action="@{/logout}" method="post" style="display:inline;">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                             <button type="submit" class="logout-btn">
                                 <i class="fas fa-sign-out-alt"></i> Đăng Xuất
                             </button>
@@ -780,7 +822,15 @@
         </div>
     </header>
 
-    <section class="hero" id="home">
+    <!-- Welcome Banner - CHỈ hiển thị khi đã đăng nhập -->
+    <div class="welcome-banner" sec:authorize="isAuthenticated()">
+        <p>
+            🎉 Chào mừng, <strong sec:authentication="name"></strong>!
+            <span class="role-badge" sec:authentication="principal.authorities"></span>
+        </p>
+    </div>
+
+    <section class="hero" id="home" th:classappend="${#authorization.expression('isAuthenticated()')} ? 'with-banner' : 'no-banner'">
         <div class="hero-content">
             <h1>Chào Mừng Đến Với UNIFINDER<br>Hướng Tới Tương Lai, Tìm Kiếm Cơ Hội</h1>
             <p>Làm thế nào để tôi có thể chọn được trường đại học?</p>
@@ -790,7 +840,7 @@
 
     <section class="icon-boxes">
         <div class="container">
-            <!-- Trường Đại Học - CHỈ hiển thị khi đã đăng nhập -->
+            <!-- Trường Đại Học -->
             <a th:href="@{/truongdaihoc}" href="/truongdaihoc" class="icon-box" 
                sec:authorize="isAuthenticated()">
                 <i class="fas fa-university"></i>
@@ -800,7 +850,6 @@
                 </div>
             </a>
             
-            <!-- Hiển thị box bị khóa khi CHƯA đăng nhập -->
             <div class="icon-box disabled" sec:authorize="!isAuthenticated()">
                 <i class="fas fa-university"></i>
                 <div>
@@ -809,7 +858,7 @@
                 </div>
             </div>
             
-            <!-- Tư Vấn - CHỈ hiển thị khi đã đăng nhập -->
+            <!-- Tư Vấn -->
             <a th:href="@{/tuvan}" href="/tuvan" class="icon-box" 
                sec:authorize="isAuthenticated()">
                 <i class="fas fa-user-graduate"></i>
@@ -819,7 +868,6 @@
                 </div>
             </a>
             
-            <!-- Hiển thị box bị khóa khi CHƯA đăng nhập -->
             <div class="icon-box disabled" sec:authorize="!isAuthenticated()">
                 <i class="fas fa-user-graduate"></i>
                 <div>
@@ -828,7 +876,7 @@
                 </div>
             </div>
             
-            <!-- Đánh Giá - CHỈ hiển thị khi đã đăng nhập -->
+            <!-- Đánh Giá -->
             <a th:href="@{/danhgia}" href="/danhgia" class="icon-box" 
                sec:authorize="isAuthenticated()">
                 <i class="fas fa-star"></i>
@@ -836,9 +884,8 @@
                     <h3>Đánh giá</h3>
                     <p>Hãy để lại bình luận cho ngôi trường bạn</p>
                 </div>
-            </a>
+            </div>
             
-            <!-- Hiển thị box bị khóa khi CHƯA đăng nhập -->
             <div class="icon-box disabled" sec:authorize="!isAuthenticated()">
                 <i class="fas fa-star"></i>
                 <div>
@@ -1042,11 +1089,9 @@
                 <div>
                     <h4>Tài Khoản Của Tôi</h4>
                     <ul>
-                        <!-- Hiển thị khi đã đăng nhập -->
                         <li sec:authorize="isAuthenticated()">
                             <a th:href="@{/profile-page}" href="/profile-page">Hồ Sơ Của Tôi</a>
                         </li>
-                        <!-- Hiển thị khi chưa đăng nhập -->
                         <li sec:authorize="!isAuthenticated()">
                             <a th:href="@{/dang-nhap}" href="/dang-nhap">Đăng nhập để xem hồ sơ</a>
                         </li>
