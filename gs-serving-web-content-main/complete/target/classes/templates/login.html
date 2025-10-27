@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đăng nhập / Đăng ký / Quên mật khẩu</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #c7a384, #8899b5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #fff;
+      width: 380px;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #2575fc;
+      box-shadow: 0 0 5px rgba(37, 117, 252, 0.5);
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #2575fc;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: bold;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background-color: #1b5fd9;
+      transform: scale(1.03);
+    }
+
+    .links {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .links a {
+      color: #2575fc;
+      text-decoration: none;
+      font-size: 14px;
+      margin: 0 8px;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .links a:hover {
+      color: #6a11cb;
+      text-decoration: underline;
+    }
+
+    .form-box {
+      display: none;
+    }
+
+    .form-box.active {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="form-container">
+    <!-- Form Đăng nhập -->
+    <div id="login-form" class="form-box active">
+      <h2>Đăng nhập</h2>
+      <div class="form-group">
+        <label for="login-role">Chọn vai trò</label>
+        <select id="login-role">
+          <option value="user">Học Sinh</option>
+          <option value="admin">Quản trị viên</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="login-email">Email</label>
+        <input type="email" id="login-email" placeholder="Nhập email của bạn" />
+      </div>
+      <div class="form-group">
+        <label for="login-password">Mật khẩu</label>
+        <input
+          type="password"
+          id="login-password"
+          placeholder="Nhập mật khẩu"
+        />
+      </div>
+      <button>Đăng nhập</button>
+      <div class="links">
+        <a onclick="showForm('register-form')">Đăng ký</a> |
+        <a onclick="showForm('forgot-form')">Quên mật khẩu?</a>
+      </div>
+    </div>
+
+    <!-- Form Đăng ký -->
+    <div id="register-form" class="form-box">
+      <h2>Đăng ký</h2>
+      <div class="form-group">
+        <label for="register-name">Họ và tên</label>
+        <input type="text" id="register-name" placeholder="Nhập họ và tên" />
+      </div>
+      <div class="form-group">
+        <label for="register-email">Email</label>
+        <input type="email" id="register-email" placeholder="Nhập email" />
+      </div>
+      <div class="form-group">
+        <label for="register-password">Mật khẩu</label>
+        <input
+          type="password"
+          id="register-password"
+          placeholder="Tạo mật khẩu"
+        />
+      </div>
+      <div class="form-group">
+        <label for="register-role">Chọn vai trò</label>
+        <select id="register-role">
+          <option value="user">Học Sinh</option>
+          <option value="admin">Quản trị viên</option>
+        </select>
+      </div>
+      <button>Đăng ký</button>
+      <div class="links">
+        <a onclick="showForm('login-form')">Đăng nhập</a>
+      </div>
+    </div>
+
+    <!-- Form Quên mật khẩu -->
+    <div id="forgot-form" class="form-box">
+      <h2>Quên mật khẩu</h2>
+      <div class="form-group">
+        <label for="forgot-email">Email khôi phục</label>
+        <input
+          type="email"
+          id="forgot-email"
+          placeholder="Nhập email của bạn"
+        />
+      </div>
+      <button>Gửi liên kết khôi phục</button>
+      <div class="links">
+        <a onclick="showForm('login-form')">Trở về đăng nhập</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Chuyển đổi giữa các form
+    function showForm(id) {
+      document.querySelectorAll(".form-box").forEach((form) => {
+        form.classList.remove("active");
+      });
+      document.getElementById(id).classList.add("active");
+    }
+
+    // Hiệu ứng hover bằng JavaScript cho toàn bộ container
+    const container = document.getElementById("form-container");
+
+    container.addEventListener("mouseenter", () => {
+      container.style.transform = "scale(1.03)";
+      container.style.boxShadow = "0 10px 25px rgba(0,0,0,0.3)";
+      container.style.border = "2px solid #2575fc";
+    });
+
+    container.addEventListener("mouseleave", () => {
+      container.style.transform = "scale(1)";
+      container.style.boxShadow = "0 5px 20px rgba(0,0,0,0.2)";
+      container.style.border = "none";
+    });
+  </script>
+</body>
+</html>
