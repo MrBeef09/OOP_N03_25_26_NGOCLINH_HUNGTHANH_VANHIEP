@@ -1,6 +1,13 @@
 package com.example.servingwebcontent.Service;
 
 import com.example.servingwebcontent.Model.Truongdaihoc.*;
+import com.example.servingwebcontent.Model.Truongdaihoc.CoSoVatChat.KyTucXa;
+import com.example.servingwebcontent.Model.Truongdaihoc.CoSoVatChat.ThuVien;
+import com.example.servingwebcontent.Model.Truongdaihoc.CoSoVatChat.;
+import com.example.servingwebcontent.Model.Truongdaihoc.CoSoVatChat.CoSoVatChat.PhongHoc.PhongHoc;
+import com.example.servingwebcontent.Model.Truongdaihoc.CoSoVatChat.CoSoVatChat.TienIch.TienIch;
+import com.example.servingwebcontent.Model.Truongdaihoc.CoSoVatChat.CoSoVatChat.TrangThietbi.TrangThietBi;
+
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;

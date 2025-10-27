@@ -1,6 +1,6 @@
 package com.example.servingwebcontent.Controller;
 
-import com.example.servingwebcontent.Model.Truongdaihoc.CoSoVatChat;
+import com.example.servingwebcontent.Model.Truongdaihoc.CoSoVatChat.CoSoVatChat;
 import com.example.servingwebcontent.Repository.CoSoVatChatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
