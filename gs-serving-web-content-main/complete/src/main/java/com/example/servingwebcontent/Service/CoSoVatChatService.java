@@ -1,68 +1,63 @@
 package com.example.servingwebcontent.Service;
 
-import com.example.servingwebcontent.Model.Truongdaihoc.*;
+import com.example.servingwebcontent.Model.Truongdaihoc.CoSoVatChat;
+import com.example.servingwebcontent.Repository.CoSoVatChatRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CoSoVatChatService {
 
-    private List<PhongHoc> dsPhongHoc = new ArrayList<>();
-    private List<KyTucXa> dsKTX = new ArrayList<>();
-    private List<ThuVien> dsThuVien = new ArrayList<>();
-    private List<TrangThietBi> dsTrangThietBi = new ArrayList<>();
-    private List<TienIch> dsTienIch = new ArrayList<>();
-    private List<HaTangKiThuat> dsHaTang = new ArrayList<>();
+    @Autowired
+    private CoSoVatChatRepository coSoVatChatRepository;
 
-    // ====== Thêm đối tượng ======
-    public void themPhongHoc(PhongHoc p) { dsPhongHoc.add(p); }
-    public void themKTX(KyTucXa k) { dsKTX.add(k); }
-    public void themThuVien(ThuVien t) { dsThuVien.add(t); }
-    public void themTrangThietBi(TrangThietBi tb) { dsTrangThietBi.add(tb); }
-    public void themTienIch(TienIch ti) { dsTienIch.add(ti); }
-    public void themHaTang(HaTangKiThuat ht) { dsHaTang.add(ht); }
-
-    // ====== Xem toàn bộ ======
-    public List<PhongHoc> getDsPhongHoc() { return dsPhongHoc; }
-    public List<KyTucXa> getDsKTX() { return dsKTX; }
-    public List<ThuVien> getDsThuVien() { return dsThuVien; }
-    public List<TrangThietBi> getDsTrangThietBi() { return dsTrangThietBi; }
-    public List<TienIch> getDsTienIch() { return dsTienIch; }
-    public List<HaTangKiThuat> getDsHaTang() { return dsHaTang; }
-
-    // ====== Tính tổng điểm ======
-    public int tinhTongDiem() {
-        int tong = 0;
-        for (PhongHoc p : dsPhongHoc) tong += p.danhGia();
-        for (KyTucXa k : dsKTX) tong += k.danhGia();
-        for (ThuVien t : dsThuVien) tong += t.danhGia();
-        for (TrangThietBi tb : dsTrangThietBi) tong += tb.danhGia();
-        for (TienIch ti : dsTienIch) tong += ti.danhGia();
-        for (HaTangKiThuat ht : dsHaTang) tong += ht.danhGia();
-        return tong;
+    /**
+     * Lấy danh sách tất cả cơ sở vật chất từ database.
+     * @return List<CoSoVatChat>
+     */
+    public List<CoSoVatChat> layTatCaCoSoVatChat() {
+        return coSoVatChatRepository.findAll();
     }
 
-    // ====== Xóa hoặc làm mới dữ liệu (nếu cần) ======
-    public void clearAll() {
-        dsPhongHoc.clear();
-        dsKTX.clear();
-        dsThuVien.clear();
-        dsTrangThietBi.clear();
-        dsTienIch.clear();
-        dsHaTang.clear();
+    /**
+     * Tìm cơ sở vật chất theo ID.
+     * @param id ID của cơ sở vật chất.
+     * @return Optional<CoSoVatChat>
+     */
+    public Optional<CoSoVatChat> timTheoId(int id) {
+        return coSoVatChatRepository.findById(id);
     }
-public List<Object> layDanhSachCSVC() {
-    List<Object> danhSach = new ArrayList<>();
-    danhSach.addAll(dsPhongHoc);
-    danhSach.addAll(dsKTX);
-    danhSach.addAll(dsThuVien);
-    danhSach.addAll(dsTrangThietBi);
-    danhSach.addAll(dsTienIch);
-    danhSach.addAll(dsHaTang);
-    return danhSach;
-}
 
+    /**
+     * Lưu (tạo mới hoặc cập nhật) một đối tượng CoSoVatChat.
+     * Đây là nơi chứa logic nghiệp vụ (business logic).
+     * @param coSoVatChat Đối tượng cần lưu.
+     * @return Đối tượng đã được lưu (với tongDiem đã được cập nhật).
+     */
+    @Transactional
+    public CoSoVatChat luuCoSoVatChat(CoSoVatChat coSoVatChat) {
+        // --- LOGIC NGHIỆP VỤ ---
+        // Luôn luôn tính toán lại tổng điểm mỗi khi lưu
+        // để đảm bảo dữ liệu nhất quán.
+        int tongDiem = coSoVatChat.tinhTongDiem();
+        coSoVatChat.setTongDiem(tongDiem);
+        // -------------------------
+        
+        return coSoVatChatRepository.save(coSoVatChat);
+    }
 
+    /**
+     * Xóa cơ sở vật chất theo ID.
+     * @param id ID của cơ sở vật chất cần xóa.
+     */
+    public void xoaCoSoVatChat(int id) {
+        coSoVatChatRepository.deleteById(id);
+    }
+    
+    // Bạn có thể thêm các phương thức logic nghiệp vụ khác ở đây
+    // ví dụ: timCoSoVatChatTheoTruong(int truongId), ...
 }

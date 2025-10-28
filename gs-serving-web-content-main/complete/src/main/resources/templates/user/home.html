@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Eschool - Best Learning Institutions">
-    <title>UNIFINDER - Hệ thống tư vấn tuyển sinh</title>
+    <title>UNIFINDER - Trang chủ học sinh</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -43,6 +44,99 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 15px;
+        }
+
+        /* POPUP CHÀO MỪNG */
+        .welcome-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 40px 60px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            z-index: 10000;
+            text-align: center;
+            animation: popupShow 0.5s ease forwards;
+            max-width: 500px;
+        }
+
+        .welcome-popup.hide {
+            animation: popupHide 0.5s ease forwards;
+        }
+
+        .welcome-popup h2 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .welcome-popup p {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .welcome-popup .role-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.3);
+            padding: 8px 20px;
+            border-radius: 20px;
+            margin-top: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .welcome-popup .icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        @keyframes popupShow {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 0;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes popupHide {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 0;
+            }
+        }
+
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 9999;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .popup-overlay.hide {
+            animation: fadeOut 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            to { opacity: 0; }
         }
 
         /* Header */
@@ -112,7 +206,7 @@
             width: 100%;
         }
 
-        .signin-link {
+        .profile-link {
             display: flex;
             align-items: center;
             gap: 8px;
@@ -122,12 +216,34 @@
             transition: all 0.3s;
         }
 
-        .signin-link i {
+        .profile-link i {
             font-size: 1.2rem;
         }
 
-        .signin-link:hover {
+        .profile-link:hover {
             color: var(--light-blue);
+        }
+
+        .logout-btn {
+            background: none;
+            border: none;
+            color: var(--bg-white);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            padding: 5px 0;
+        }
+
+        .logout-btn:hover {
+            color: var(--light-blue);
+        }
+
+        .logout-btn i {
+            font-size: 1.2rem;
         }
 
         .menu-button {
@@ -231,19 +347,7 @@
             }
         }
 
-        @media (max-width: 768px) {
-            .hero-content h1 {
-                font-size: 2.2rem;
-            }
-            .hero-content p {
-                font-size: 1rem;
-            }
-            .btn {
-                padding: 12px 30px;
-            }
-        }
-
-        /* Icon Boxes */
+        /* Icon Boxes - MỞ KHÓA */
         .icon-boxes {
             padding: 80px 0;
             background: #2563eb;
@@ -264,8 +368,13 @@
             border-radius: 15px;
             transition: all 0.3s;
             text-decoration: none;
-            cursor: not-allowed;
-            opacity: 0.6;
+            cursor: pointer;
+        }
+
+        .icon-box:hover {
+            background: #60a5fa;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
         .icon-box i {
@@ -279,7 +388,7 @@
         }
 
         .icon-box p {
-            color: rgba(219, 234, 254, 0.7);
+            color: var(--light-blue);
         }
 
         /* About */
@@ -702,13 +811,31 @@
             .newsletter-form {
                 flex-direction: column;
             }
+
+            .welcome-popup {
+                padding: 30px 40px;
+                max-width: 90%;
+            }
+
+            .welcome-popup h2 {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- POPUP CHÀO MỪNG -->
+    <div class="popup-overlay" id="popupOverlay"></div>
+    <div class="welcome-popup" id="welcomePopup">
+        <div class="icon">🎉</div>
+        <h2>Chào mừng trở lại!</h2>
+        <p><strong sec:authentication="name">Học sinh</strong></p>
+        <span class="role-badge">👨‍🎓 HỌC SINH</span>
+    </div>
+
     <header class="header">
         <div class="container">
-            <a href="/" class="logo">UNIFINDER</a>
+            <a th:href="@{/}" href="/" class="logo">UNIFINDER</a>
             <nav>
                 <ul class="nav-menu">
                     <li><a href="#home">Trang chủ</a></li>
@@ -717,9 +844,17 @@
                     <li><a href="#blog">Tin Tức</a></li>
                     <li><a href="#contact">Liên Hệ</a></li>
                     <li>
-                        <a href="/dang-nhap" class="signin-link">
-                            <i class="fas fa-sign-in-alt"></i> Đăng Nhập
+                        <a th:href="@{/profile-page}" href="/profile-page" class="profile-link">
+                            <i class="fas fa-user-circle"></i> Hồ Sơ
                         </a>
+                    </li>
+                    <li>
+                        <form th:action="@{/logout}" method="post" style="display:inline;">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                            <button type="submit" class="logout-btn">
+                                <i class="fas fa-sign-out-alt"></i> Đăng Xuất
+                            </button>
+                        </form>
                     </li>
                 </ul>
                 <button class="menu-button" aria-label="Toggle menu">
@@ -739,29 +874,29 @@
 
     <section class="icon-boxes">
         <div class="container">
-            <div class="icon-box">
+            <a th:href="@{/truongdaihoc}" href="/truongdaihoc" class="icon-box">
                 <i class="fas fa-university"></i>
                 <div>
                     <h3>Trường đại học</h3>
-                    <p>🔒 Đăng nhập để xem chi tiết</p>
+                    <p>Biết chắc để nắm chắc tương lai</p>
                 </div>
-            </div>
+            </a>
             
-            <div class="icon-box">
+            <a th:href="@{/tuvan}" href="/tuvan" class="icon-box">
                 <i class="fas fa-user-graduate"></i>
                 <div>
                     <h3>Tư vấn</h3>
-                    <p>🔒 Đăng nhập để nhận tư vấn</p>
+                    <p>Đưa ra lựa chọn ngành học phù hợp</p>
                 </div>
-            </div>
+            </a>
             
-            <div class="icon-box">
+            <a th:href="@{/danhgia}" href="/danhgia" class="icon-box">
                 <i class="fas fa-star"></i>
                 <div>
                     <h3>Đánh giá</h3>
-                    <p>🔒 Đăng nhập để đánh giá</p>
+                    <p>Hãy để lại bình luận cho ngôi trường bạn</p>
                 </div>
-            </div>
+            </a>
         </div>
     </section>
 
@@ -958,7 +1093,7 @@
                 <div>
                     <h4>Tài Khoản Của Tôi</h4>
                     <ul>
-                        <li><a href="/dang-nhap">Đăng nhập để xem hồ sơ</a></li>
+                        <li><a th:href="@{/profile-page}" href="/profile-page">Hồ Sơ Của Tôi</a></li>
                         <li><a href="#">Danh Sách Yêu Thích</a></li>
                         <li><a href="#">Đơn Đặt Hàng Của Tôi</a></li>
                         <li><a href="#">Theo Dõi Đơn Hàng</a></li>
@@ -982,13 +1117,41 @@
     </button>
 
     <script>
+        // ===== POPUP CHÀO MỪNG - TỰ ĐỘNG ẨN SAU 3 GIÂY =====
+        window.addEventListener('DOMContentLoaded', () => {
+            const popup = document.getElementById('welcomePopup');
+            const overlay = document.getElementById('popupOverlay');
+            
+            // Hiện popup sau 0.5s
+            setTimeout(() => {
+                popup.style.display = 'block';
+                overlay.style.display = 'block';
+            }, 500);
+            
+            // Ẩn popup sau 3 giây
+            setTimeout(() => {
+                popup.classList.add('hide');
+                overlay.classList.add('hide');
+                
+                // Xóa khỏi DOM sau khi animation kết thúc
+                setTimeout(() => {
+                    popup.style.display = 'none';
+                    overlay.style.display = 'none';
+                }, 500);
+            }, 3500);
+        });
+
+        // ===== MENU MOBILE =====
         const menuBtn = document.querySelector('.menu-button');
         const navMenu = document.querySelector('.nav-menu');
 
-        menuBtn.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
+        if (menuBtn) {
+            menuBtn.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
 
+        // ===== HEADER SCROLL =====
         const header = document.querySelector('.header');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 100) {
@@ -998,6 +1161,7 @@
             }
         });
 
+        // ===== STATS COUNTER =====
         const counters = document.querySelectorAll('.number');
         const speed = 200;
         let animated = false;
@@ -1029,6 +1193,7 @@
 
         observer.observe(statsSection);
 
+        // ===== BACK TO TOP =====
         const backToTop = document.querySelector('.back-to-top');
 
         window.addEventListener('scroll', () => {
@@ -1046,6 +1211,7 @@
             });
         });
 
+        // ===== SMOOTH SCROLL =====
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1060,6 +1226,7 @@
             });
         });
 
+        // ===== NEWSLETTER FORM =====
         const newsletterForm = document.querySelector('.newsletter-form');
         newsletterForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -1068,6 +1235,7 @@
             newsletterForm.reset();
         });
 
+        // ===== CONTACT FORM =====
         const contactForm = document.querySelector('.contact-form');
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -1075,6 +1243,7 @@
             contactForm.reset();
         });
 
+        // ===== CARD ANIMATION =====
         const allCards = document.querySelectorAll('.course-card, .blog-card');
         const cardObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
