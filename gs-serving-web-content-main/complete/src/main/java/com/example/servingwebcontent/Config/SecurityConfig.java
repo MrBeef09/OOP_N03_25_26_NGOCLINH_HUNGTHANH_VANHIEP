@@ -35,14 +35,16 @@ public class SecurityConfig {
                     "/webjars/**"
                 ).permitAll()
                 .requestMatchers("/truongdaihoc", "/tuvan", "/danhgia", "/profile-page")
-                    .hasAnyRole("HOCSINH", "ADMIN")
-                .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                .requestMatchers("/api/hocsinh/**").hasAnyRole("HOCSINH", "ADMIN")
+                    .hasAnyAuthority("HOCSINH", "ADMIN")
+                .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
+                .requestMatchers("/api/hocsinh/**").hasAnyAuthority("HOCSINH", "ADMIN")
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
                 .loginPage("/dang-nhap")
                 .loginProcessingUrl("/login-process")
+                .usernameParameter("username")  // ← Thêm dòng này
+                .passwordParameter("password")
                 .defaultSuccessUrl("/", true)  // ← true = luôn redirect về "/"
                 .failureUrl("/dang-nhap?error=true")
                 .permitAll()

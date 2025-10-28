@@ -84,7 +84,7 @@ public String register(@RequestParam(required = false) String username,
             SecurityContextHolder.getContext()
         );
         
-        return "redirect:/";
+        return "redirect:/dang-nhap?registered=true";
         
     } catch (RuntimeException e) {
         System.err.println("Lỗi đăng ký: " + e.getMessage());
