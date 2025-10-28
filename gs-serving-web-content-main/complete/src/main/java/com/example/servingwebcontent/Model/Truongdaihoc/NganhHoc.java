@@ -1,5 +1,6 @@
 package com.example.servingwebcontent.Model.Truongdaihoc;
 
+import java.text.Normalizer;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -76,7 +77,7 @@ private List<String> soThichLienQuan;
           // loại bỏ khoảng trắng đầu cuối và chuyển về chữ thường
           String tmp = s.trim().toLowerCase();
           //loại dấu tiếng việt
-          tmp = Normalizer.normalizer(tmp, Normalizer.Form.NFD);
+          tmp = Normalizer.normalize(tmp, Normalizer.Form.NFD);
           tmp = tmp.replaceAll("\\p{InCombiningDiacriticalMarks}+","");
           //bỏ kí tự không phải chữ cái,chữ số hoặc là khoảng trắng 
           tmp = tmp.replaceAll("[^a-z0-9\\s]","");
@@ -85,25 +86,26 @@ private List<String> soThichLienQuan;
           return tmp;
 }
     // Kiểm tra 2 chuỗi có 1 phần khớp hay không
-         private boolean softMatch(String userInterrest,String dbValue){
+         private boolean softMatch(String userInterest,String dbValue){
             if (userInterest == null || userInterest.isEmpty()) return false;
             if (dbValue == null || dbValue.isEmpty()) return false;
 
             String a = normalize(userInterest);
-            String b = normalize(dbvalue);
+            String b = normalize(dbValue);
     // nếu dbvalue chưa toàn bộ userInterest thì trả về true
-            if(b.contain(a)) return true;
+            if(b.contains(a)) return true;
     //nếu userInterrest chưa toàn bộ dbvalue thì trả về true
-            if(a.contain(b)) return true;
+            if(a.contains(b)) return true;
     //tách userInterest thành từ, kiểm tra từng token có nằm trong dbValue không
     String[] tokens = a.split("");
+    int matchTokens =0;
     for(String t : tokens){
-        if(t.length() >= 2 && b.contain(t)) {
-            matchToken++;
+        if(t.length() >= 2 && b.contains(t)) {
+            matchTokens++;
         }
     }
-    //Nếu hơn 50% token của userInterest 
-            
+    //Nếu hơn 50% token của userInterest xuất hiện trong dbValue thì trả về true
+        return tokens.length > 0 && ((double) matchTokens / tokens.length) >= 0.5;
          }
     // ===== Tính điểm phù hợp =====
     public double tinhDiemNganh(double diemThiHS, String toHopHS, List<String> soThichHS) {
@@ -122,22 +124,34 @@ private List<String> soThichLienQuan;
         }
 
         // 3. Kiểm tra sở thích trùng khớp
-        if (soThichLienQuan != null && soThichHS != null) {
-            int match = 0;
-            for (String st : soThichHS) {
-                for (String lienQuan : soThichLienQuan) {
-                    if (st.trim().equalsIgnoreCase(lienQuan)) {
-                        match++;
+        if (soThichLienQuan != null && soThichHS != null && !soThichLienQuan.isEmpty()) {
+            int matchCount = 0;
+            int checks =0;
+            for (String userSt : soThichHS) {
+                if(userSt == null || userSt.trim().isEmpty()) continue;
+                checks ++;
+                boolean matched = false;
+                //3.1 thử so sánh với từng mục trong sở thích liên quan
+                for(String dbSt : soThichLienQuan){
+                    if(softMatch(userSt,dbSt)){
+                        matched = true;
+                        break;
                     }
                 }
+                // 3.2 nếu vẫn chua match thử so sánh với tenNganh
+                if(!matched && softMatch(userSt,this.tenNganh)){
+                    matched = true;
+                }
+                if(matched) matchCount++;
             }
-            if (!soThichLienQuan.isEmpty()) {
-                diem += ((double) match / soThichLienQuan.size()) * 0.3;
+                // nếu user không nhập sở thích nào thì không cộng điểm 
+                if(checks >0){
+                    double ratio = (double) matchCount / checks;
+                    diem += ratio * 0.3;
+                }
             }
+            return diem;
         }
-
-        return diem;
-    }
 
     // ===== Override toString =====
     @Override

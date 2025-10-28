@@ -17,7 +17,7 @@ public class TruongDaiHoc {
     private String tenTruong;
     private String diaChi;
 
-    // ✅ Lưu điểm đánh giá tổng (tự động cập nhật khi có thay đổi)
+    //  Lưu điểm đánh giá tổng (tự động cập nhật khi có thay đổi)
     @Column(name = "diem_danh_gia")
     private Double diemDanhGia;
 
