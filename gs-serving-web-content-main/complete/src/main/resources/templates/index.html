@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Eschool - Best Learning Institutions">
-    <title>Eschool - Best Learning Institutions</title>
+    <title>UNIFINDER - Hệ thống tư vấn tuyển sinh</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -85,6 +86,7 @@
             display: flex;
             list-style: none;
             gap: 30px;
+            align-items: center;
         }
 
         .nav-menu a {
@@ -111,7 +113,7 @@
             width: 100%;
         }
 
-        .profile-link {
+        .profile-link, .signin-link {
             display: flex;
             align-items: center;
             gap: 8px;
@@ -121,12 +123,34 @@
             transition: all 0.3s;
         }
 
-        .profile-link i {
+        .profile-link i, .signin-link i {
             font-size: 1.2rem;
         }
 
-        .profile-link:hover {
+        .profile-link:hover, .signin-link:hover {
             color: var(--light-blue);
+        }
+
+        .logout-btn {
+            background: none;
+            border: none;
+            color: var(--bg-white);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            padding: 5px 0;
+        }
+
+        .logout-btn:hover {
+            color: var(--light-blue);
+        }
+
+        .logout-btn i {
+            font-size: 1.2rem;
         }
 
         .menu-button {
@@ -136,6 +160,42 @@
             color: var(--bg-white);
             font-size: 1.5rem;
             cursor: pointer;
+        }
+
+        /* Welcome Banner - Hiển thị khi đã đăng nhập */
+        .welcome-banner {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            margin-top: 70px;
+            animation: slideDown 0.5s ease;
+        }
+
+        .welcome-banner p {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .welcome-banner .role-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 3px 12px;
+            border-radius: 15px;
+            margin-left: 10px;
+            font-size: 14px;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Hero */
@@ -148,10 +208,17 @@
             justify-content: center;
             text-align: center;
             color: var(--bg-white);
-            margin-top: 70px;
             position: relative;
             animation: changeBackground 15s infinite ease-in-out;
             transition: background-image 2s ease;
+        }
+
+        .hero.with-banner {
+            margin-top: 0;
+        }
+
+        .hero.no-banner {
+            margin-top: 70px;
         }
 
         .hero::before {
@@ -191,6 +258,8 @@
             font-weight: 600;
             transition: all 0.3s;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border: none;
+            cursor: pointer;
         }
 
         .btn:hover {
@@ -268,6 +337,16 @@
             transform: translateY(-5px);
         }
 
+        .icon-box.disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .icon-box.disabled:hover {
+            transform: none;
+            background: rgba(255,255,255,0.1);
+        }
+
         .icon-box i {
             font-size: 3rem;
             color: var(--bg-white);
@@ -280,6 +359,10 @@
 
         .icon-box p {
             color: var(--light-blue);
+        }
+
+        .icon-box.disabled p {
+            color: rgba(219, 234, 254, 0.7);
         }
 
         /* About */
@@ -703,16 +786,34 @@
             <a th:href="@{/}" href="/" class="logo">UNIFINDER</a>
             <nav>
                 <ul class="nav-menu">
-
                     <li><a href="#home">Trang chủ</a></li>
                     <li><a href="#about">Giới Thiệu</a></li>
                     <li><a href="#courses">Khóa Học</a></li>
                     <li><a href="#blog">Tin Tức</a></li>
                     <li><a href="#contact">Liên Hệ</a></li>
-                    <li><a href="login.html" class="signin-link"><i class="fas fa-sign-in-alt"></i> Đăng Nhập</a></li>
-
-
-                    <li><a href="/profile-page" class="profile-link"><i class="fas fa-user-circle"></i> Hồ Sơ</a></li>
+                    
+                    <!-- Hiển thị khi CHƯA đăng nhập -->
+                    <li sec:authorize="!isAuthenticated()">
+                        <a th:href="@{/dang-nhap}" href="/dang-nhap" class="signin-link">
+                            <i class="fas fa-sign-in-alt"></i> Đăng Nhập
+                        </a>
+                    </li>
+                    
+                    <!-- Hiển thị khi ĐÃ đăng nhập -->
+                    <li sec:authorize="isAuthenticated()">
+                        <a th:href="@{/profile-page}" href="/profile-page" class="profile-link">
+                            <i class="fas fa-user-circle"></i> Hồ Sơ
+                        </a>
+                    </li>
+                    
+                    <li sec:authorize="isAuthenticated()">
+                        <form th:action="@{/logout}" method="post" style="display:inline;">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                            <button type="submit" class="logout-btn">
+                                <i class="fas fa-sign-out-alt"></i> Đăng Xuất
+                            </button>
+                        </form>
+                    </li>
                 </ul>
                 <button class="menu-button" aria-label="Toggle menu">
                     <i class="fas fa-bars"></i>
@@ -721,7 +822,15 @@
         </div>
     </header>
 
-    <section class="hero" id="home">
+    <!-- Welcome Banner - CHỈ hiển thị khi đã đăng nhập -->
+    <div class="welcome-banner" sec:authorize="isAuthenticated()">
+        <p>
+            🎉 Chào mừng, <strong sec:authentication="name"></strong>!
+            <span class="role-badge" sec:authentication="principal.authorities"></span>
+        </p>
+    </div>
+
+    <section class="hero" id="home" th:classappend="${#authorization.expression('isAuthenticated()')} ? 'with-banner' : 'no-banner'">
         <div class="hero-content">
             <h1>Chào Mừng Đến Với UNIFINDER<br>Hướng Tới Tương Lai, Tìm Kiếm Cơ Hội</h1>
             <p>Làm thế nào để tôi có thể chọn được trường đại học?</p>
@@ -731,25 +840,57 @@
 
     <section class="icon-boxes">
         <div class="container">
-            <a href="/truongdaihoc" class="icon-box">
+            <!-- Trường Đại Học -->
+            <a th:href="@{/truongdaihoc}" href="/truongdaihoc" class="icon-box" 
+               sec:authorize="isAuthenticated()">
                 <i class="fas fa-university"></i>
                 <div>
                     <h3>Trường đại học</h3>
                     <p>Biết chắc để nắm chắc tương lai</p>
                 </div>
             </a>
-            <a href="/tuvan" class="icon-box">
+            
+            <div class="icon-box disabled" sec:authorize="!isAuthenticated()">
+                <i class="fas fa-university"></i>
+                <div>
+                    <h3>Trường đại học</h3>
+                    <p>🔒 Đăng nhập để xem chi tiết</p>
+                </div>
+            </div>
+            
+            <!-- Tư Vấn -->
+            <a th:href="@{/tuvan}" href="/tuvan" class="icon-box" 
+               sec:authorize="isAuthenticated()">
                 <i class="fas fa-user-graduate"></i>
                 <div>
                     <h3>Tư vấn</h3>
                     <p>Đưa ra lựa chọn ngành học phù hợp</p>
                 </div>
             </a>
-            <div class="icon-box">
+            
+            <div class="icon-box disabled" sec:authorize="!isAuthenticated()">
+                <i class="fas fa-user-graduate"></i>
+                <div>
+                    <h3>Tư vấn</h3>
+                    <p>🔒 Đăng nhập để nhận tư vấn</p>
+                </div>
+            </div>
+            
+            <!-- Đánh Giá -->
+            <a th:href="@{/danhgia}" href="/danhgia" class="icon-box" 
+               sec:authorize="isAuthenticated()">
                 <i class="fas fa-star"></i>
                 <div>
                     <h3>Đánh giá</h3>
                     <p>Hãy để lại bình luận cho ngôi trường bạn</p>
+                </div>
+            </div>
+            
+            <div class="icon-box disabled" sec:authorize="!isAuthenticated()">
+                <i class="fas fa-star"></i>
+                <div>
+                    <h3>Đánh giá</h3>
+                    <p>🔒 Đăng nhập để đánh giá</p>
                 </div>
             </div>
         </div>
@@ -948,7 +1089,12 @@
                 <div>
                     <h4>Tài Khoản Của Tôi</h4>
                     <ul>
-                        <li><a href="/profile-page">Hồ Sơ Của Tôi</a></li>
+                        <li sec:authorize="isAuthenticated()">
+                            <a th:href="@{/profile-page}" href="/profile-page">Hồ Sơ Của Tôi</a>
+                        </li>
+                        <li sec:authorize="!isAuthenticated()">
+                            <a th:href="@{/dang-nhap}" href="/dang-nhap">Đăng nhập để xem hồ sơ</a>
+                        </li>
                         <li><a href="#">Danh Sách Yêu Thích</a></li>
                         <li><a href="#">Đơn Đặt Hàng Của Tôi</a></li>
                         <li><a href="#">Theo Dõi Đơn Hàng</a></li>
@@ -1071,7 +1217,7 @@
             contactForm.reset();
         });
 
-        // Course Card Animation (retained for Blog/Course consistency)
+        // Course Card Animation
         const allCards = document.querySelectorAll('.course-card, .blog-card');
         const cardObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {

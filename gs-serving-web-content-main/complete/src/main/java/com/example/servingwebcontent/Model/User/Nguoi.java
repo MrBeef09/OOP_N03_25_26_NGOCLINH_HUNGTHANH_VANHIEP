@@ -1,32 +1,63 @@
 package com.example.servingwebcontent.Model.User;
 
-//package User;
-public abstract class Nguoi {
-    private  String hoTen;
-    private  int ngaySinh;
-    private  String gioiTinh;
+import jakarta.persistence.*;
+import java.time.LocalDate;
 
-    //getter setter
-    public String getHoTen(){
+@MappedSuperclass
+public abstract class Nguoi {
+
+    @Column(name = "ho_ten", nullable = false)
+    private String hoTen;
+
+    @Column(name = "ngay_sinh")
+    private LocalDate ngaySinh;
+
+    @Column(name = "gioi_tinh")
+    private String gioiTinh;
+
+    // 🔹 Constructors
+    public Nguoi() {}
+
+    public Nguoi(String hoTen, LocalDate ngaySinh, String gioiTinh) {
+        this.hoTen = hoTen;
+        this.ngaySinh = ngaySinh;
+        this.gioiTinh = gioiTinh;
+    }
+
+    // 🔹 Getter / Setter
+    public String getHoTen() {
         return hoTen;
     }
+
     public void setHoTen(String hoTen) {
         this.hoTen = hoTen;
     }
-    public int getNgaySinh(){
+
+    public LocalDate getNgaySinh() {
         return ngaySinh;
     }
-    public void setNgaySinh(int ngaySinh) {
+
+    public void setNgaySinh(LocalDate ngaySinh) {
         this.ngaySinh = ngaySinh;
     }
-    public String getGioiTinh(){
+
+    public String getGioiTinh() {
         return gioiTinh;
     }
+
     public void setGioiTinh(String gioiTinh) {
         this.gioiTinh = gioiTinh;
     }
 
-    //method
+    // 🔹 Phương thức trừu tượng: các lớp con phải override
     public abstract void XemThongTin();
-    
+
+    @Override
+    public String toString() {
+        return "Nguoi {" +
+                "hoTen='" + hoTen + '\'' +
+                ", ngaySinh=" + ngaySinh +
+                ", gioiTinh='" + gioiTinh + '\'' +
+                '}';
+    }
 }

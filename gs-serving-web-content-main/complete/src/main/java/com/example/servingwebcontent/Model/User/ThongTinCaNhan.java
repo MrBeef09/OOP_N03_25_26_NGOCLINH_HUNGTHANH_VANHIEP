@@ -1,36 +1,45 @@
 package com.example.servingwebcontent.Model.User;
 
-//package User;
+import jakarta.persistence.Embeddable;
+
+@Embeddable
 public class ThongTinCaNhan {
     private String diaChi;
-    private int soDienThoai;
+    private String soDienThoai;
 
-    // getter setter
-    public String getDiaChi(){
+    public ThongTinCaNhan() {}
+
+    public ThongTinCaNhan(String diaChi, String soDienThoai) {
+        this.diaChi = diaChi;
+        this.soDienThoai = soDienThoai;
+    }
+
+    public String getDiaChi() {
         return diaChi;
     }
-    public int getSoDienThoai(){
-        return soDienThoai;
-    }
+
     public void setDiaChi(String diaChi) {
         this.diaChi = diaChi;
     }
-    public void setSoDienthoai(int soDienThoai) {
+
+    public String getSoDienThoai() {
+        return soDienThoai;
+    }
+
+    public void setSoDienThoai(String soDienThoai) {
         this.soDienThoai = soDienThoai;
     }
 
-    //constructor
-    public ThongTinCaNhan(String diaChi, int soDienThoai) {
-        this.diaChi = diaChi;
-        this.soDienThoai = soDienThoai;
+    public void capNhatThongTin(String diaChiMoi, String sdtMoi) {
+        if (diaChiMoi != null && !diaChiMoi.isEmpty()) this.diaChi = diaChiMoi;
+        if (sdtMoi != null && !sdtMoi.isEmpty()) this.soDienThoai = sdtMoi;
     }
-    // method
-    public void CapNhatThongTin(String diaChi, int soDienThoai) {
-        this.diaChi = diaChi;
-        this.soDienThoai = soDienThoai;
-    }
-    public void Xemthongtin(){
-        System.out.println("Dia chi: " + diaChi);
-        System.out.println("So dien thoai: " + soDienThoai);
+
+    @Override
+    public String toString() {
+        return "ThongTinCaNhan{" +
+                "diaChi='" + diaChi + '\'' +
+                ", soDienThoai='" + soDienThoai + '\'' +
+                '}';
     }
 }

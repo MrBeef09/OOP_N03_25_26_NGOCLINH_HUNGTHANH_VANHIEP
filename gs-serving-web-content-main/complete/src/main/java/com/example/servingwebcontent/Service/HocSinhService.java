@@ -1,48 +1,26 @@
 package com.example.servingwebcontent.Service;
 
 import com.example.servingwebcontent.Model.User.HocSinh;
+import com.example.servingwebcontent.Repository.HocSinhRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class HocSinhService {
-    private List<HocSinh> danhSachHocSinh = new ArrayList<>();
+    @Autowired
+    private HocSinhRepository hocSinhRepository;
 
-    // CREATE
-    public void themHocSinh(HocSinh hs) {
-        danhSachHocSinh.add(hs);
+    public List<HocSinh> getAllHocSinh() {
+        return hocSinhRepository.findAll();
     }
 
-    // READ - all
-    public List<HocSinh> layTatCaHocSinh() {
-        return danhSachHocSinh;
+    public HocSinh getHocSinhByMa(String maHocSinh) {
+        return hocSinhRepository.findByMaHocSinh(maHocSinh);
     }
 
-    // READ - by mã học sinh
-    public HocSinh timTheoMa(String maHocSinh) {
-        return danhSachHocSinh.stream()
-                .filter(hs -> hs.getMaHocSinh().equals(maHocSinh))
-                .findFirst()
-                .orElse(null);
-    }
-
-    // UPDATE
-    public boolean capNhatHocSinh(String maHocSinh, HocSinh hsMoi) {
-        HocSinh hs = timTheoMa(maHocSinh);
-        if (hs != null) {
-            hs.setHoTen(hsMoi.getHoTen());
-            hs.setNgaySinh(hsMoi.getNgaySinh());
-            hs.setGioiTinh(hsMoi.getGioiTinh());
-            return true;
-        }
-        return false;
-    }
-
-    // DELETE
-    public boolean xoaHocSinh(String maHocSinh) {
-        return danhSachHocSinh.removeIf(hs -> hs.getMaHocSinh().equals(maHocSinh));
+    public HocSinh saveHocSinh(HocSinh hocSinh) {
+        return hocSinhRepository.save(hocSinh);
     }
 }
-
