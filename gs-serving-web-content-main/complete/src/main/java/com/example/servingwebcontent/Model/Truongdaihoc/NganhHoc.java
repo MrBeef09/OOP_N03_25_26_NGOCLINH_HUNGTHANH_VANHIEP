@@ -70,7 +70,41 @@ private List<String> soThichLienQuan;
     public void xemThongTin() {
         System.out.println(this.toString());
     }
+    // chuẩn hóa chuỗi 
+    private String normalize(String s){
+          if(s == null) return "";
+          // loại bỏ khoảng trắng đầu cuối và chuyển về chữ thường
+          String tmp = s.trim().toLowerCase();
+          //loại dấu tiếng việt
+          tmp = Normalizer.normalizer(tmp, Normalizer.Form.NFD);
+          tmp = tmp.replaceAll("\\p{InCombiningDiacriticalMarks}+","");
+          //bỏ kí tự không phải chữ cái,chữ số hoặc là khoảng trắng 
+          tmp = tmp.replaceAll("[^a-z0-9\\s]","");
+          //chuyển nhiều khoảng trắng thành 1
+          tmp = tmp.replaceAll("\\s+","");
+          return tmp;
+}
+    // Kiểm tra 2 chuỗi có 1 phần khớp hay không
+         private boolean softMatch(String userInterrest,String dbValue){
+            if (userInterest == null || userInterest.isEmpty()) return false;
+            if (dbValue == null || dbValue.isEmpty()) return false;
 
+            String a = normalize(userInterest);
+            String b = normalize(dbvalue);
+    // nếu dbvalue chưa toàn bộ userInterest thì trả về true
+            if(b.contain(a)) return true;
+    //nếu userInterrest chưa toàn bộ dbvalue thì trả về true
+            if(a.contain(b)) return true;
+    //tách userInterest thành từ, kiểm tra từng token có nằm trong dbValue không
+    String[] tokens = a.split("");
+    for(String t : tokens){
+        if(t.length() >= 2 && b.contain(t)) {
+            matchToken++;
+        }
+    }
+    //Nếu hơn 50% token của userInterest 
+            
+         }
     // ===== Tính điểm phù hợp =====
     public double tinhDiemNganh(double diemThiHS, String toHopHS, List<String> soThichHS) {
         double diem = 0;
