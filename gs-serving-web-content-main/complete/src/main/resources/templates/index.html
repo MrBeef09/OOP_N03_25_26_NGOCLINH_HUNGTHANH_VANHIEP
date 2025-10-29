@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -113,7 +112,7 @@
             width: 100%;
         }
 
-        .profile-link, .signin-link {
+        .signin-link {
             display: flex;
             align-items: center;
             gap: 8px;
@@ -123,34 +122,12 @@
             transition: all 0.3s;
         }
 
-        .profile-link i, .signin-link i {
+        .signin-link i {
             font-size: 1.2rem;
         }
 
-        .profile-link:hover, .signin-link:hover {
+        .signin-link:hover {
             color: var(--light-blue);
-        }
-
-        .logout-btn {
-            background: none;
-            border: none;
-            color: var(--bg-white);
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s;
-            padding: 5px 0;
-        }
-
-        .logout-btn:hover {
-            color: var(--light-blue);
-        }
-
-        .logout-btn i {
-            font-size: 1.2rem;
         }
 
         .menu-button {
@@ -160,42 +137,6 @@
             color: var(--bg-white);
             font-size: 1.5rem;
             cursor: pointer;
-        }
-
-        /* Welcome Banner - Hiển thị khi đã đăng nhập */
-        .welcome-banner {
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-            padding: 15px 0;
-            text-align: center;
-            margin-top: 70px;
-            animation: slideDown 0.5s ease;
-        }
-
-        .welcome-banner p {
-            margin: 0;
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .welcome-banner .role-badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.2);
-            padding: 3px 12px;
-            border-radius: 15px;
-            margin-left: 10px;
-            font-size: 14px;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         /* Hero */
@@ -211,13 +152,6 @@
             position: relative;
             animation: changeBackground 15s infinite ease-in-out;
             transition: background-image 2s ease;
-        }
-
-        .hero.with-banner {
-            margin-top: 0;
-        }
-
-        .hero.no-banner {
             margin-top: 70px;
         }
 
@@ -317,7 +251,7 @@
 
         .icon-boxes .container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 30px;
         }
 
@@ -330,21 +264,8 @@
             border-radius: 15px;
             transition: all 0.3s;
             text-decoration: none;
-        }
-
-        .icon-box:hover {
-            background: #60a5fa;
-            transform: translateY(-5px);
-        }
-
-        .icon-box.disabled {
             cursor: not-allowed;
             opacity: 0.6;
-        }
-
-        .icon-box.disabled:hover {
-            transform: none;
-            background: rgba(255,255,255,0.1);
         }
 
         .icon-box i {
@@ -358,10 +279,6 @@
         }
 
         .icon-box p {
-            color: var(--light-blue);
-        }
-
-        .icon-box.disabled p {
             color: rgba(219, 234, 254, 0.7);
         }
 
@@ -740,12 +657,20 @@
 
         /* Responsive */
         @media (max-width: 992px) {
+            .icon-boxes .container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
             .contact-content {
                 grid-template-columns: 1fr;
             }
         }
 
         @media (max-width: 768px) {
+            .icon-boxes .container {
+                grid-template-columns: 1fr;
+            }
+            
             .nav-menu {
                 display: none;
                 position: absolute;
@@ -783,7 +708,7 @@
 <body>
     <header class="header">
         <div class="container">
-            <a th:href="@{/}" href="/" class="logo">UNIFINDER</a>
+            <a href="/" class="logo">UNIFINDER</a>
             <nav>
                 <ul class="nav-menu">
                     <li><a href="#home">Trang chủ</a></li>
@@ -791,28 +716,10 @@
                     <li><a href="#courses">Khóa Học</a></li>
                     <li><a href="#blog">Tin Tức</a></li>
                     <li><a href="#contact">Liên Hệ</a></li>
-                    
-                    <!-- Hiển thị khi CHƯA đăng nhập -->
-                    <li sec:authorize="!isAuthenticated()">
-                        <a th:href="@{/dang-nhap}" href="/dang-nhap" class="signin-link">
+                    <li>
+                        <a href="/dang-nhap" class="signin-link">
                             <i class="fas fa-sign-in-alt"></i> Đăng Nhập
                         </a>
-                    </li>
-                    
-                    <!-- Hiển thị khi ĐÃ đăng nhập -->
-                    <li sec:authorize="isAuthenticated()">
-                        <a th:href="@{/profile-page}" href="/profile-page" class="profile-link">
-                            <i class="fas fa-user-circle"></i> Hồ Sơ
-                        </a>
-                    </li>
-                    
-                    <li sec:authorize="isAuthenticated()">
-                        <form th:action="@{/logout}" method="post" style="display:inline;">
-                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                            <button type="submit" class="logout-btn">
-                                <i class="fas fa-sign-out-alt"></i> Đăng Xuất
-                            </button>
-                        </form>
                     </li>
                 </ul>
                 <button class="menu-button" aria-label="Toggle menu">
@@ -822,15 +729,7 @@
         </div>
     </header>
 
-    <!-- Welcome Banner - CHỈ hiển thị khi đã đăng nhập -->
-    <div class="welcome-banner" sec:authorize="isAuthenticated()">
-        <p>
-            🎉 Chào mừng, <strong sec:authentication="name"></strong>!
-            <span class="role-badge" sec:authentication="principal.authorities"></span>
-        </p>
-    </div>
-
-    <section class="hero" id="home" th:classappend="${#authorization.expression('isAuthenticated()')} ? 'with-banner' : 'no-banner'">
+    <section class="hero" id="home">
         <div class="hero-content">
             <h1>Chào Mừng Đến Với UNIFINDER<br>Hướng Tới Tương Lai, Tìm Kiếm Cơ Hội</h1>
             <p>Làm thế nào để tôi có thể chọn được trường đại học?</p>
@@ -840,17 +739,7 @@
 
     <section class="icon-boxes">
         <div class="container">
-            <!-- Trường Đại Học -->
-            <a th:href="@{/truongdaihoc}" href="/truongdaihoc" class="icon-box" 
-               sec:authorize="isAuthenticated()">
-                <i class="fas fa-university"></i>
-                <div>
-                    <h3>Trường đại học</h3>
-                    <p>Biết chắc để nắm chắc tương lai</p>
-                </div>
-            </a>
-            
-            <div class="icon-box disabled" sec:authorize="!isAuthenticated()">
+            <div class="icon-box">
                 <i class="fas fa-university"></i>
                 <div>
                     <h3>Trường đại học</h3>
@@ -858,17 +747,7 @@
                 </div>
             </div>
             
-            <!-- Tư Vấn -->
-            <a th:href="@{/tuvan}" href="/tuvan" class="icon-box" 
-               sec:authorize="isAuthenticated()">
-                <i class="fas fa-user-graduate"></i>
-                <div>
-                    <h3>Tư vấn</h3>
-                    <p>Đưa ra lựa chọn ngành học phù hợp</p>
-                </div>
-            </a>
-            
-            <div class="icon-box disabled" sec:authorize="!isAuthenticated()">
+            <div class="icon-box">
                 <i class="fas fa-user-graduate"></i>
                 <div>
                     <h3>Tư vấn</h3>
@@ -876,17 +755,7 @@
                 </div>
             </div>
             
-            <!-- Đánh Giá -->
-            <a th:href="@{/danhgia}" href="/danhgia" class="icon-box" 
-               sec:authorize="isAuthenticated()">
-                <i class="fas fa-star"></i>
-                <div>
-                    <h3>Đánh giá</h3>
-                    <p>Hãy để lại bình luận cho ngôi trường bạn</p>
-                </div>
-            </div>
-            
-            <div class="icon-box disabled" sec:authorize="!isAuthenticated()">
+            <div class="icon-box">
                 <i class="fas fa-star"></i>
                 <div>
                     <h3>Đánh giá</h3>
@@ -1089,12 +958,7 @@
                 <div>
                     <h4>Tài Khoản Của Tôi</h4>
                     <ul>
-                        <li sec:authorize="isAuthenticated()">
-                            <a th:href="@{/profile-page}" href="/profile-page">Hồ Sơ Của Tôi</a>
-                        </li>
-                        <li sec:authorize="!isAuthenticated()">
-                            <a th:href="@{/dang-nhap}" href="/dang-nhap">Đăng nhập để xem hồ sơ</a>
-                        </li>
+                        <li><a href="/dang-nhap">Đăng nhập để xem hồ sơ</a></li>
                         <li><a href="#">Danh Sách Yêu Thích</a></li>
                         <li><a href="#">Đơn Đặt Hàng Của Tôi</a></li>
                         <li><a href="#">Theo Dõi Đơn Hàng</a></li>
@@ -1118,7 +982,6 @@
     </button>
 
     <script>
-        // Mobile Menu
         const menuBtn = document.querySelector('.menu-button');
         const navMenu = document.querySelector('.nav-menu');
 
@@ -1126,7 +989,6 @@
             navMenu.classList.toggle('active');
         });
 
-        // Header Scroll Effect
         const header = document.querySelector('.header');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 100) {
@@ -1136,7 +998,6 @@
             }
         });
 
-        // Counter Animation
         const counters = document.querySelectorAll('.number');
         const speed = 200;
         let animated = false;
@@ -1168,7 +1029,6 @@
 
         observer.observe(statsSection);
 
-        // Back to Top
         const backToTop = document.querySelector('.back-to-top');
 
         window.addEventListener('scroll', () => {
@@ -1186,7 +1046,6 @@
             });
         });
 
-        // Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1201,7 +1060,6 @@
             });
         });
 
-        // Newsletter and Contact Form Submission
         const newsletterForm = document.querySelector('.newsletter-form');
         newsletterForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -1217,7 +1075,6 @@
             contactForm.reset();
         });
 
-        // Course Card Animation
         const allCards = document.querySelectorAll('.course-card, .blog-card');
         const cardObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {

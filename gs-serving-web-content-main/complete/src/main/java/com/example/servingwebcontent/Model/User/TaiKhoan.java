@@ -1,7 +1,6 @@
 package com.example.servingwebcontent.Model.User;
 
 import jakarta.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "tai_khoan")
@@ -19,8 +18,8 @@ public class TaiKhoan {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "vai_tro")  // Giữ tạm để backward compatibility, có thể xóa sau
-    private String vaiTro; // "ADMIN" hoặc "HOCSINH" (sẽ migrate sang roles)
+    @Column(name = "vai_tro")
+    private String vaiTro; // Lưu với format "ROLE_ADMIN" hoặc "ROLE_HOCSINH"
 
     // Constructors
     public TaiKhoan() {}
@@ -55,6 +54,7 @@ public class TaiKhoan {
     public String getEmail() {
         return email;
     }
+    
     public void setEmail(String email) {
         this.email = email;
     }
@@ -63,9 +63,18 @@ public class TaiKhoan {
         return vaiTro;
     }
 
+    // ✅ SỬA METHOD NÀY - Chấp nhận cả "ROLE_" prefix
     public void setVaiTro(String vaiTro) {
-        if (vaiTro != null && (vaiTro.equalsIgnoreCase("ADMIN") || vaiTro.equalsIgnoreCase("HOCSINH"))) {
-            this.vaiTro = vaiTro.toUpperCase();
+        if (vaiTro == null || vaiTro.trim().isEmpty()) {
+            throw new IllegalArgumentException("Vai trò không được để trống.");
+        }
+        
+        String normalized = vaiTro.trim().toUpperCase();
+        
+        // Chấp nhận cả "ADMIN", "HOCSINH", "ROLE_ADMIN", "ROLE_HOCSINH"
+        if (normalized.equals("ADMIN") || normalized.equals("HOCSINH") ||
+            normalized.equals("ROLE_ADMIN") || normalized.equals("ROLE_HOCSINH")) {
+            this.vaiTro = normalized;
         } else {
             throw new IllegalArgumentException("Vai trò không hợp lệ. Chỉ chấp nhận ADMIN hoặc HOCSINH.");
         }
@@ -86,6 +95,6 @@ public class TaiKhoan {
 
     @Override
     public String toString() {
-        return "TaiKhoan{tenDangNhap='" + tenDangNhap + "', roles=" + vaiTro + "}";
+        return "TaiKhoan{tenDangNhap='" + tenDangNhap + "', vaiTro=" + vaiTro + "}";
     }
 }
