@@ -50,7 +50,7 @@ public abstract class Nguoi {
     }
 
     // 🔹 Phương thức trừu tượng: các lớp con phải override
-    public abstract void XemThongTin();
+    public abstract void xemThongTin();
 
     @Override
     public String toString() {

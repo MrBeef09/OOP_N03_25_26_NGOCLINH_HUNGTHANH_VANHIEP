@@ -1,4 +1,4 @@
-package com.example.servingwebcontent.Model.Truongdaihoc.CoSoVatChat;
+package com.example.servingwebcontent.Model.Truongdaihoc;
 
 import jakarta.persistence.*;
 //import java.util.ArrayList;
