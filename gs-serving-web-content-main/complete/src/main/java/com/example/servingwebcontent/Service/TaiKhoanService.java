@@ -27,37 +27,36 @@ public class TaiKhoanService implements UserDetailsService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    System.out.println("===== ĐĂNG NHẬP DEBUG =====");
-    System.out.println("Đang tìm user: [" + username + "]");
-    
-    TaiKhoan taiKhoan = taiKhoanRepository.findByTenDangNhap(username)
-        .orElseThrow(() -> {
-            System.out.println("❌ KHÔNG TÌM THẤY USER!");
-            return new UsernameNotFoundException("User not found: " + username);
-        });
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("===== ĐĂNG NHẬP DEBUG =====");
+        System.out.println("Đang tìm user: [" + username + "]");
+        
+        TaiKhoan taiKhoan = taiKhoanRepository.findByTenDangNhap(username)
+            .orElseThrow(() -> {
+                System.out.println("❌ KHÔNG TÌM THẤY USER!");
+                return new UsernameNotFoundException("User not found: " + username);
+            });
 
-    System.out.println("✅ Tìm thấy user:");
-    System.out.println("  - Username: " + taiKhoan.getTenDangNhap());
-    System.out.println("  - Email: " + taiKhoan.getEmail());
-    System.out.println("  - Role: " + taiKhoan.getVaiTro());
-    System.out.println("  - Password hash (first 30 chars): " + taiKhoan.getMatKhau().substring(0, 30) + "...");
-    System.out.println("  - Password starts with $2: " + taiKhoan.getMatKhau().startsWith("$2"));
-    System.out.println("==========================");
+        System.out.println("✅ Tìm thấy user:");
+        System.out.println("  - Username: " + taiKhoan.getTenDangNhap());
+        System.out.println("  - Email: " + taiKhoan.getEmail());
+        System.out.println("  - Role from DB: " + taiKhoan.getVaiTro());
+        System.out.println("  - Password hash (first 30 chars): " + 
+            taiKhoan.getMatKhau().substring(0, Math.min(30, taiKhoan.getMatKhau().length())) + "...");
+        System.out.println("  - Password starts with $2: " + taiKhoan.getMatKhau().startsWith("$2"));
+        
+        // Tạo UserDetails với authorities
+        UserDetails userDetails = User.builder()
+            .username(taiKhoan.getTenDangNhap())
+            .password(taiKhoan.getMatKhau())
+            .authorities(new SimpleGrantedAuthority(taiKhoan.getVaiTro()))
+            .build();
+        
+        System.out.println("  - Authorities: " + userDetails.getAuthorities());
+        System.out.println("==========================");
 
-    // ✅ Chuẩn hóa ROLE_ prefix cho Spring Security
-    String role = taiKhoan.getVaiTro();
-    if (!role.startsWith("ROLE_")) {
-        role = "ROLE_" + role;  // thêm prefix nếu thiếu
+        return userDetails;
     }
-
-    return User.builder()
-    .username(taiKhoan.getTenDangNhap())
-    .password(taiKhoan.getMatKhau())
-    .roles(taiKhoan.getVaiTro().replace("ROLE_", ""))
-    .build();
-    
-}
 
     @Transactional
     @CacheEvict(value = "taiKhoanCache", key = "#username")
@@ -69,6 +68,11 @@ public UserDetails loadUserByUsername(String username) throws UsernameNotFoundEx
             throw new RuntimeException("Tên đăng nhập đã tồn tại!");
         }
 
+        // Kiểm tra email đã tồn tại (nếu cần)
+        if (taiKhoanRepository.findByEmail(email).isPresent()) {
+            throw new RuntimeException("Email đã được sử dụng!");
+        }
+
         // Chuẩn hóa role
         String normalizedRole = role.trim().toUpperCase();
         
@@ -77,7 +81,10 @@ public UserDetails loadUserByUsername(String username) throws UsernameNotFoundEx
             throw new IllegalArgumentException("Vai trò không hợp lệ. Chỉ chấp nhận ADMIN hoặc HOCSINH.");
         }
 
+        // Mã hóa mật khẩu
         String encodedPassword = passwordEncoder.encode(password);
+        
+        // Thêm prefix ROLE_ cho Spring Security
         String finalRole = "ROLE_" + normalizedRole;
         
         System.out.println("Thông tin đăng ký:");
@@ -87,6 +94,7 @@ public UserDetails loadUserByUsername(String username) throws UsernameNotFoundEx
         System.out.println("  - Encoded password (first 30 chars): " + encodedPassword.substring(0, 30) + "...");
         System.out.println("  - Role: " + finalRole);
 
+        // Tạo và lưu tài khoản
         TaiKhoan taiKhoan = new TaiKhoan();
         taiKhoan.setTenDangNhap(username);
         taiKhoan.setEmail(email);
@@ -94,7 +102,19 @@ public UserDetails loadUserByUsername(String username) throws UsernameNotFoundEx
         taiKhoan.setVaiTro(finalRole);
         
         taiKhoanRepository.save(taiKhoan);
-        System.out.println("✅ Lưu thành công!");
+        System.out.println("✅ Lưu thành công vào database!");
         System.out.println("==========================");
     }
+
+    // Method hỗ trợ tìm tài khoản theo username
+    public TaiKhoan findByUsername(String username) {
+        return taiKhoanRepository.findByTenDangNhap(username)
+            .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+    }
+
+    // // Method hỗ trợ tìm tài khoản theo email
+    // public TaiKhoan findByEmail(String email) {
+    //     return taiKhoanRepository.findByEmail(email)
+    //         .orElseThrow(() -> new UsernameNotFoundException("Email not found: " + email));
+    // }
 }

@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
 import com.example.servingwebcontent.Service.TaiKhoanService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+// import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+// import org.springframework.security.core.Authentication;
+// import org.springframework.security.core.authority.SimpleGrantedAuthority;
+// import org.springframework.security.core.context.SecurityContextHolder;
+// import org.springframework.security.core.userdetails.UserDetails;
+// import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -65,42 +65,8 @@ public class LoginController {
             
             // Đăng ký tài khoản
             taiKhoanService.register(username, email, password, role.trim());
-            
-            // Tự động đăng nhập
-            UserDetails userDetails = taiKhoanService.loadUserByUsername(username);
-            UsernamePasswordAuthenticationToken authentication = 
-                new UsernamePasswordAuthenticationToken(
-                    userDetails, 
-                    null, 
-                    userDetails.getAuthorities()
-                );
-            
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            
-            // Lưu vào session
-            request.getSession().setAttribute(
-                HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
-                SecurityContextHolder.getContext()
-            );
-            
-            // ===== ĐIỀU HƯỚNG THEO VAI TRÒ SAU ĐĂNG KÝ =====
-            String redirectUrl = "/";
-            
-            if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
-                // *** SỬA Ở ĐÂY ***
-                redirectUrl = "/admin/dashboard"; // Thống nhất về /admin/dashboard
-            } else if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_HOCSINH"))) {
-                redirectUrl = "/user/home";
-            }
-            
-            System.out.println("Redirect to: " + redirectUrl);
-            // *** THÊM Ở ĐÂY ***
-            // Thêm ?registered=true để kích hoạt popup chào mừng
-            if (redirectUrl.equals("/user/home")) {
-                redirectUrl += "?registered=true";
-            }
-            
-            return "redirect:" + redirectUrl;
+
+            return "redirect:/dang-nhap?registered=true";
             
         } catch (RuntimeException e) {
             System.err.println("Lỗi đăng ký: " + e.getMessage());

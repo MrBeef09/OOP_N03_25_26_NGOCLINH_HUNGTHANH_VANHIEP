@@ -2,6 +2,8 @@ package com.example.servingwebcontent.Config;
 
 import com.example.servingwebcontent.Service.TaiKhoanService;
 import jakarta.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,6 +16,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    @Autowired
+    private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -53,15 +58,7 @@ public class SecurityConfig {
                 .usernameParameter("username")
                 .passwordParameter("password")
                 // Cấu hình chuyển hướng sau khi đăng nhập thành công
-                .successHandler((request, response, authentication) -> {
-                    String redirectUrl = "/"; // Trang mặc định
-                    if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
-                        redirectUrl = "/admin/dashboard"; // Admin đến trang dashboard
-                    } else if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_HOCSINH"))) {
-                        redirectUrl = "/user/home"; // Học sinh đến trang home
-                    }
-                    response.sendRedirect(redirectUrl);
-                })
+                .successHandler(customAuthenticationSuccessHandler)
                 .failureUrl("/dang-nhap?error=true") // Nếu đăng nhập thất bại
                 .permitAll()
             )

@@ -3,19 +3,18 @@ package com.example.servingwebcontent.Controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.security.core.Authentication;
 
 @Controller
-@RequestMapping("/user") // (Tùy chọn) Nhóm các URL của user lại với nhau
 public class UserController {
 
-    // Đây là phương thức sẽ "đón" yêu cầu đến "/user/home"
-    @GetMapping("/home")
-    public String userHomePage() {
-        // Trả về tên của file HTML trong thư mục templates
-        // Ví dụ: templates/user/home.html
-        return "user/home"; 
+    @GetMapping("/user/home")
+    public String userHome(Model model, Authentication authentication) {
+        // Thêm thông tin user vào model nếu cần
+        if (authentication != null && authentication.isAuthenticated()) {
+            model.addAttribute("username", authentication.getName());
+        }
+        return "user-home"; // Trả về template user-home.html
     }
-
-    // Bạn có thể thêm các trang khác cho học sinh ở đây
-    // Ví dụ: @GetMapping("/profile"), @GetMapping("/courses"), etc.
 }
