@@ -1,16 +1,15 @@
-<!-- <!DOCTYPE html>
-<html lang="vi" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Eschool - Best Learning Institutions">
+    <meta name="description" content="UNIFINDER - Trang chủ học sinh">
     <title>UNIFINDER - Trang chủ học sinh</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-    * {
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -25,6 +24,7 @@
             --bg-gray: #f3f4f6;
             --text-dark: #1f2937;
             --text-gray: #6b7280;
+            --success-green: #10b981;
         }
 
         body {
@@ -46,99 +46,6 @@
             padding: 0 15px;
         }
 
-        /* POPUP CHÀO MỪNG */
-        .welcome-popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-            padding: 40px 60px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            z-index: 10000;
-            text-align: center;
-            animation: popupShow 0.5s ease forwards;
-            max-width: 500px;
-        }
-
-        .welcome-popup.hide {
-            animation: popupHide 0.5s ease forwards;
-        }
-
-        .welcome-popup h2 {
-            color: white;
-            font-size: 2rem;
-            margin-bottom: 15px;
-        }
-
-        .welcome-popup p {
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-        }
-
-        .welcome-popup .role-badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.3);
-            padding: 8px 20px;
-            border-radius: 20px;
-            margin-top: 10px;
-            font-weight: 600;
-            font-size: 1rem;
-        }
-
-        .welcome-popup .icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-        }
-
-        @keyframes popupShow {
-            0% {
-                transform: translate(-50%, -50%) scale(0);
-                opacity: 0;
-            }
-            100% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
-        }
-
-        @keyframes popupHide {
-            0% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(-50%, -50%) scale(0);
-                opacity: 0;
-            }
-        }
-
-        .popup-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 9999;
-            opacity: 0;
-            animation: fadeIn 0.5s ease forwards;
-        }
-
-        .popup-overlay.hide {
-            animation: fadeOut 0.5s ease forwards;
-        }
-
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeOut {
-            to { opacity: 0; }
-        }
-
         /* Header */
         .header {
             background: #1e40af;
@@ -149,12 +56,6 @@
             top: 0;
             z-index: 1000;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-        }
-
-        .header.scrolled {
-            background: #2563eb;
-            padding: 15px 0;
         }
 
         .header .container {
@@ -168,17 +69,12 @@
             font-weight: bold;
             color: var(--bg-white);
             text-decoration: none;
-            transition: transform 0.3s;
-        }
-
-        .logo:hover {
-            transform: scale(1.05);
         }
 
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 30px;
+            gap: 20px;
             align-items: center;
         }
 
@@ -206,77 +102,74 @@
             width: 100%;
         }
 
-        .profile-link {
+        .user-menu {
             display: flex;
             align-items: center;
-            gap: 8px;
-            color: var(--bg-white);
+            gap: 15px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 25px;
+        }
+
+        .user-info i {
+            font-size: 1.2rem;
+        }
+
+        .profile-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s;
-        }
-
-        .profile-link i {
-            font-size: 1.2rem;
-        }
-
-        .profile-link:hover {
-            color: var(--light-blue);
-        }
-
-        .logout-btn {
-            background: none;
-            border: none;
-            color: var(--bg-white);
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
             display: flex;
             align-items: center;
             gap: 8px;
+        }
+
+        .profile-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .logout-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
             transition: all 0.3s;
-            padding: 5px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .logout-btn:hover {
-            color: var(--light-blue);
-        }
-
-        .logout-btn i {
-            font-size: 1.2rem;
-        }
-
-        .menu-button {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--bg-white);
-            font-size: 1.5rem;
-            cursor: pointer;
+            background: #ef4444;
+            transform: translateY(-2px);
         }
 
         /* Hero */
         .hero {
             background: linear-gradient(rgba(37, 99, 235, 0.85), rgba(30, 64, 175, 0.85)),
-                        url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1920') center/cover;
+                        url('https://hoanghamobile.com/tin-tuc/wp-content/webp-express/webp-images/uploads/2024/07/anh-truong-hoc-8.jpg.webp') center/cover;
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             color: var(--bg-white);
-            position: relative;
-            animation: changeBackground 15s infinite ease-in-out;
-            transition: background-image 2s ease;
             margin-top: 70px;
-        }
-
-        .hero::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.4);
-            z-index: 1;
+            animation: changeBackground 15s infinite ease-in-out;
         }
 
         .hero-content {
@@ -285,11 +178,17 @@
             padding: 0 20px;
         }
 
+        .welcome-text {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #fbbf24;
+            font-weight: 600;
+        }
+
         .hero-content h1 {
             font-size: 3.5rem;
             color: var(--bg-white);
             margin-bottom: 20px;
-            animation: fadeInUp 1s ease;
         }
 
         .hero-content p {
@@ -308,24 +207,11 @@
             font-weight: 600;
             transition: all 0.3s;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            border: none;
-            cursor: pointer;
         }
 
         .btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 25px rgba(255,255,255,0.3);
-        }
-
-        @keyframes fadeInUp {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         @keyframes changeBackground {
@@ -364,7 +250,7 @@
             gap: 20px;
             color: var(--bg-white);
             padding: 30px;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.15);
             border-radius: 15px;
             transition: all 0.3s;
             text-decoration: none;
@@ -372,14 +258,14 @@
         }
 
         .icon-box:hover {
-            background: #60a5fa;
+            background: rgba(255,255,255,0.25);
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
         .icon-box i {
             font-size: 3rem;
-            color: var(--bg-white);
+            color: #fbbf24;
         }
 
         .icon-box h3 {
@@ -389,6 +275,15 @@
 
         .icon-box p {
             color: var(--light-blue);
+        }
+
+        .unlock-badge {
+            display: inline-block;
+            background: var(--success-green);
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-top: 5px;
         }
 
         /* About */
@@ -487,17 +382,6 @@
             font-size: 1.3rem;
             margin-bottom: 10px;
             color: var(--text-dark);
-        }
-
-        .course-price {
-            color: var(--primary-blue);
-            font-weight: 700;
-            font-size: 1.5rem;
-            margin: 15px 0;
-        }
-
-        .course-price.free {
-            color: #10b981;
         }
 
         /* Newsletter */
@@ -602,73 +486,6 @@
             color: var(--primary-blue);
         }
 
-        /* Contact Section */
-        .contact {
-            padding: 80px 0;
-            background: #f3f4f6;
-        }
-
-        .contact-content {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 50px;
-        }
-
-        .contact-info div {
-            margin-bottom: 25px;
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-        }
-
-        .contact-info i {
-            font-size: 1.5rem;
-            color: var(--primary-blue);
-        }
-
-        .contact-info h4 {
-            font-size: 1.2rem;
-            margin-bottom: 5px;
-        }
-
-        .contact-form label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #1f2937;
-        }
-
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 14px;
-            resize: vertical;
-        }
-
-        .contact-form textarea {
-            min-height: 150px;
-        }
-
-        .contact-form button {
-            background: #2563eb;
-            color: var(--bg-white);
-            border: none;
-            padding: 15px 30px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-        .contact-form button:hover {
-            background: #1e40af;
-            transform: translateY(-2px);
-        }
-
         /* Footer */
         .footer {
             background: #1e40af;
@@ -765,136 +582,93 @@
         }
 
         /* Responsive */
-        @media (max-width: 992px) {
-            .icon-boxes .container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .contact-content {
-                grid-template-columns: 1fr;
-            }
-        }
-
         @media (max-width: 768px) {
-            .icon-boxes .container {
-                grid-template-columns: 1fr;
-            }
-            
-            .nav-menu {
-                display: none;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                right: 0;
-                background: var(--dark-blue);
-                flex-direction: column;
-                padding: 20px;
-                gap: 15px;
-            }
-
-            .nav-menu.active {
-                display: flex;
-            }
-
-            .menu-button {
-                display: block;
-            }
-
             .hero-content h1 {
                 font-size: 2rem;
             }
-
+            .icon-boxes .container {
+                grid-template-columns: 1fr;
+            }
             .about .container {
                 grid-template-columns: 1fr;
             }
-
-            .newsletter-form {
+            .nav-menu {
                 flex-direction: column;
+                gap: 10px;
             }
-
-            .welcome-popup {
-                padding: 30px 40px;
-                max-width: 90%;
-            }
-
-            .welcome-popup h2 {
-                font-size: 1.5rem;
+            .user-menu {
+                flex-direction: column;
+                gap: 10px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- POPUP CHÀO MỪNG -->
-    <div class="popup-overlay" id="popupOverlay"></div>
-    <div class="welcome-popup" id="welcomePopup">
-        <div class="icon">🎉</div>
-        <h2>Chào mừng trở lại!</h2>
-        <p><strong sec:authentication="name">Học sinh</strong></p>
-        <span class="role-badge">👨‍🎓 HỌC SINH</span>
-    </div>
-
     <header class="header">
         <div class="container">
-            <a th:href="@{/}" href="/" class="logo">UNIFINDER</a>
+            <a href="/user/home" class="logo">UNIFINDER</a>
             <nav>
                 <ul class="nav-menu">
                     <li><a href="#home">Trang chủ</a></li>
-                    <li><a href="#about">Giới Thiệu</a></li>
-                    <li><a href="#courses">Khóa Học</a></li>
-                    <li><a href="#blog">Tin Tức</a></li>
-                    <li><a href="#contact">Liên Hệ</a></li>
+                    <li><a href="/truongdaihoc">Trường ĐH</a></li>
+                    <li><a href="/tuvan">Tư vấn</a></li>
+                    <li><a href="/danhgia">Đánh giá</a></li>
                     <li>
-                        <a th:href="@{/profile-page}" href="/profile-page" class="profile-link">
-                            <i class="fas fa-user-circle"></i> Hồ Sơ
-                        </a>
-                    </li>
-                    <li>
-                        <form th:action="@{/logout}" method="post" style="display:inline;">
-                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                            <button type="submit" class="logout-btn">
-                                <i class="fas fa-sign-out-alt"></i> Đăng Xuất
-                            </button>
-                        </form>
+                        <div class="user-menu">
+                            <div class="user-info">
+                                <i class="fas fa-user-circle"></i>
+                                <span th:text="${username}">User</span>
+                            </div>
+                            <a href="/profile-page" class="profile-btn">
+                                <i class="fas fa-user"></i> Hồ sơ
+                            </a>
+                            <form action="/logout" method="post" style="display: inline; margin: 0;">
+                                <button type="submit" class="logout-btn">
+                                    <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                                </button>
+                            </form>
+                        </div>
                     </li>
                 </ul>
-                <button class="menu-button" aria-label="Toggle menu">
-                    <i class="fas fa-bars"></i>
-                </button>
             </nav>
         </div>
     </header>
 
     <section class="hero" id="home">
         <div class="hero-content">
-            <h1>Chào Mừng Đến Với UNIFINDER<br>Hướng Tới Tương Lai, Tìm Kiếm Cơ Hội</h1>
-            <p>Làm thế nào để tôi có thể chọn được trường đại học?</p>
-            <a href="#courses" class="btn">Khóa Học</a>
+            <p class="welcome-text">✨ Chào mừng, <span th:text="${username}">bạn</span>! ✨</p>
+            <h1>UNIFINDER - Hệ Thống Tư Vấn Tuyển Sinh<br>Hướng Tới Tương Lai, Tìm Kiếm Cơ Hội</h1>
+            <p>Khám phá các trường đại học phù hợp với năng lực và đam mê của bạn</p>
+            <a href="/truongdaihoc" class="btn">Khám Phá Ngay</a>
         </div>
     </section>
 
     <section class="icon-boxes">
         <div class="container">
-            <a th:href="@{/truongdaihoc}" href="/truongdaihoc" class="icon-box">
+            <a href="/truongdaihoc" class="icon-box">
                 <i class="fas fa-university"></i>
                 <div>
                     <h3>Trường đại học</h3>
-                    <p>Biết chắc để nắm chắc tương lai</p>
+                    <p>Tra cứu thông tin chi tiết các trường đại học</p>
+                    <span class="unlock-badge">✓ Đã mở khóa</span>
                 </div>
             </a>
             
-            <a th:href="@{/tuvan}" href="/tuvan" class="icon-box">
+            <a href="/tuvan" class="icon-box">
                 <i class="fas fa-user-graduate"></i>
                 <div>
                     <h3>Tư vấn</h3>
-                    <p>Đưa ra lựa chọn ngành học phù hợp</p>
+                    <p>Nhận tư vấn chọn ngành và trường học phù hợp</p>
+                    <span class="unlock-badge">✓ Đã mở khóa</span>
                 </div>
             </a>
             
-            <a th:href="@{/danhgia}" href="/danhgia" class="icon-box">
+            <a href="/danhgia" class="icon-box">
                 <i class="fas fa-star"></i>
                 <div>
                     <h3>Đánh giá</h3>
-                    <p>Hãy để lại bình luận cho ngôi trường bạn</p>
+                    <p>Xem và chia sẻ đánh giá về trường và ngành học</p>
+                    <span class="unlock-badge">✓ Đã mở khóa</span>
                 </div>
             </a>
         </div>
@@ -904,8 +678,10 @@
         <div class="container">
             <div>
                 <h2>GIỚI THIỆU UNIFINDER</h2>
-                <p>nền tảng giúp học sinh và phụ huynh tìm kiếm, so sánh và lựa chọn ngôi trường phù hợp nhất với năng lực và đam mê.</p>
-                <p>Tại đây, bạn có thể tìm hiểu thông tin tuyển sinh, điểm chuẩn, ngành học, cơ hội việc làm và nhận gợi ý chọn trường cá nhân hóa, để mỗi quyết định hôm nay trở thành bước khởi đầu vững chắc cho tương lai ngày mai.</p>
+                <p>Nền tảng giúp học sinh và phụ huynh tìm kiếm, so sánh và lựa chọn ngôi trường phù hợp nhất với năng lực và đam mê.</p>
+                <p>Tại đây, bạn có thể tìm hiểu thông tin tuyển sinh, điểm chuẩn, ngành học, cơ hội việc làm và nhận gợi ý chọn trường cá nhân hóa.</p>
+                <br>
+                <a href="/truongdaihoc" class="btn">Bắt đầu khám phá</a>
             </div>
             <div>
                 <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800" alt="University Campus">
@@ -916,19 +692,19 @@
     <section class="stats">
         <div class="container">
             <div class="stat-box">
-                <span class="number" data-target="6789">0</span>
-                <span class="text">Số người dùng</span>
+                <span class="number">237</span>
+                <span class="text">Trường Đại Học</span>
             </div>
             <div class="stat-box">
-                <span class="number" data-target="4562">0</span>
-                <span class="text">Số học sinh đã chọn thành công</span>
+                <span class="number">4562</span>
+                <span class="text">Học sinh đã chọn thành công</span>
             </div>
             <div class="stat-box">
-                <span class="number" data-target="1000">0</span>
+                <span class="number">1000+</span>
                 <span class="text">Ngành Học</span>
             </div>
             <div class="stat-box">
-                <span class="number" data-target="1500">0</span>
+                <span class="number">1500+</span>
                 <span class="text">Bài Đánh Giá</span>
             </div>
         </div>
@@ -936,33 +712,30 @@
 
     <section class="courses" id="courses">
         <div class="container">
-            <h2 class="section-title">Khóa Học</h2>
+            <h2 class="section-title">Các Chức Năng Chính</h2>
             <div class="courses-grid">
                 <div class="course-card">
-                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400" alt="Python Course">
+                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400" alt="Tra cứu trường">
                     <div class="course-content">
-                        <h3 class="course-title">Complete Python Bootcamp</h3>
-                        <p>Learn Python programming from scratch</p>
-                        <div class="course-price free">Free</div>
-                        <a href="#" class="btn">View More</a>
+                        <h3 class="course-title">Tra Cứu Trường Đại Học</h3>
+                        <p>Tìm kiếm và so sánh thông tin các trường đại học trên toàn quốc</p>
+                        <a href="/truongdaihoc" class="btn">Xem ngay</a>
                     </div>
                 </div>
                 <div class="course-card">
-                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400" alt="Web Development">
+                    <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400" alt="Tư vấn">
                     <div class="course-content">
-                        <h3 class="course-title">Web Developer Bootcamp</h3>
-                        <p>Master HTML, CSS, JavaScript and more</p>
-                        <div class="course-price">$45.00</div>
-                        <a href="#" class="btn">View More</a>
+                        <h3 class="course-title">Tư Vấn Chọn Ngành</h3>
+                        <p>Nhận tư vấn từ chuyên gia về ngành học và định hướng nghề nghiệp</p>
+                        <a href="/tuvan" class="btn">Nhận tư vấn</a>
                     </div>
                 </div>
                 <div class="course-card">
-                    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400" alt="Programming">
+                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400" alt="Đánh giá">
                     <div class="course-content">
-                        <h3 class="course-title">Learn PERL Programming</h3>
-                        <p>Advanced programming concepts</p>
-                        <div class="course-price">$99.00</div>
-                        <a href="#" class="btn">View More</a>
+                        <h3 class="course-title">Đánh Giá & Review</h3>
+                        <p>Đọc review từ sinh viên thật và chia sẻ trải nghiệm của bạn</p>
+                        <a href="/danhgia" class="btn">Xem đánh giá</a>
                     </div>
                 </div>
             </div>
@@ -974,8 +747,8 @@
             <h2>Hãy Để Lại Cho Chúng Tôi Những Lời Góp Ý</h2>
             <p>Đăng ký để nhận bản tin của chúng tôi ngay bây giờ và cập nhật những thông tin mới nhất</p>
             <form class="newsletter-form">
-                <input type="email" placeholder="Your email address" required>
-                <button type="submit">Subscribe</button>
+                <input type="email" placeholder="Email của bạn" required>
+                <button type="submit">Đăng ký</button>
             </form>
         </div>
     </section>
@@ -988,8 +761,8 @@
                     <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400" alt="Blog Post">
                     <div class="blog-content">
                         <div class="blog-meta">
-                            <i class="far fa-calendar"></i> August 19, 2024
-                            <i class="far fa-comment"></i> 3 Comments
+                            <i class="far fa-calendar"></i> 29/10/2025
+                            <i class="far fa-comment"></i> 3 Bình luận
                         </div>
                         <h3><a href="#">Cập nhật điểm chuẩn Đại học 2025 mới nhất trên toàn quốc</a></h3>
                         <p>Bộ GD&ĐT và các trường đại học đã chính thức công bố điểm chuẩn 2025....</p>
@@ -1003,7 +776,7 @@
                             <i class="far fa-comment"></i> 5 Bình Luận
                         </div>
                         <h3><a href="#">Top 10 ngành học có cơ hội việc làm cao nhất năm 2025</a></h3>
-                        <p>Theo thống kê của Trung tâm Dự báo nhân lực, các ngành như Công nghệ thông tin, Khoa học dữ liệu, Marketing số, tiếp tục dẫn đầu về nhu cầu tuyển dụng...</p>
+                        <p>Theo thống kê của Trung tâm Dự báo nhân lực, các ngành như Công nghệ thông tin...</p>
                     </div>
                 </article>
                 <article class="blog-card">
@@ -1014,55 +787,9 @@
                             <i class="far fa-comment"></i> 2 Bình Luận
                         </div>
                         <h3><a href="#">Các trường đại học công bố chương trình học bổng 2025</a></h3>
-                        <p>Nhiều trường như Đại học Quốc gia TP.HCM, Đại học FPT đang mở rộng các suất học bổng hấp dẫn lên tới 100% học phí...</p>
+                        <p>Nhiều trường như Đại học Quốc gia TP.HCM, Đại học FPT đang mở rộng các suất học bổng...</p>
                     </div>
                 </article>
-            </div>
-        </div>
-    </section>
-
-    <section class="contact" id="contact">
-        <div class="container">
-            <h2 class="section-title">Liên Hệ</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div>
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <h4>Địa Chỉ</h4>
-                            <p>Hà Đông, Hà Nội</p>
-                        </div>
-                    </div>
-                    <div>
-                        <i class="fas fa-phone"></i>
-                        <div>
-                            <h4>Điện Thoại</h4>
-                            <p>+00 123 456 789</p>
-                        </div>
-                    </div>
-                    <div>
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <h4>Email</h4>
-                            <p>info@eschool.com</p>
-                        </div>
-                    </div>
-                </div>
-                <form class="contact-form">
-                    <label for="name">Tên Của Bạn</label>
-                    <input type="text" id="name" name="name" required>
-
-                    <label for="email_contact">Email Của Bạn</label>
-                    <input type="email" id="email_contact" name="email" required>
-
-                    <label for="subject">Chủ Đề</label>
-                    <input type="text" id="subject" name="subject" required>
-
-                    <label for="message">Nội Dung</label>
-                    <textarea id="message" name="message" required></textarea>
-
-                    <button type="submit">Gửi Tin Nhắn</button>
-                </form>
             </div>
         </div>
     </section>
@@ -1083,27 +810,25 @@
                 <div>
                     <h4>Liên Kết Nhanh</h4>
                     <ul>
-                        <li><a href="#home">Trang Chủ</a></li>
-                        <li><a href="#about">Giới Thiệu</a></li>
-                        <li><a href="#courses">Khóa Học</a></li>
-                        <li><a href="#blog">Tin Tức</a></li>
-                        <li><a href="#contact">Liên Hệ</a></li>
+                        <li><a href="/user/home">Trang Chủ</a></li>
+                        <li><a href="/truongdaihoc">Trường ĐH</a></li>
+                        <li><a href="/tuvan">Tư Vấn</a></li>
+                        <li><a href="/danhgia">Đánh Giá</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4>Tài Khoản Của Tôi</h4>
+                    <h4>Tài Khoản</h4>
                     <ul>
-                        <li><a th:href="@{/profile-page}" href="/profile-page">Hồ Sơ Của Tôi</a></li>
-                        <li><a href="#">Danh Sách Yêu Thích</a></li>
-                        <li><a href="#">Đơn Đặt Hàng Của Tôi</a></li>
-                        <li><a href="#">Theo Dõi Đơn Hàng</a></li>
+                        <li><a href="/profile-page">Hồ sơ của tôi</a></li>
+                        <li><a href="/danhgia">Đánh giá của tôi</a></li>
+                        <li><a href="/tuvan">Lịch sử tư vấn</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4>Thông Tin Liên Hệ</h4>
+                    <h4>Liên Hệ</h4>
                     <p><i class="fas fa-map-marker-alt"></i> Hà Đông, Hà Nội</p>
                     <p><i class="fas fa-phone"></i> +00 123 456 789</p>
-                    <p><i class="fas fa-envelope"></i> info@eschool.com</p>
+                    <p><i class="fas fa-envelope"></i> info@unifinder.com</p>
                 </div>
             </div>
             <div class="copyright">
@@ -1117,86 +842,22 @@
     </button>
 
     <script>
-        // ===== POPUP CHÀO MỪNG - TỰ ĐỘNG ẨN SAU 3 GIÂY =====
-        window.addEventListener('DOMContentLoaded', () => {
-            const popup = document.getElementById('welcomePopup');
-            const overlay = document.getElementById('popupOverlay');
-            
-            // Hiện popup sau 0.5s
-            setTimeout(() => {
-                popup.style.display = 'block';
-                overlay.style.display = 'block';
-            }, 500);
-            
-            // Ẩn popup sau 3 giây
-            setTimeout(() => {
-                popup.classList.add('hide');
-                overlay.classList.add('hide');
-                
-                // Xóa khỏi DOM sau khi animation kết thúc
-                setTimeout(() => {
-                    popup.style.display = 'none';
-                    overlay.style.display = 'none';
-                }, 500);
-            }, 3500);
-        });
-
-
-        // ===== MENU MOBILE =====
-        const menuBtn = document.querySelector('.menu-button');
-        const navMenu = document.querySelector('.nav-menu');
-
-        if (menuBtn) {
-            menuBtn.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
-            });
-        }
-
-        // ===== HEADER SCROLL =====
-        const header = document.querySelector('.header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-
-        // ===== STATS COUNTER =====
-        const counters = document.querySelectorAll('.number');
-        const speed = 200;
-        let animated = false;
-
-        const animateCounters = () => {
-            counters.forEach(counter => {
-                const target = +counter.getAttribute('data-target');
-                const count = +counter.innerText;
-                const inc = target / speed;
-
-                if (count < target) {
-                    counter.innerText = Math.ceil(count + inc);
-                    setTimeout(() => animateCounters(), 1);
-                } else {
-                    counter.innerText = target;
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }
             });
-        };
+        });
 
-        const statsSection = document.querySelector('.stats');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !animated) {
-                    animated = true;
-                    animateCounters();
-                }
-            });
-        }, { threshold: 0.5 });
-
-        observer.observe(statsSection);
-
-        // ===== BACK TO TOP =====
+        // Back to top button
         const backToTop = document.querySelector('.back-to-top');
-
         window.addEventListener('scroll', () => {
             if (window.pageYOffset > 300) {
                 backToTop.classList.add('show');
@@ -1212,22 +873,7 @@
             });
         });
 
-        // ===== SMOOTH SCROLL =====
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    navMenu.classList.remove('active');
-                }
-            });
-        });
-
-        // ===== NEWSLETTER FORM =====
+        // Newsletter form
         const newsletterForm = document.querySelector('.newsletter-form');
         newsletterForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -1235,32 +881,6 @@
             alert(`Cảm ơn bạn đã đăng ký với email: ${email}`);
             newsletterForm.reset();
         });
-
-        // ===== CONTACT FORM =====
-        const contactForm = document.querySelector('.contact-form');
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Cảm ơn bạn. Tin nhắn của bạn đã được gửi thành công!');
-            contactForm.reset();
-        });
-
-        // ===== CARD ANIMATION =====
-        const allCards = document.querySelectorAll('.course-card, .blog-card');
-        const cardObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '0';
-                    entry.target.style.transform = 'translateY(30px)';
-                    setTimeout(() => {
-                        entry.target.style.transition = 'all 0.6s ease';
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }, 100);
-                }
-            });
-        }, { threshold: 0.1 });
-
-        allCards.forEach(card => cardObserver.observe(card));
     </script>
 </body>
-</html> -->
+</html>
