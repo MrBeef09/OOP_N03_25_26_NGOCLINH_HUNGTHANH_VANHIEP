@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.servingwebcontent.Model.Truongdaihoc.CoSoVatChat.CoSoVatChat;
+import com.example.servingwebcontent.Model.Truongdaihoc.CoSoVatChat;
 
 @Entity
 @Table(name = "truong_dai_hoc")
