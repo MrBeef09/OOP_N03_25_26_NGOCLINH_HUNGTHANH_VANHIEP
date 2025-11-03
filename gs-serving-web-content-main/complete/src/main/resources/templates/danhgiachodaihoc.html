@@ -4,90 +4,530 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Đánh giá các trường đại học</title>
-  <link rel="stylesheet" href="danhgiachodaihoc.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h1 {
+      text-align: center;
+      color: #2d3436;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 30px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .university-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .university-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 25px;
+      margin: 12px 0;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 2px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .university-list li::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s;
+    }
+
+    .university-list li:hover::before {
+      left: 100%;
+    }
+
+    .university-list li:hover {
+      transform: translateY(-5px) scale(1.02);
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .university-list li:active {
+      transform: translateY(-2px) scale(1.01);
+    }
+
+    .university-name {
+      font-size: 1.2rem;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .university-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      font-size: 14px;
+      color: #636e72;
+      transition: all 0.3s;
+    }
+
+    .university-list li:hover .university-info {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .stars {
+      color: #ffd700;
+      font-size: 18px;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .review-count {
+      padding: 4px 12px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      font-weight: 500;
+      color: #667eea;
+      transition: all 0.3s;
+    }
+
+    .university-list li:hover .review-count {
+      background: rgba(255, 255, 255, 0.95);
+      transform: scale(1.05);
+    }
+
+    #school-detail {
+      animation: slideIn 0.4s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    button {
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    button::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    button:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .back-btn {
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #636e72 0%, #2d3436 100%);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #school-detail h2 {
+      color: #2d3436;
+      font-size: 2rem;
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 3px solid #667eea;
+    }
+
+    #school-reviews {
+      margin-bottom: 30px;
+      max-height: 500px;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+
+    #school-reviews::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    #school-reviews::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    #school-reviews::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 10px;
+    }
+
+    .review-item {
+      background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      border-left: 4px solid #667eea;
+      transition: all 0.3s;
+      animation: fadeInUp 0.4s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .review-item:hover {
+      transform: translateX(5px);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .stars-display {
+      color: #ffd700;
+      font-size: 20px;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .review-item p {
+      color: #2d3436;
+      line-height: 1.6;
+      margin-top: 10px;
+    }
+
+    #add-review {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      padding: 25px;
+      border-radius: 12px;
+      border: 2px dashed #667eea;
+    }
+
+    #add-review h3 {
+      color: #2d3436;
+      margin-bottom: 20px;
+      font-size: 1.3rem;
+    }
+
+    #stars {
+      margin: 20px 0;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    #stars span {
+      font-size: 40px;
+      cursor: pointer;
+      color: #ddd;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    }
+
+    #stars span:hover {
+      transform: scale(1.2) rotate(10deg);
+      color: #ffd700;
+    }
+
+    #stars span.selected {
+      color: #ffd700;
+      animation: starPulse 0.3s ease-out;
+    }
+
+    @keyframes starPulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+      100% { transform: scale(1); }
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 15px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 15px;
+      resize: vertical;
+      transition: all 0.3s;
+      margin: 15px 0;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px;
+      color: #636e72;
+      font-style: italic;
+    }
+
+    .empty-state::before {
+      content: "📝";
+      display: block;
+      font-size: 4rem;
+      margin-bottom: 15px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .university-list li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .university-info {
+        align-self: flex-end;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="container">
-  <h1 id="page-title">Danh sách các trường đại học</h1>
+    <h1 id="page-title">Danh sách các trường đại học</h1>
 
-  <ul class="university-list" id="university-list">
-    <li data-school="Trường Đại học Bách Khoa" onclick="openReviewForm('Trường Đại học Bách Khoa')">
-      Đại học Bách Khoa
-      <div class="university-info">
-        <span class="stars">☆☆☆☆☆</span>
-        <span class="review-count">0 bình luận</span>
-      </div>
-    </li>
-
-    <li data-school="Trường Đại học Kinh tế Quốc dân" onclick="openReviewForm('Trường Đại học Kinh tế Quốc dân')">
-      Đại học Kinh tế Quốc dân
-      <div class="university-info">
-        <span class="stars">☆☆☆☆☆</span>
-        <span class="review-count">0 bình luận</span>
-      </div>
-    </li>
-
-    <li data-school="Trường Đại học Ngoại thương" onclick="openReviewForm('Trường Đại học Ngoại thương')">
-      Đại học Ngoại thương
-      <div class="university-info">
-        <span class="stars">☆☆☆☆☆</span>
-        <span class="review-count">0 bình luận</span>
-      </div>
-    </li>
-
-    <li data-school="Trường Đại học Quốc gia Hà Nội" onclick="openReviewForm('Trường Đại học Quốc gia Hà Nội')">
-      Đại học Quốc gia Hà Nội
-      <div class="university-info">
-        <span class="stars">☆☆☆☆☆</span>
-        <span class="review-count">0 bình luận</span>
-      </div>
-    </li>
-  </ul>
-
-  <!-- Khu vực hiển thị chi tiết bình luận -->
-  <div id="school-detail" style="display:none;">
-    <button onclick="backToList()" style="margin-bottom:10px;">← Quay lại danh sách</button>
-    <h2 id="school-detail-name"></h2>
-    <div id="school-reviews"></div>
-    <div id="add-review">
-      <h3>Thêm bình luận mới</h3>
-      <div class="stars" id="stars">
-        <span data-value="1">&#9733;</span>
-        <span data-value="2">&#9733;</span>
-        <span data-value="3">&#9733;</span>
-        <span data-value="4">&#9733;</span>
-        <span data-value="5">&#9733;</span>
-      </div>
-      <textarea id="comment" placeholder="Nhập bình luận của bạn..."></textarea>
-      <button onclick="submitReview()">Gửi đánh giá</button>
-    </div>
-  </div>
-</div>
-
-
-        
-    <!-- Hộp đánh giá -->
-    <div id="review-form" class="modal">
-      <div class="modal-content">
-        <span class="close-btn" onclick="closeReviewForm()">&times;</span>
-        <h2 id="school-name"></h2>
-
-        <div class="stars" id="stars">
-          <span data-value="1">&#9733;</span>
-          <span data-value="2">&#9733;</span>
-          <span data-value="3">&#9733;</span>
-          <span data-value="4">&#9733;</span>
-          <span data-value="5">&#9733;</span>
+    <ul class="university-list" id="university-list">
+      <li data-school="Trường Đại học Bách Khoa" onclick="openReviewForm('Trường Đại học Bách Khoa')">
+        <span class="university-name">Đại học Bách Khoa</span>
+        <div class="university-info">
+          <span class="stars">☆☆☆☆☆</span>
+          <span class="review-count">0 bình luận</span>
         </div>
+      </li>
 
-        <textarea id="comment" placeholder="Nhập bình luận của bạn..."></textarea>
+      <li data-school="Trường Đại học Kinh tế Quốc dân" onclick="openReviewForm('Trường Đại học Kinh tế Quốc dân')">
+        <span class="university-name">Đại học Kinh tế Quốc dân</span>
+        <div class="university-info">
+          <span class="stars">☆☆☆☆☆</span>
+          <span class="review-count">0 bình luận</span>
+        </div>
+      </li>
+
+      <li data-school="Trường Đại học Ngoại thương" onclick="openReviewForm('Trường Đại học Ngoại thương')">
+        <span class="university-name">Đại học Ngoại thương</span>
+        <div class="university-info">
+          <span class="stars">☆☆☆☆☆</span>
+          <span class="review-count">0 bình luận</span>
+        </div>
+      </li>
+
+      <li data-school="Trường Đại học Quốc gia Hà Nội" onclick="openReviewForm('Trường Đại học Quốc gia Hà Nội')">
+        <span class="university-name">Đại học Quốc gia Hà Nội</span>
+        <div class="university-info">
+          <span class="stars">☆☆☆☆☆</span>
+          <span class="review-count">0 bình luận</span>
+        </div>
+      </li>
+    </ul>
+
+    <div id="school-detail" style="display:none;">
+      <button class="back-btn" onclick="backToList()">← Quay lại danh sách</button>
+      <h2 id="school-detail-name"></h2>
+      <div id="school-reviews"></div>
+      <div id="add-review">
+        <h3>Thêm bình luận mới</h3>
+        <div id="stars">
+          <span data-value="1">★</span>
+          <span data-value="2">★</span>
+          <span data-value="3">★</span>
+          <span data-value="4">★</span>
+          <span data-value="5">★</span>
+        </div>
+        <textarea id="comment" placeholder="Chia sẻ trải nghiệm của bạn về trường..."></textarea>
         <button onclick="submitReview()">Gửi đánh giá</button>
       </div>
     </div>
-
-    <div id="reviews"></div>
   </div>
 
-  <script src="danhgiachodaihoc.js"></script>
+  <script>
+    let selectedRating = 0;
+    let currentSchool = "";
+    const reviewData = {};
+
+    function openReviewForm(schoolName) {
+      currentSchool = schoolName;
+      selectedRating = 0;
+
+      document.getElementById("university-list").style.display = "none";
+      document.getElementById("page-title").textContent = "Đánh giá cho " + schoolName;
+      document.getElementById("school-detail").style.display = "block";
+      document.getElementById("school-detail-name").textContent = schoolName;
+
+      document.querySelectorAll("#stars span").forEach(s => {
+        s.classList.remove('selected');
+        s.style.color = "#ddd";
+      });
+      document.getElementById("comment").value = "";
+
+      showReviews(schoolName);
+    }
+
+    function backToList() {
+      document.getElementById("university-list").style.display = "block";
+      document.getElementById("school-detail").style.display = "none";
+      document.getElementById("page-title").textContent = "Danh sách các trường đại học";
+    }
+
+    document.querySelectorAll("#stars span").forEach(star => {
+      star.addEventListener("click", function() {
+        selectedRating = this.getAttribute("data-value");
+        document.querySelectorAll("#stars span").forEach(s => {
+          s.classList.remove('selected');
+          s.style.color = "#ddd";
+        });
+        for (let i = 0; i < selectedRating; i++) {
+          document.querySelectorAll("#stars span")[i].classList.add('selected');
+        }
+      });
+    });
+
+    function submitReview() {
+      const comment = document.getElementById("comment").value.trim();
+      if (selectedRating === 0 || comment === "") {
+        alert("Vui lòng chọn số sao và nhập bình luận!");
+        return;
+      }
+
+      if (!reviewData[currentSchool]) reviewData[currentSchool] = [];
+
+      reviewData[currentSchool].push({
+        rating: Number(selectedRating),
+        comment: comment
+      });
+
+      showReviews(currentSchool);
+      updateUniversityStats(currentSchool);
+
+      document.getElementById("comment").value = "";
+      document.querySelectorAll("#stars span").forEach(s => {
+        s.classList.remove('selected');
+        s.style.color = "#ddd";
+      });
+      selectedRating = 0;
+    }
+
+    function showReviews(schoolName) {
+      const container = document.getElementById("school-reviews");
+      container.innerHTML = "";
+
+      const reviews = reviewData[schoolName] || [];
+      if (reviews.length === 0) {
+        container.innerHTML = '<div class="empty-state">Chưa có bình luận nào cho trường này.</div>';
+        return;
+      }
+
+      reviews.forEach(r => {
+        const item = document.createElement("div");
+        item.classList.add("review-item");
+        item.innerHTML = `
+          <div class="stars-display">${"★".repeat(r.rating)}${"☆".repeat(5 - r.rating)}</div>
+          <p>${r.comment}</p>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    function updateUniversityStats(schoolName) {
+      const data = reviewData[schoolName];
+      const totalReviews = data.length;
+      const avgRating = (data.reduce((sum, r) => sum + r.rating, 0) / totalReviews).toFixed(1);
+
+      const li = document.querySelector(`.university-list li[data-school="${schoolName}"]`);
+      if (li) {
+        const info = li.querySelector(".university-info");
+        const stars = Math.round(avgRating);
+        info.querySelector(".stars").innerHTML = "★".repeat(stars) + "☆".repeat(5 - stars);
+        info.querySelector(".review-count").textContent = `${totalReviews} bình luận (${avgRating}★)`;
+      }
+    }
+  </script>
 </body>
 </html>
