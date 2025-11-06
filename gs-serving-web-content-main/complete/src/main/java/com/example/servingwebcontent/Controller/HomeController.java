@@ -8,8 +8,8 @@ import java.security.Principal;
 @Controller
 public class HomeController {
 
-    @GetMapping("/")
+    @GetMapping({"/index", "/"})
     public String index() {
-        return "index"; // Trỏ tới file templates/index.html
+        return "index_old"; // Trỏ tới file templates/index.html
     }
 }
