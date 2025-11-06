@@ -2,34 +2,87 @@ package com.example.servingwebcontent.Controller;
 
 import com.example.servingwebcontent.Model.Truongdaihoc.TruongDaiHoc;
 import com.example.servingwebcontent.Service.TruongDaiHocService;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
+@RequestMapping("/truongdaihoc")
 public class TruongDaiHocController {
 
     @Autowired
     private TruongDaiHocService truongService;
 
-    //  Trang hiển thị danh sách trường đại học, tự động tính và cập nhật điểm
-    @GetMapping("/truongdaihoc")
-    public String showTruongDaiHocPage(Model model) {
-        // Lấy danh sách trường đã tính điểm và sắp xếp
+    // 📌 1. Hiển thị danh sách trường đại học (cho cả user & admin)
+    @GetMapping
+    public String hienThiDanhSach(Model model) {
         List<TruongDaiHoc> dsTruong = truongService.getDanhSachTruongSapXepTheoDiem();
 
-        // Đảm bảo không null
         if (dsTruong == null || dsTruong.isEmpty()) {
             model.addAttribute("message", "Chưa có dữ liệu trường đại học trong hệ thống!");
         } else {
             model.addAttribute("truongList", dsTruong);
         }
 
-        // Trả về tên file HTML (resources/templates/truongdaihoc.html)
-        return "truongdaihoc";
+        return "truongdaihoc/list"; // view hiển thị danh sách
+    }
+
+    // 📌 2. Xem chi tiết trường — ai cũng xem được
+    @GetMapping("/{id}")
+    public String xemChiTiet(@PathVariable int id, Model model) {
+        model.addAttribute("truong", truongService.getTruongById(id).orElse(null));
+        return "truongdaihoc/detail";
+    }
+
+    // 📌 3. Hiển thị form thêm mới — chỉ Admin được thêm
+    @GetMapping("/add")
+    public String hienThiFormThem(Authentication auth) {
+        if (auth.getAuthorities().stream().noneMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return "error/403"; // nếu không phải admin → trang lỗi
+        }
+        return "truongdaihoc/add";
+    }
+
+    // 📌 4. Xử lý thêm mới hoặc cập nhật — chỉ Admin
+    @PostMapping("/save")
+    public String luuTruong(@ModelAttribute TruongDaiHoc truong, Authentication auth) {
+        if (auth.getAuthorities().stream().noneMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return "error/403";
+        }
+        truongService.saveTruong(truong);
+        return "redirect:/truongdaihoc";
+    }
+
+    // 📌 5. Sửa thông tin trường — chỉ Admin
+    @GetMapping("/edit/{id}")
+    public String hienThiFormSua(@PathVariable int id, Model model, Authentication auth) {
+        if (auth.getAuthorities().stream().noneMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return "error/403";
+        }
+        model.addAttribute("truong", truongService.getTruongById(id).orElse(null));
+        return "truongdaihoc/edit";
+    }
+
+    @PostMapping("/edit")
+    public String xuLySua(@ModelAttribute TruongDaiHoc truong, Authentication auth) {
+        if (auth.getAuthorities().stream().noneMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return "error/403";
+        }
+        truongService.saveTruong(truong);
+        return "redirect:/truongdaihoc";
+    }
+
+    // 📌 6. Xóa trường — chỉ Admin
+    @GetMapping("/delete/{id}")
+    public String xoaTruong(@PathVariable int id, Authentication auth) {
+        if (auth.getAuthorities().stream().noneMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return "error/403";
+        }
+        truongService.deleteTruong(id);
+        return "redirect:/truongdaihoc";
     }
 }
