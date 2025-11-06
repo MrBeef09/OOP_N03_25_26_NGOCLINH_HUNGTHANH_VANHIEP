@@ -16,7 +16,7 @@ public class TruongDaiHocService {
 
     //  Lấy danh sách trường, tính điểm và sắp xếp theo điểm giảm dần
     public List<TruongDaiHoc> getDanhSachTruongSapXepTheoDiem() {
-        List<TruongDaiHoc> ds = truongRepo.findAll();
+        List<TruongDaiHoc> ds = truongRepo.findAllWithDetails();
 
         for (TruongDaiHoc t : ds) {
             double diemMoi = t.tinhDiemDanhGia();

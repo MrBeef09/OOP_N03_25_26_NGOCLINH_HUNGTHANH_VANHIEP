@@ -49,63 +49,63 @@ public class AdminDashboardController {
         model.addAttribute("username", auth.getName());
         List<TruongDaiHoc> truongList = truongDaiHocRepository.findAllWithDetails();
         model.addAttribute("truongList", truongList);
-        return "admin/universities";
+        return "admin/home";
     }
     
     @GetMapping("/majors")
     public String manageMajors(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("username", auth.getName());
-        return "admin/majors";
+        return "admin/home";
     }
     
     @GetMapping("/consultations")
     public String manageConsultations(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("username", auth.getName());
-        return "admin/consultations";
+        return "admin/home";
     }
     
     @GetMapping("/reviews")
     public String manageReviews(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("username", auth.getName());
-        return "admin/reviews";
+        return "admin/home";
     }
     
     @GetMapping("/reports")
     public String viewReports(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("username", auth.getName());
-        return "admin/reports";
+        return "admin/home";
     }
     
     @GetMapping("/settings")
     public String settings(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("username", auth.getName());
-        return "admin/settings";
+        return "admin/home";
     }
     
     @GetMapping("/notifications")
     public String notifications(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("username", auth.getName());
-        return "admin/notifications";
+        return "admin/home";
     }
     
     @GetMapping("/users/add")
     public String addUser(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("username", auth.getName());
-        return "admin/users-add";
+        return "admin/home";
     }
     
     @GetMapping("/universities/add")
     public String addUniversity(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("username", auth.getName());
-        return "admin/universities-add";
+        return "admin/home";
     }
 }
 
