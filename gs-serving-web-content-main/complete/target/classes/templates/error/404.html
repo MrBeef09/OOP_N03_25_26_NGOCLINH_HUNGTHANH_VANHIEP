@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>404 - Không tìm thấy trang</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .error-container {
+            text-align: center;
+            background-color: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            max-width: 480px;
+        }
+        h1 {
+            font-size: 96px;
+            color: #0d6efd;
+            margin-bottom: 10px;
+        }
+        h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #555;
+        }
+        .btn-home {
+            margin-top: 20px;
+            padding: 10px 25px;
+            background-color: #0d6efd;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .btn-home:hover {
+            background-color: #0b5ed7;
+        }
+    </style>
+</head>
+<body>
+<div class="error-container">
+    <h1>404</h1>
+    <h2>Trang không tồn tại</h2>
+    <p>Xin lỗi, trang bạn yêu cầu không được tìm thấy.<br>
+       Vui lòng kiểm tra lại đường dẫn hoặc quay lại trang chủ.</p>
+
+```
+<a href="/" class="btn-home">Quay lại trang chủ</a>
+```
+
+</div>
+</body>
+</html>

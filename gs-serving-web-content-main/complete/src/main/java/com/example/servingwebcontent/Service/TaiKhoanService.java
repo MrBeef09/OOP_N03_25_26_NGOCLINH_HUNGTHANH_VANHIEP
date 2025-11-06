@@ -26,7 +26,7 @@ public class TaiKhoanService implements UserDetailsService {
                 return new UsernameNotFoundException("User not found: " + username);
             });
 
-        System.out.println("✅ Tìm thấy user:");
+        System.out.println(" Tìm thấy user:");
         System.out.println("  - Username: " + taiKhoan.getTenDangNhap());
         System.out.println("  - Role from DB: " + taiKhoan.getVaiTro());
         

@@ -7,25 +7,30 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.servingwebcontent.Model.Truongdaihoc.TruongDaiHoc;
+import com.example.servingwebcontent.Repository.TruongDaiHocRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
 @Controller
 @RequestMapping("/admin")
 public class AdminDashboardController {
-    
+    @Autowired
+    private TruongDaiHocRepository truongDaiHocRepository;
     @GetMapping("/home")
     public String adminHome(Model model) {
-        System.out.println("\n===== 🏠 ADMIN HOME CONTROLLER =====");
+        System.out.println("\n=====  ADMIN HOME CONTROLLER =====");
         
         // Lấy thông tin user đang đăng nhập
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         
-        System.out.println("✅ Username: " + username);
-        System.out.println("✅ Authorities: " + auth.getAuthorities());
+        System.out.println(" Username: " + username);
+        System.out.println(" Authorities: " + auth.getAuthorities());
         
         // Truyền username vào model để hiển thị trong view
         model.addAttribute("username", username);
         
-        System.out.println("✅ Returning view: admin/home");
+        System.out.println(" Returning view: admin/home");
         System.out.println("=====================================\n");
         
         return "admin/home";
@@ -42,6 +47,8 @@ public class AdminDashboardController {
     public String manageUniversities(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("username", auth.getName());
+        List<TruongDaiHoc> truongList = truongDaiHocRepository.findAllWithDetails();
+        model.addAttribute("truongList", truongList);
         return "admin/universities";
     }
     

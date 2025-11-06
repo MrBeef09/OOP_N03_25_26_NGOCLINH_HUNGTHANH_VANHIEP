@@ -13,12 +13,11 @@ public class ServingWebContentApplication {
         ApplicationContext context = SpringApplication.run(ServingWebContentApplication.class, args);
         
         System.out.println("\n========================================");
-
-        System.out.println("🚀 APPLICATION STARTED SUCCESSFULLY!");
+        System.out.println(" APPLICATION STARTED SUCCESSFULLY!");
         System.out.println("========================================");
         
         // Liệt kê tất cả Controllers được scan
-        System.out.println("\n📋 Controllers được scan:");
+        System.out.println("\nControllers được scan:");
         String[] controllers = context.getBeanNamesForAnnotation(Controller.class);
         for (String controller : controllers) {
             System.out.println("  ✅ " + controller);

@@ -28,7 +28,20 @@ public class TuvanService {
         // Lấy top 5 ngành phù hợp nhất
         return ketQua.stream()
                 .sorted((a, b) -> Double.compare(b.getDiemPhuHop(), a.getDiemPhuHop()))
-                .limit(5)
+                .limit(10)
                 .collect(Collectors.toList());
     }
+
+         public List<NganhHoc> getAllNganh() {
+    return nganhHocRepository.findAll();
 }
+
+         public void saveNganh(NganhHoc nganh) {
+         nganhHocRepository.save(nganh);
+        }
+
+         public void deleteNganh(Long id) {
+         nganhHocRepository.deleteById(id);
+}
+}
+
