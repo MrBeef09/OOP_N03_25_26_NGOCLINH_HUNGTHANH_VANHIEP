@@ -19,13 +19,13 @@ public class AdminDashboardController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         
-        System.out.println("✅ Username: " + username);
-        System.out.println("✅ Authorities: " + auth.getAuthorities());
+        System.out.println(" Username: " + username);
+        System.out.println(" Authorities: " + auth.getAuthorities());
         
         // Truyền username vào model để hiển thị trong view
         model.addAttribute("username", username);
         
-        System.out.println("✅ Returning view: admin/home");
+        System.out.println(" Returning view: admin/home");
         System.out.println("=====================================\n");
         
         return "admin/home";
