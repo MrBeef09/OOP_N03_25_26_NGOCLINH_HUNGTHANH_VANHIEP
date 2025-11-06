@@ -13,6 +13,7 @@ public class ServingWebContentApplication {
         ApplicationContext context = SpringApplication.run(ServingWebContentApplication.class, args);
         
         System.out.println("\n========================================");
+
         System.out.println("🚀 APPLICATION STARTED SUCCESSFULLY!");
         System.out.println("========================================");
         
