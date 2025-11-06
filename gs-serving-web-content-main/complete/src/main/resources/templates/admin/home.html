@@ -1489,58 +1489,47 @@
     <!-- ==================== MODALS ==================== -->
     
     <!-- Add University Modal -->
-    <!-- Add University Modal -->
     <div id="addUniversityModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3><i class="fas fa-university"></i> Thêm trường đại học mới</h3>
-                <button class="close-modal" onclick="closeModal('addUniversityModal')">
-                    <i class="fas fa-times"></i>
-                </button>
+    <div class="modal-content">
+        ...
+        <form action="/truongdaihoc/add" method="post">
+            <div class="form-group">
+                <label>Tên trường <span class="required">*</span></label>
+                <input type="text" name="tenTruong" class="form-control" placeholder="Nhập tên trường" required>
             </div>
-            <form action="/admin/university/add" method="post">
-                <div class="form-group">
-                    <label>Tên trường <span class="required">*</span></label>
-                    <input type="text" name="tenTruong" class="form-control" placeholder="Nhập tên trường" required>
-                </div>
-                <div class="form-group">
-                    <label>Địa chỉ <span class="required">*</span></label>
-                    <input type="text" name="diaChi" class="form-control" placeholder="Nhập địa chỉ" required>
-                </div>
-                <div class="form-actions">
-                    <button type="button" class="btn btn-secondary" onclick="closeModal('addUniversityModal')">Hủy</button>
-                    <button type="submit" class="btn btn-success">Lưu trường</button>
-                </div>
-            </form>
-        </div>
+            <div class="form-group">
+                <label>Địa chỉ <span class="required">*</span></label>
+                <input type="text" name="diaChi" class="form-control" placeholder="Nhập địa chỉ" required>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('addUniversityModal')">Hủy</button>
+                <button type="submit" class="btn btn-success">Lưu trường</button>
+            </div>
+        </form>
     </div>
-
+</div>
     <!-- Edit University Modal -->
     <div id="editUniversityModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3><i class="fas fa-university"></i> Chỉnh sửa thông tin trường</h3>
-                <button class="close-modal" onclick="closeModal('editUniversityModal')">
-                    <i class="fas fa-times"></i>
-                </button>
+    <div class="modal-content">
+        <form action="/truongdaihoc/edit" method="post" id="editUniversityForm">
+            <input type="hidden" name="id" id="editUniversityId">
+            
+            <div class="form-group">
+                <label>Tên trường <span class="required">*</span></label>
+                <input type="text" name="tenTruong" id="editUniversityName" class="form-control" placeholder="Nhập tên trường" required>
             </div>
-            <form action="/admin/university/update" method="post" id="editUniversityForm">
-                <input type="hidden" name="id" id="editUniversityId">
-                <div class="form-group">
-                    <label>Tên trường <span class="required">*</span></label>
-                    <input type="text" name="tenTruong" id="editUniversityName" class="form-control" placeholder="Nhập tên trường" required>
-                </div>
-                <div class="form-group">
-                    <label>Địa chỉ <span class="required">*</span></label>
-                    <input type="text" name="diaChi" id="editUniversityAddress" class="form-control" placeholder="Nhập địa chỉ" required>
-                </div>
-                <div class="form-actions">
-                    <button type="button" class="btn btn-secondary" onclick="closeModal('editUniversityModal')">Hủy</button>
-                    <button type="submit" class="btn btn-success">Cập nhật</button>
-                </div>
-            </form>
-        </div>
+            <div class="form-group">
+                <label>Địa chỉ <span class="required">*</span></label>
+                <input type="text" name="diaChi" id="editUniversityAddress" class="form-control" placeholder="Nhập địa chỉ" required>
+            </div>
+            
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('editUniversityModal')">Hủy</button>
+                <button type="submit" class="btn btn-success">Cập nhật</button>
+            </div>
+        </form>
     </div>
+</div>
 
     <!-- Select University for Facility Modal -->
     <div id="selectUniversityFacilityModal" class="modal">

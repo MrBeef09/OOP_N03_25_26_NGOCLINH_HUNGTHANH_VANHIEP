@@ -16,7 +16,6 @@ public class ServingWebContentApplication {
         System.out.println(" APPLICATION STARTED SUCCESSFULLY!");
         System.out.println("========================================");
         
-        // Liệt kê tất cả Controllers được scan
         System.out.println("\nControllers được scan:");
         String[] controllers = context.getBeanNamesForAnnotation(Controller.class);
         for (String controller : controllers) {
