@@ -28,7 +28,7 @@ public class TruongDaiHocController {
             model.addAttribute("truongList", dsTruong);
         }
 
-        return "truongdaihoc/list"; // view hiển thị danh sách
+        return "admin/home"; // view hiển thị danh sách
     }
 
     // 📌 2. Xem chi tiết trường — ai cũng xem được
@@ -44,18 +44,10 @@ public class TruongDaiHocController {
         if (auth.getAuthorities().stream().noneMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
             return "error/403"; // nếu không phải admin → trang lỗi
         }
-        return "truongdaihoc/add";
+        return "admin/home";
     }
 
-    // 📌 4. Xử lý thêm mới hoặc cập nhật — chỉ Admin
-    @PostMapping("/save")
-    public String luuTruong(@ModelAttribute TruongDaiHoc truong, Authentication auth) {
-        if (auth.getAuthorities().stream().noneMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
-            return "error/403";
-        }
-        truongService.saveTruong(truong);
-        return "redirect:/truongdaihoc";
-    }
+
 
     // 📌 5. Sửa thông tin trường — chỉ Admin
     @GetMapping("/edit/{id}")
