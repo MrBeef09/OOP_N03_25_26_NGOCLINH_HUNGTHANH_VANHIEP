@@ -14,6 +14,8 @@ public class ServingWebContentApplication {
         
         System.out.println("\n========================================");
         System.out.println(" APPLICATION STARTED SUCCESSFULLY!");
+
+        System.out.println("🚀 APPLICATION STARTED SUCCESSFULLY!");
         System.out.println("========================================");
         
         // Liệt kê tất cả Controllers được scan
