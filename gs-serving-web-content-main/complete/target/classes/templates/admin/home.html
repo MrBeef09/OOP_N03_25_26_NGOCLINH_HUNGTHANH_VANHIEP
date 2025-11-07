@@ -164,8 +164,78 @@
         <h2>UNIFINDER ADMIN</h2>
         <div class="header-user">
             Xin chào, <span th:text="${username}">Admin</span>
+
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - UNIFINDER</title>
+    <link rel="stylesheet" href="/static/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/static/css/admin-style.css">
+    <script src="/static/js/admin-home.js"></script>
+    <style>
+        body { background: #f9fafd; font-family: Arial, sans-serif; color: #333; }
+        header, footer { background: #1e90ff; color: #fff; padding: 15px; }
+        .section-title { color: #1e90ff; margin-bottom: 15px; }
+        .data-card { background: #fff; padding: 15px; border-radius: 8px; margin-bottom: 25px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .btn { cursor: pointer; border: none; padding: 6px 12px; border-radius: 5px; }
+        .btn-success { background: #1e90ff; color: #fff; }
+        .btn-primary { background: #007bff; color: #fff; }
+        .btn-danger { background: #dc3545; color: #fff; }
+        .btn-warning { background: #ffc107; color: #fff; }
+        table.data-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        table.data-table th, table.data-table td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+        table.data-table th { background: #e6f0ff; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow:auto; background: rgba(0,0,0,0.5); z-index:1000; }
+        .modal-content { background: #fff; margin: 5% auto; padding: 20px; border-radius: 8px; width: 50%; position: relative; }
+        .close-modal { position: absolute; top: 10px; right: 15px; font-size: 20px; cursor: pointer; color:#333; }
+        .form-group { margin-bottom: 10px; }
+        .form-actions { margin-top: 15px; text-align: right; }
+        .action-buttons button { margin: 2px; }
+        .status-badge { padding: 3px 7px; border-radius: 4px; color: #fff; }
+        .status-badge.active { background: #28a745; }
+        .status-badge.pending { background: #ffc107; }
+        .back-to-top { position: fixed; bottom: 20px; right: 20px; background: #1e90ff; color: #fff; border:none; padding:10px; border-radius:50%; cursor:pointer; display:none; }
+    </style>
+</head>
+<body>
+<header>
+    <h1>UNIFINDER Admin Dashboard</h1>
+    <p>Xin chào, <strong th:text="${username}">Admin</strong></p>
+</header>
+
+<main style="padding:20px;">
+    <!-- ==================== UNIVERSITIES ==================== -->
+    <section id="universities">
+        <h2 class="section-title">Quản Lý Trường Đại Học</h2>
+        <div class="data-card">
+            <div class="card-header">
+                <h3>Danh sách trường đại học</h3>
+                <button class="btn btn-success" onclick="openModal('addUniversityModal')">Thêm trường</button>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Mã</th><th>Tên trường</th><th>Địa chỉ</th><th>Điểm đánh giá</th><th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="truong : ${truongList}">
+                        <td th:text="${truong.maTruong}">DHXXX</td>
+                        <td th:text="${truong.tenTruong}">Tên trường</td>
+                        <td th:text="${truong.diaChi}">Địa chỉ</td>
+                        <td><strong th:text="${truong.diemDanhGia}">0</strong>/100</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-primary" th:onclick="'editUniversity(' + ${truong.id} + ')'">Sửa</button>
+                                <button class="btn btn-danger" th:onclick="'deleteUniversity(' + ${truong.id} + ')'">Xóa</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(truongList)}"><td colspan="5">Chưa có trường nào.</td></tr>
+                </tbody>
+            </table>
         </div>
-    </header>
+    </section>
 
     <main class="main-content">
         
@@ -309,6 +379,124 @@
             }
         }
     </script>
+```
+<!-- ==================== FACILITIES ==================== -->
+<section id="facilities">
+    <h2 class="section-title">Quản Lý Cơ Sở Vật Chất</h2>
+    <div class="data-card">
+        <div class="card-header">
+            <h3>Cơ sở vật chất</h3>
+            <button class="btn btn-success" onclick="openModal('addFacilityModal')">Thêm/Sửa CSVC</button>
+        </div>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Trường</th><th>Phòng học</th><th>KTX</th><th>Thư viện</th><th>Trang thiết bị</th><th>Tiện ích</th><th>Hạ tầng</th><th>Điểm</th><th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="truong : ${truongList}">
+                    <td th:text="${truong.tenTruong}">Tên trường</td>
+                    <td th:text="${truong.coSoVatChat != null ? truong.coSoVatChat.soPhongHoc : 0}">0</td>
+                    <td th:text="${truong.coSoVatChat != null ? truong.coSoVatChat.kyTucXa : 0}">0</td>
+                    <td th:text="${truong.coSoVatChat != null ? truong.coSoVatChat.thuVien : 0}">0</td>
+                    <td th:text="${truong.coSoVatChat != null ? truong.coSoVatChat.trangThietBi : 0}">0</td>
+                    <td th:text="${truong.coSoVatChat != null ? truong.coSoVatChat.tienIch : 0}">0</td>
+                    <td th:text="${truong.coSoVatChat != null ? truong.coSoVatChat.haTangKT : 0}">0</td>
+                    <td th:text="${truong.coSoVatChat != null ? truong.coSoVatChat.tinhTongDiem() : 0}">0</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn btn-primary" th:onclick="'editFacility(' + ${truong.coSoVatChat.id} + ')'">Sửa</button>
+                            <button class="btn btn-danger" th:onclick="'deleteFacility(' + ${truong.coSoVatChat.id} + ')'">Xóa</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- ==================== TEACHERS ==================== -->
+<section id="teachers">
+    <h2 class="section-title">Quản Lý Đội Ngũ Giáo Viên</h2>
+    <div class="data-card">
+        <div class="card-header">
+            <h3>Đội ngũ giáo viên</h3>
+            <button class="btn btn-success" onclick="openModal('addTeacherModal')">Thêm/Sửa GV</button>
+        </div>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Trường</th><th>Tổng GV</th><th>Tiến sĩ</th><th>Thạc sĩ</th><th>KN TB</th><th>Điểm</th><th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="truong : ${truongList}">
+                    <td th:text="${truong.tenTruong}">Tên trường</td>
+                    <td th:text="${truong.doiNguGiaoVien != null ? truong.doiNguGiaoVien.soLuongGV : 0}">0</td>
+                    <td th:text="${truong.doiNguGiaoVien != null ? truong.doiNguGiaoVien.soLuongTS : 0}">0</td>
+                    <td th:text="${truong.doiNguGiaoVien != null ? truong.doiNguGiaoVien.soLuongThS : 0}">0</td>
+                    <td th:text="${truong.doiNguGiaoVien != null ? truong.doiNguGiaoVien.kinhNghiemTB : 0}">0</td>
+                    <td th:text="${truong.doiNguGiaoVien != null ? truong.doiNguGiaoVien.danhGia() : 0}">0</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn btn-primary" th:onclick="'editTeacher(' + ${truong.doiNguGiaoVien.id} + ')'">Sửa</button>
+                            <button class="btn btn-danger" th:onclick="'deleteTeacher(' + ${truong.doiNguGiaoVien.id} + ')'">Xóa</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+```
+
+</main>
+
+<footer>
+    <p>&copy; 2025 UNIFINDER Admin Dashboard</p>
+</footer>
+
+<button class="back-to-top" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑</button>
+
+<!-- ==================== MODALS ==================== -->
+
+<div id="addUniversityModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal('addUniversityModal')">&times;</span>
+        <h3>Thêm trường</h3>
+        <form action="/admin/universities/add" method="post">
+            <div class="form-group">
+                <label>Tên trường</label>
+                <input type="text" name="tenTruong" required>
+            </div>
+            <div class="form-group">
+                <label>Địa chỉ</label>
+                <input type="text" name="diaChi" required>
+            </div>
+            <div class="form-actions">
+                <button type="button" onclick="closeModal('addUniversityModal')">Hủy</button>
+                <button type="submit">Lưu</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Tương tự tạo modals add/edit Facility và Teacher, JS openModal/closeModal, nút delete -->
+
+<script>
+function openModal(id){ document.getElementById(id).style.display='block'; }
+function closeModal(id){ document.getElementById(id).style.display='none'; }
+
+function editUniversity(id){ window.location.href='/admin/universities/edit/'+id; }
+function deleteUniversity(id){ if(confirm('Xóa trường?')) window.location.href='/admin/universities/delete/'+id; }
+
+function editFacility(id){ window.location.href='/admin/facilities/edit/'+id; }
+function deleteFacility(id){ if(confirm('Xóa CSVC?')) window.location.href='/admin/facilities/delete/'+id; }
+
+function editTeacher(id){ window.location.href='/admin/teachers/edit/'+id; }
+function deleteTeacher(id){ if(confirm('Xóa GV?')) window.location.href='/admin/teachers/delete/'+id; }
+</script>
 
 </body>
 </html>
