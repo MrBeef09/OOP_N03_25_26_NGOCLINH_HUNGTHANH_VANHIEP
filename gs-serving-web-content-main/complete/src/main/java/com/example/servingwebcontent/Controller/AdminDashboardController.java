@@ -36,13 +36,6 @@ public class AdminDashboardController {
         return "admin/home";
     }
     
-    @GetMapping("/users")
-    public String manageUsers(Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("username", auth.getName());
-        return "admin/users";
-    }
-    
     @GetMapping("/universities")
     public String manageUniversities(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -65,20 +58,7 @@ public class AdminDashboardController {
         model.addAttribute("username", auth.getName());
         return "admin/home";
     }
-    
-    @GetMapping("/reviews")
-    public String manageReviews(Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("username", auth.getName());
-        return "admin/home";
-    }
-    
-    @GetMapping("/reports")
-    public String viewReports(Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("username", auth.getName());
-        return "admin/home";
-    }
+
     
     @GetMapping("/settings")
     public String settings(Model model) {
