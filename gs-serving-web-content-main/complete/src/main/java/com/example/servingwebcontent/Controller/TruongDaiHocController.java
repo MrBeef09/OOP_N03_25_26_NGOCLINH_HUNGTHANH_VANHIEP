@@ -97,4 +97,6 @@ public class TruongDaiHocController {
         truongService.deleteTruong(id);
         return "redirect:/truongdaihoc";
     }
+
+    
 }
