@@ -40,8 +40,4 @@ public class TruongDaiHocService {
         truongRepo.deleteById(id);
     }
 
-    // Lấy thông tin chi tiết 1 trường (để chỉnh sửa, nếu cần)
-    public Optional<TruongDaiHoc> getTruongById(int id) {
-        return truongRepo.findById(id);
-    }
 }
