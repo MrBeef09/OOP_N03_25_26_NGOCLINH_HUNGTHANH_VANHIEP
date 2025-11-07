@@ -1,8 +1,10 @@
 package com.example.servingwebcontent.Model.Truongdaihoc;
 
 import jakarta.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+//import java.util.ArrayList;
+//import java.util.List;
+
+import com.example.servingwebcontent.Model.Truongdaihoc.TruongDaiHoc;
 
 @Entity
 @Table(name = "co_so_vat_chat")

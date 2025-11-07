@@ -7,26 +7,85 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.servingwebcontent.Model.Truongdaihoc.TruongDaiHoc;
+import com.example.servingwebcontent.Repository.TruongDaiHocRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
 @Controller
 @RequestMapping("/admin")
 public class AdminDashboardController {
-    
-    /**
-     * Trang Dashboard của Admin
-     * URL: /admin/dashboard
-     */
-    @GetMapping("/dashboard")
-    public String adminDashboard(Model model) {
+    @Autowired
+    private TruongDaiHocRepository truongDaiHocRepository;
+    @GetMapping("/home")
+    public String adminHome(Model model) {
+        System.out.println("\n=====  ADMIN HOME CONTROLLER =====");
+        
+        // Lấy thông tin user đang đăng nhập
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         
-        System.out.println("=== ADMIN DASHBOARD ===");
-        System.out.println("Admin: " + username);
-        System.out.println("Roles: " + auth.getAuthorities());
+        System.out.println(" Username: " + username);
+        System.out.println(" Authorities: " + auth.getAuthorities());
         
+        // Truyền username vào model để hiển thị trong view
         model.addAttribute("username", username);
-        model.addAttribute("roles", auth.getAuthorities());
         
-        return "admin/dashboard";  // Trả về templates/admin/dashboard.html
+        System.out.println(" Returning view: admin/home");
+        System.out.println("=====================================\n");
+        
+        return "admin/home";
+    }
+    
+    @GetMapping("/universities")
+    public String manageUniversities(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("username", auth.getName());
+        List<TruongDaiHoc> truongList = truongDaiHocRepository.findAllWithDetails();
+        model.addAttribute("truongList", truongList);
+        return "admin/home";
+    }
+    
+    @GetMapping("/majors")
+    public String manageMajors(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("username", auth.getName());
+        return "admin/home";
+    }
+    
+    @GetMapping("/consultations")
+    public String manageConsultations(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("username", auth.getName());
+        return "admin/home";
+    }
+
+    
+    @GetMapping("/settings")
+    public String settings(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("username", auth.getName());
+        return "admin/home";
+    }
+    
+    @GetMapping("/notifications")
+    public String notifications(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("username", auth.getName());
+        return "admin/home";
+    }
+    
+    @GetMapping("/users/add")
+    public String addUser(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("username", auth.getName());
+        return "admin/home";
+    }
+    
+    @GetMapping("/universities/add")
+    public String addUniversity(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("username", auth.getName());
+        return "admin/home";
     }
 }
+

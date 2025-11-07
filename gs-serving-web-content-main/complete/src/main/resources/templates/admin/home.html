@@ -1,0 +1,2350 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNIFINDER - Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ==================== RESET & ROOT VARIABLES ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #2563eb;
+            --dark-blue: #1e40af;
+            --light-blue: #dbeafe;
+            --accent-blue: #60a5fa;
+            --bg-white: #ffffff;
+            --bg-gray: #f3f4f6;
+            --text-dark: #1f2937;
+            --text-gray: #6b7280;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --header-height: 70px;
+            --nav-height: 60px;
+            --border-radius: 12px;
+            --box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--text-gray);
+            background: var(--bg-gray);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        /* ==================== HEADER ==================== */
+        .header {
+            background: var(--dark-blue);
+            color: #ffffff;
+            padding: 15px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            z-index: 2000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .header.scrolled {
+            background: var(--primary-blue);
+            padding: 10px 0;
+        }
+
+        .header .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: var(--bg-white);
+            text-decoration: none;
+            transition: transform 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .admin-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 25px;
+            transition: var(--transition);
+        }
+
+        .admin-info:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        .admin-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--bg-white);
+            color: var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .admin-name {
+            color: var(--bg-white);
+            font-weight: 600;
+        }
+
+        .admin-role {
+            font-size: 12px;
+            color: var(--light-blue);
+        }
+
+        .notification-btn {
+            position: relative;
+            padding: 10px 18px;
+            background: rgba(255,255,255,0.1);
+            color: var(--bg-white);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .notification-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--danger);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .menu-button {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--bg-white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ==================== NAVIGATION ==================== */
+        .sidebar-nav {
+            position: fixed;
+            left: 0;
+            top: var(--header-height);
+            width: 100%;
+            background: var(--primary-blue);
+            padding: 12px 0;
+            z-index: 1999;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-nav .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 0;
+            align-items: center;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .nav-menu li {
+            margin: 0;
+        }
+
+        .nav-menu a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: var(--transition);
+            font-weight: 600;
+            font-size: 14px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 6px;
+            left: 18px;
+            right: 18px;
+            height: 2px;
+            background: var(--bg-white);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            transform: scaleX(1);
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--bg-white);
+            background: rgba(255,255,255,0.1);
+        }
+
+        .logout-section {
+            margin-left: auto;
+        }
+
+        .logout-btn {
+            padding: 8px 16px;
+            background: var(--danger);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+        }
+
+        .logout-btn:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+
+        /* ==================== MAIN CONTENT ==================== */
+        .main-content {
+            margin-top: 150px;
+            padding: 30px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        section {
+            scroll-margin-top: 160px;
+            padding-top: 20px;
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: var(--primary-blue);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--dark-blue));
+            border-radius: 2px;
+        }
+
+        /* ==================== WELCOME BANNER ==================== */
+        .welcome-banner {
+            background: linear-gradient(rgba(37, 99, 235, 0.95), rgba(30, 64, 175, 0.95)),
+                        url('https://images.unsplash.com/photo-1551434678-e076c223a692?w=1920') center/cover;
+            padding: 50px 40px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            color: var(--bg-white);
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-banner::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .welcome-banner-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .welcome-banner h1 {
+            font-size: 2.3rem;
+            color: var(--bg-white);
+            margin-bottom: 10px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .welcome-banner p {
+            font-size: 1.1rem;
+            color: var(--light-blue);
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ==================== STATS CARDS ==================== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--bg-white);
+            padding: 28px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(37,99,235,0.15);
+        }
+
+        .stat-icon {
+            width: 65px;
+            height: 65px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .stat-icon.blue { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .stat-icon.green { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+        .stat-icon.orange { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+        .stat-icon.red { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); }
+
+        .stat-info h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .stat-info p {
+            color: var(--text-gray);
+            font-size: 14px;
+        }
+
+        /* ==================== DATA CARD & TABLE ==================== */
+        .data-card {
+            background: var(--bg-white);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--bg-gray);
+        }
+
+        .card-header h3 {
+            font-size: 1.3rem;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-header h3 i {
+            color: var(--primary-blue);
+        }
+
+        /* ==================== BUTTONS ==================== */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--dark-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #d97706;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.3);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        /* ==================== DATA TABLE ==================== */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+        }
+
+        .data-table thead {
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+            color: white;
+        }
+
+        .data-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .data-table tbody tr {
+            border-bottom: 1px solid var(--bg-gray);
+            transition: var(--transition);
+        }
+
+        .data-table tbody tr:hover {
+            background: rgba(37, 99, 235, 0.05);
+            transform: scale(1.005);
+        }
+
+        .data-table td {
+            padding: 15px;
+            font-size: 14px;
+        }
+
+        /* ==================== STATUS BADGES ==================== */
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status-badge.active {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .status-badge.pending {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .status-badge.inactive {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        /* ==================== MODAL STYLES ==================== */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 3000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--bg-white);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            max-width: 700px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--bg-gray);
+        }
+
+        .modal-header h3 {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-header h3 i {
+            color: var(--primary-blue);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-gray);
+            transition: var(--transition);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal:hover {
+            background: var(--bg-gray);
+            color: var(--danger);
+            transform: rotate(90deg);
+        }
+
+        /* ==================== FORM STYLES ==================== */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 14px;
+        }
+
+        .form-group label .required {
+            color: var(--danger);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--bg-gray);
+            border-radius: 8px;
+            font-size: 14px;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        select.form-control {
+            cursor: pointer;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 2px solid var(--bg-gray);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        /* ==================== SEARCH & FILTER ==================== */
+        .search-filter-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border: 2px solid var(--bg-gray);
+            border-radius: 8px;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-gray);
+        }
+
+        /* ==================== UNIVERSITY SELECTION LIST ==================== */
+        .university-selection-list {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .university-item {
+            padding: 15px;
+            border: 2px solid var(--bg-gray);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .university-item:hover {
+            border-color: var(--primary-blue);
+            background: rgba(37, 99, 235, 0.05);
+            transform: translateX(5px);
+        }
+
+        .university-item.selected {
+            border-color: var(--primary-blue);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .university-item-info h4 {
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .university-item-info p {
+            color: var(--text-gray);
+            font-size: 13px;
+        }
+
+        /* ==================== FOOTER ==================== */
+        .footer {
+            background: var(--dark-blue);
+            color: var(--bg-white);
+            padding: 40px 0 20px;
+            margin-top: 60px;
+        }
+
+        .footer .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer h4 {
+            color: var(--bg-white);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .footer p, .footer a {
+            color: var(--light-blue);
+            line-height: 1.8;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer a:hover {
+            color: var(--bg-white);
+        }
+
+        .footer ul {
+            list-style: none;
+        }
+
+        .footer ul li {
+            margin-bottom: 10px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary-blue);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--light-blue);
+        }
+
+        /* ==================== BACK TO TOP ==================== */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-blue);
+            color: var(--bg-white);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(37,99,235,0.4);
+            z-index: 999;
+        }
+
+        .back-to-top:hover {
+            background: var(--dark-blue);
+            transform: translateY(-5px);
+        }
+
+        .back-to-top.show {
+            display: flex;
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 768px) {
+            .header .container {
+                padding: 0 15px;
+            }
+
+            .sidebar-nav {
+                top: 60px;
+            }
+
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu a {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .logout-section {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .logout-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .menu-button {
+                display: block;
+            }
+
+            .main-content {
+                margin-top: 130px;
+                padding: 15px;
+            }
+
+            section {
+                scroll-margin-top: 140px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome-banner {
+                padding: 40px 20px;
+            }
+
+            .welcome-banner h1 {
+                font-size: 1.8rem;
+            }
+
+            .admin-info {
+                display: none;
+            }
+
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .search-filter-bar {
+                flex-direction: column;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .data-table-wrapper {
+                overflow-x: auto;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ==================== HEADER ==================== -->
+    <header class="header">
+        <div class="container">
+            <a href="#dashboard" class="logo">UNIFINDER ADMIN</a>
+            <div class="header-right">
+                <div class="admin-info">
+                    <div class="admin-avatar">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <div>
+                        <div class="admin-name" th:text="${username}">Admin</div>
+                        <div class="admin-role">Administrator</div>
+                    </div>
+                </div>
+                <a href="#notifications" class="notification-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </a>
+                <button class="menu-button" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== NAVIGATION ==================== -->
+    <nav class="sidebar-nav">
+        <div class="container">
+            <ul class="nav-menu">
+                <li><a href="#dashboard" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="#universities"><i class="fas fa-university"></i> Trường</a></li>
+                <li><a href="#facilities"><i class="fas fa-building"></i> Cơ sở vật chất</a></li>
+                <li><a href="#teachers"><i class="fas fa-chalkboard-teacher"></i> Đội ngũ GV</a></li>
+                <li><a href="#majors"><i class="fas fa-graduation-cap"></i> Ngành</a></li>
+                <li><a href="#consultations"><i class="fas fa-comments"></i> Tư vấn</a></li>
+                <li class="logout-section">
+                    <form action="/logout" method="post" style="margin: 0;">
+                        <button type="submit" class="logout-btn">
+                            <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ==================== MAIN CONTENT ==================== -->
+    <main class="main-content">
+        
+        <!-- ==================== DASHBOARD ==================== -->
+        <section id="dashboard">
+            <div class="welcome-banner">
+                <div class="welcome-banner-content">
+                    <h1>Dashboard Quản Trị</h1>
+                    <p>Xin chào, <span th:text="${username}">Admin</span>! Chào mừng trở lại hệ thống UNIFINDER</p>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon blue">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>1,234</h3>
+                        <p>Tổng người dùng</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>237</h3>
+                        <p>Trường đại học</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon orange">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>89</h3>
+                        <p>Yêu cầu tư vấn</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon red">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>1,567</h3>
+                        <p>Đánh giá</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== UNIVERSITIES ==================== -->
+        <section id="universities">
+            <h2 class="section-title">Quản Lý Trường Đại Học</h2>
+            
+            <div class="data-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-university"></i> Danh sách trường đại học</h3>
+                    <button class="btn btn-success" onclick="openModal('addUniversityModal')">
+                        <i class="fas fa-plus"></i> Thêm trường
+                    </button>
+                </div>
+
+                <div class="search-filter-bar">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Tìm kiếm trường..." id="searchUniversities">
+                    </div>
+                </div>
+
+                <div class="data-table-wrapper" th:fragment="universityTableFragment">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Mã</th>
+                                <th>Tên trường</th>
+                                <th>Địa chỉ</th>
+                                <th>Điểm đánh giá</th>
+                                <th>Trạng thái</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                       <tbody>
+    <tr th:each="truong : ${truongList}">
+        <td th:text="${truong.maTruong}">DHXXX</td>
+        <td th:text="${truong.tenTruong}">Tên trường</td>
+        <td th:text="${truong.diaChi}">Địa chỉ</td>
+        <td>
+            <strong th:text="${#numbers.formatDecimal(truong.diemDanhGia, 1, 1)}">0.0</strong>/100
+        </td>
+        <td>
+            <span class="status-badge active">Hoạt động</span>
+        </td>
+        <td>
+            <div class="action-buttons">
+                <button class="btn btn-sm btn-primary"
+                        th:onclick="'editUniversity(' + ${truong.id} + ')'"
+                        title="Chỉnh sửa">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-sm btn-warning"
+                        th:onclick="'viewUniversity(' + ${truong.id} + ')'"
+                        title="Xem chi tiết">
+                    <i class="fas fa-eye"></i>
+                </button>
+                <a th:href="@{'/admin/truongdaihoc/delete/' + ${truong.id}}"
+                   class="btn btn-sm btn-danger"
+                   title="Xóa"
+                   onclick="return confirm('Bạn có chắc muốn xóa trường này không?')">
+                    <i class="fas fa-trash"></i>
+                </a>
+            </div>
+        </td>
+    </tr>
+
+    <!-- Nếu danh sách rỗng -->
+    <tr th:if="${#lists.isEmpty(truongList)}">
+        <td colspan="6" class="text-center text-muted">
+            Chưa có trường đại học nào trong hệ thống.
+        </td>
+    </tr>
+</tbody>
+
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== FACILITIES MANAGEMENT ==================== -->
+        <section id="facilities">
+            <h2 class="section-title">Quản Lý Cơ Sở Vật Chất</h2>
+            
+            <div class="data-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-building"></i> Cơ sở vật chất các trường</h3>
+                    <button class="btn btn-success" onclick="openModal('selectUniversityFacilityModal')">
+                        <i class="fas fa-plus"></i> Thêm/Sửa CSVC
+                    </button>
+                </div>
+
+                <div class="search-filter-bar">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Tìm kiếm trường..." id="searchFacilities">
+                    </div>
+                </div>
+
+                <div class="data-table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Trường</th>
+                                <th>Phòng học</th>
+                                <th>Ký túc xá</th>
+                                <th>Thư viện</th>
+                                <th>Trang thiết bị</th>
+                                <th>Tiện ích</th>
+                                <th>Hạ tầng KT</th>
+                                <th>Điểm</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ĐH Bách Khoa HN</td>
+                                <td>150</td>
+                                <td>20</td>
+                                <td>5</td>
+                                <td>500</td>
+                                <td>50</td>
+                                <td>30</td>
+                                <td><strong>85.5</strong>/100</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-sm btn-primary" onclick="editFacility(1)" title="Chỉnh sửa">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-danger" onclick="deleteFacility(1)" title="Xóa">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ĐH Quốc gia HN</td>
+                                <td>200</td>
+                                <td>30</td>
+                                <td>8</td>
+                                <td>600</td>
+                                <td>70</td>
+                                <td>40</td>
+                                <td><strong>92.3</strong>/100</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-sm btn-primary" onclick="editFacility(2)" title="Chỉnh sửa">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-danger" onclick="deleteFacility(2)" title="Xóa">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TEACHERS MANAGEMENT ==================== -->
+        <section id="teachers">
+            <h2 class="section-title">Quản Lý Đội Ngũ Giáo Viên</h2>
+            
+            <div class="data-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-chalkboard-teacher"></i> Đội ngũ giáo viên các trường</h3>
+                    <button class="btn btn-success" onclick="openModal('selectUniversityTeacherModal')">
+                        <i class="fas fa-plus"></i> Thêm/Sửa đội ngũ GV
+                    </button>
+                </div>
+
+                <div class="search-filter-bar">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Tìm kiếm trường..." id="searchTeachers">
+                    </div>
+                </div>
+
+                <div class="data-table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Trường</th>
+                                <th>Tổng GV</th>
+                                <th>Tiến sĩ</th>
+                                <th>Thạc sĩ</th>
+                                <th>KN TB (năm)</th>
+                                <th>% Tiến sĩ</th>
+                                <th>Điểm</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ĐH Bách Khoa HN</td>
+                                <td>500</td>
+                                <td>180</td>
+                                <td>250</td>
+                                <td>12</td>
+                                <td>36%</td>
+                                <td><strong>82.5</strong>/100</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-sm btn-primary" onclick="editTeacher(1)" title="Chỉnh sửa">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-danger" onclick="deleteTeacher(1)" title="Xóa">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ĐH Quốc gia HN</td>
+                                <td>650</td>
+                                <td>250</td>
+                                <td>320</td>
+                                <td>15</td>
+                                <td>38.5%</td>
+                                <td><strong>88.7</strong>/100</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-sm btn-primary" onclick="editTeacher(2)" title="Chỉnh sửa">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-danger" onclick="deleteTeacher(2)" title="Xóa">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== MAJORS ==================== -->
+        <section id="majors">
+            <h2 class="section-title">Quản Lý Ngành Học</h2>
+            
+            <div class="data-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-graduation-cap"></i> Danh sách ngành học</h3>
+                    <button class="btn btn-success" onclick="openModal('addMajorModal')">
+                        <i class="fas fa-plus"></i> Thêm ngành học
+                    </button>
+                </div>
+
+                <div class="search-filter-bar">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Tìm kiếm ngành học..." id="searchMajors">
+                    </div>
+                    <select class="form-control" style="max-width: 200px;">
+                        <option value="">Tất cả lĩnh vực</option>
+                        <option value="it">Công nghệ thông tin</option>
+                        <option value="business">Kinh tế</option>
+                        <option value="medicine">Y khoa</option>
+                    </select>
+                </div>
+
+                <div class="data-table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Mã ngành</th>
+                                <th>Tên ngành</th>
+                                <th>Lĩnh vực</th>
+                                <th>Số trường</th>
+                                <th>Điểm chuẩn TB</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>CNTT01</td>
+                                <td>Công nghệ Thông tin</td>
+                                <td>Công nghệ</td>
+                                <td>89</td>
+                                <td>24.5</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-sm btn-primary" onclick="editMajor(1)" title="Chỉnh sửa">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-danger" onclick="deleteMajor(1)" title="Xóa">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>YK01</td>
+                                <td>Y khoa</td>
+                                <td>Y tế</td>
+                                <td>23</td>
+                                <td>27.5</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-sm btn-primary" onclick="editMajor(2)" title="Chỉnh sửa">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-danger" onclick="deleteMajor(2)" title="Xóa">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== CONSULTATIONS ==================== -->
+        <section id="consultations">
+            <h2 class="section-title">Quản Lý Tư Vấn</h2>
+            
+            <div class="data-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-comments"></i> Yêu cầu tư vấn</h3>
+                    <select class="form-control" style="max-width: 180px;">
+                        <option value="">Tất cả</option>
+                        <option value="pending">Chờ xử lý</option>
+                        <option value="processing">Đang xử lý</option>
+                        <option value="completed">Hoàn thành</option>
+                    </select>
+                </div>
+
+                <div class="search-filter-bar">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Tìm kiếm yêu cầu..." id="searchConsultations">
+                    </div>
+                </div>
+
+                <div class="data-table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Mã YC</th>
+                                <th>Người dùng</th>
+                                <th>Tiêu đề</th>
+                                <th>Loại tư vấn</th>
+                                <th>Trạng thái</th>
+                                <th>Ngày tạo</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#TV001</td>
+                                <td>Trần Thị B</td>
+                                <td>Tư vấn chọn ngành</td>
+                                <td>Chọn ngành</td>
+                                <td><span class="status-badge pending">Chờ xử lý</span></td>
+                                <td>03/11/2025</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-sm btn-primary" onclick="viewConsultation(1)" title="Xem chi tiết">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-success" onclick="processConsultation(1)" title="Xử lý">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-danger" onclick="deleteConsultation(1)" title="Xóa">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==================== MODALS ==================== -->
+    
+    <!-- Add University Modal -->
+    <div id="addUniversityModal" class="modal">
+    <div class="modal-content">
+        ...
+        <form action="/truongdaihoc/add" method="post">
+            <div class="form-group">
+                <label>Tên trường <span class="required">*</span></label>
+                <input type="text" name="tenTruong" class="form-control" placeholder="Nhập tên trường" required>
+            </div>
+            <div class="form-group">
+                <label>Địa chỉ <span class="required">*</span></label>
+                <input type="text" name="diaChi" class="form-control" placeholder="Nhập địa chỉ" required>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('addUniversityModal')">Hủy</button>
+                <button type="submit" class="btn btn-success">Lưu trường</button>
+            </div>
+        </form>
+    </div>
+</div>
+    <!-- Edit University Modal -->
+    <div id="editUniversityModal" class="modal">
+    <div class="modal-content">
+        <form action="/truongdaihoc/edit" method="post" id="editUniversityForm">
+            <input type="hidden" name="id" id="editUniversityId">
+            
+            <div class="form-group">
+                <label>Tên trường <span class="required">*</span></label>
+                <input type="text" name="tenTruong" id="editUniversityName" class="form-control" placeholder="Nhập tên trường" required>
+            </div>
+            <div class="form-group">
+                <label>Địa chỉ <span class="required">*</span></label>
+                <input type="text" name="diaChi" id="editUniversityAddress" class="form-control" placeholder="Nhập địa chỉ" required>
+            </div>
+            
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('editUniversityModal')">Hủy</button>
+                <button type="submit" class="btn btn-success">Cập nhật</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+    <!-- Select University for Facility Modal -->
+    <div id="selectUniversityFacilityModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-university"></i> Chọn trường để thêm/sửa Cơ sở vật chất</h3>
+                <button class="close-modal" onclick="closeModal('selectUniversityFacilityModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="search-box" style="margin-bottom: 20px;">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Tìm kiếm trường..." id="searchUniversityFacility" onkeyup="searchUniversityForFacility()">
+            </div>
+
+            <div class="university-selection-list" id="universityListFacility">
+                <div class="university-item" onclick="selectUniversityForFacility(1, 'Đại học Bách Khoa Hà Nội')">
+                    <div class="university-item-info">
+                        <h4>Đại học Bách Khoa Hà Nội</h4>
+                        <p>Mã: DHB01 | Địa chỉ: Hà Nội</p>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="university-item" onclick="selectUniversityForFacility(2, 'Đại học Quốc gia Hà Nội')">
+                    <div class="university-item-info">
+                        <h4>Đại học Quốc gia Hà Nội</h4>
+                        <p>Mã: DHQG01 | Địa chỉ: Hà Nội</p>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="university-item" onclick="selectUniversityForFacility(3, 'Đại học Kinh tế Quốc dân')">
+                    <div class="university-item-info">
+                        <h4>Đại học Kinh tế Quốc dân</h4>
+                        <p>Mã: DHKT01 | Địa chỉ: Hà Nội</p>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Facility Modal -->
+    <div id="addFacilityModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-building"></i> Thêm/Sửa Cơ sở vật chất</h3>
+                <button class="close-modal" onclick="closeModal('addFacilityModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form onsubmit="event.preventDefault(); saveFacility();">
+                <div class="form-group">
+                    <label>Trường đã chọn</label>
+                    <input type="text" class="form-control" id="selectedUniversityNameFacility" readonly style="background: #f3f4f6;">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Số phòng học <span class="required">*</span></label>
+                        <input type="number" class="form-control" placeholder="VD: 150" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Số ký túc xá <span class="required">*</span></label>
+                        <input type="number" class="form-control" placeholder="VD: 20" min="0" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Số thư viện <span class="required">*</span></label>
+                        <input type="number" class="form-control" placeholder="VD: 5" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Trang thiết bị <span class="required">*</span></label>
+                        <input type="number" class="form-control" placeholder="VD: 500" min="0" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Tiện ích <span class="required">*</span></label>
+                        <input type="number" class="form-control" placeholder="VD: 50" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Hạ tầng kỹ thuật <span class="required">*</span></label>
+                        <input type="number" class="form-control" placeholder="VD: 30" min="0" required>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('addFacilityModal')">Hủy</button>
+                    <button type="submit" class="btn btn-success">Lưu dữ liệu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Select University for Teacher Modal -->
+    <div id="selectUniversityTeacherModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-university"></i> Chọn trường để thêm/sửa Đội ngũ giáo viên</h3>
+                <button class="close-modal" onclick="closeModal('selectUniversityTeacherModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="search-box" style="margin-bottom: 20px;">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Tìm kiếm trường..." id="searchUniversityTeacher" onkeyup="searchUniversityForTeacher()">
+            </div>
+
+            <div class="university-selection-list" id="universityListTeacher">
+                <div class="university-item" onclick="selectUniversityForTeacher(1, 'Đại học Bách Khoa Hà Nội')">
+                    <div class="university-item-info">
+                        <h4>Đại học Bách Khoa Hà Nội</h4>
+                        <p>Mã: DHB01 | Địa chỉ: Hà Nội</p>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="university-item" onclick="selectUniversityForTeacher(2, 'Đại học Quốc gia Hà Nội')">
+                    <div class="university-item-info">
+                        <h4>Đại học Quốc gia Hà Nội</h4>
+                        <p>Mã: DHQG01 | Địa chỉ: Hà Nội</p>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="university-item" onclick="selectUniversityForTeacher(3, 'Đại học Kinh tế Quốc dân')">
+                    <div class="university-item-info">
+                        <h4>Đại học Kinh tế Quốc dân</h4>
+                        <p>Mã: DHKT01 | Địa chỉ: Hà Nội</p>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Teacher Modal -->
+    <div id="addTeacherModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-chalkboard-teacher"></i> Thêm/Sửa Đội ngũ giáo viên</h3>
+                <button class="close-modal" onclick="closeModal('addTeacherModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form onsubmit="event.preventDefault(); saveTeacher();">
+                <div class="form-group">
+                    <label>Trường đã chọn</label>
+                    <input type="text" class="form-control" id="selectedUniversityNameTeacher" readonly style="background: #f3f4f6;">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Tổng số giáo viên <span class="required">*</span></label>
+                        <input type="number" class="form-control" placeholder="VD: 500" min="0" required id="totalTeachers">
+                    </div>
+                    <div class="form-group">
+                        <label>Số Tiến sĩ <span class="required">*</span></label>
+                        <input type="number" class="form-control" placeholder="VD: 180" min="0" required id="numPhD">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Số Thạc sĩ <span class="required">*</span></label>
+                        <input type="number" class="form-control" placeholder="VD: 250" min="0" required id="numMaster">
+                    </div>
+                    <div class="form-group">
+                        <label>Kinh nghiệm TB (năm) <span class="required">*</span></label>
+                        <input type="number" class="form-control" placeholder="VD: 12" min="0" required>
+                    </div>
+                </div>
+
+                <div style="background: #f3f4f6; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <strong>Thống kê tự động:</strong>
+                    <p style="margin: 5px 0;">% Tiến sĩ: <span id="percentPhD">0%</span></p>
+                    <p style="margin: 5px 0;">% Thạc sĩ: <span id="percentMaster">0%</span></p>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('addTeacherModal')">Hủy</button>
+                    <button type="submit" class="btn btn-success">Lưu dữ liệu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Major Modal -->
+    <div id="addMajorModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-graduation-cap"></i> Thêm ngành học mới</h3>
+                <button class="close-modal" onclick="closeModal('addMajorModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form onsubmit="event.preventDefault(); addMajor();">
+                <div class="form-group">
+                    <label>Mã ngành <span class="required">*</span></label>
+                    <input type="text" class="form-control" placeholder="VD: CNTT01" required>
+                </div>
+                <div class="form-group">
+                    <label>Tên ngành <span class="required">*</span></label>
+                    <input type="text" class="form-control" placeholder="VD: Công nghệ Thông tin" required>
+                </div>
+                <div class="form-group">
+                    <label>Lĩnh vực <span class="required">*</span></label>
+                    <select class="form-control" required>
+                        <option value="">-- Chọn lĩnh vực --</option>
+                        <option value="it">Công nghệ thông tin</option>
+                        <option value="business">Kinh tế</option>
+                        <option value="medicine">Y khoa</option>
+                        <option value="engineering">Kỹ thuật</option>
+                        <option value="social">Khoa học xã hội</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('addMajorModal')">Hủy</button>
+                    <button type="submit" class="btn btn-success">Lưu ngành học</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <h4>Về UNIFINDER Admin</h4>
+                    <p>Hệ thống quản trị tuyển sinh thông minh, giúp quản lý và điều hành nền tảng định hướng giáo dục hiệu quả.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4>Quản Lý</h4>
+                    <ul>
+                        <li><a href="#universities">Trường học</a></li>
+                        <li><a href="#facilities">Cơ sở vật chất</a></li>
+                        <li><a href="#teachers">Đội ngũ giáo viên</a></li>
+                        <li><a href="#majors">Ngành học</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Hỗ Trợ</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Hà Đông, Hà Nội</p>
+                    <p><i class="fas fa-phone"></i> +84 123 456 789</p>
+                    <p><i class="fas fa-envelope"></i> admin@unifinder.com</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 UNIFINDER Admin Dashboard - Quản Trị Hệ Thống Tuyển Sinh</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // ==================== GLOBAL VARIABLES ====================
+        let selectedUniversityId = null;
+        let selectedUniversityName = '';
+
+        // ==================== MODAL FUNCTIONS ====================
+        /**
+         * Mở modal
+         * @param {string} modalId - ID của modal cần mở
+         */
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('show');
+                document.body.style.overflow = 'hidden'; // Ngăn scroll body
+            }
+        }
+
+        /**
+         * Đóng modal
+         * @param {string} modalId - ID của modal cần đóng
+         */
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('show');
+                document.body.style.overflow = ''; // Cho phép scroll lại
+            }
+        }
+
+        // Đóng modal khi click bên ngoài
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // ==================== UNIVERSITY FUNCTIONS ====================
+        function addUniversity() {
+            alert('Thêm trường thành công!');
+            closeModal('addUniversityModal');
+        }
+
+        function editUniversity(id) {
+            alert('Chỉnh sửa trường ID: ' + id);
+        }
+
+        function viewUniversity(id) {
+            alert('Xem chi tiết trường ID: ' + id);
+        }
+
+        function deleteUniversity(id) {
+            if (confirm('Bạn có chắc muốn xóa trường này?')) {
+                alert('Đã xóa trường ID: ' + id);
+            }
+        }
+
+        // ==================== FACILITY FUNCTIONS ====================
+        /**
+         * Tìm kiếm trường cho Cơ sở vật chất
+         */
+        function searchUniversityForFacility() {
+            const input = document.getElementById('searchUniversityFacility');
+            const filter = input.value.toUpperCase();
+            const items = document.querySelectorAll('#universityListFacility .university-item');
+            
+            items.forEach(item => {
+                const text = item.textContent || item.innerText;
+                if (text.toUpperCase().indexOf(filter) > -1) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        /**
+         * Chọn trường để thêm/sửa Cơ sở vật chất
+         * @param {number} id - ID của trường
+         * @param {string} name - Tên trường
+         */
+        function selectUniversityForFacility(id, name) {
+            selectedUniversityId = id;
+            selectedUniversityName = name;
+            
+            // Đóng modal chọn trường và mở modal nhập liệu
+            closeModal('selectUniversityFacilityModal');
+            
+            // Set tên trường vào form
+            document.getElementById('selectedUniversityNameFacility').value = name;
+            
+            // Mở modal nhập liệu
+            openModal('addFacilityModal');
+        }
+
+        /**
+         * Lưu dữ liệu Cơ sở vật chất
+         */
+        function saveFacility() {
+            alert('Đã lưu dữ liệu Cơ sở vật chất cho trường: ' + selectedUniversityName);
+            closeModal('addFacilityModal');
+            // TODO: Gửi dữ liệu lên server
+        }
+
+        function editFacility(id) {
+            alert('Chỉnh sửa CSVC ID: ' + id);
+            // TODO: Load dữ liệu và mở modal
+        }
+
+        function deleteFacility(id) {
+            if (confirm('Bạn có chắc muốn xóa dữ liệu Cơ sở vật chất này?')) {
+                alert('Đã xóa CSVC ID: ' + id);
+            }
+        }
+
+        // ==================== TEACHER FUNCTIONS ====================
+        /**
+         * Tìm kiếm trường cho Đội ngũ giáo viên
+         */
+        function searchUniversityForTeacher() {
+            const input = document.getElementById('searchUniversityTeacher');
+            const filter = input.value.toUpperCase();
+            const items = document.querySelectorAll('#universityListTeacher .university-item');
+            
+            items.forEach(item => {
+                const text = item.textContent || item.innerText;
+                if (text.toUpperCase().indexOf(filter) > -1) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        /**
+         * Chọn trường để thêm/sửa Đội ngũ giáo viên
+         * @param {number} id - ID của trường
+         * @param {string} name - Tên trường
+         */
+        function selectUniversityForTeacher(id, name) {
+            selectedUniversityId = id;
+            selectedUniversityName = name;
+            
+            closeModal('selectUniversityTeacherModal');
+            document.getElementById('selectedUniversityNameTeacher').value = name;
+            openModal('addTeacherModal');
+        }
+
+        /**
+         * Tính toán % Tiến sĩ và Thạc sĩ tự động
+         */
+        function calculateTeacherPercentages() {
+            const total = parseFloat(document.getElementById('totalTeachers').value) || 0;
+            const phd = parseFloat(document.getElementById('numPhD').value) || 0;
+            const master = parseFloat(document.getElementById('numMaster').value) || 0;
+            
+            if (total > 0) {
+                const phdPercent = ((phd / total) * 100).toFixed(1);
+                const masterPercent = ((master / total) * 100).toFixed(1);
+                
+                document.getElementById('percentPhD').textContent = phdPercent + '%';
+                document.getElementById('percentMaster').textContent = masterPercent + '%';
+            }
+        }
+
+        // Gắn sự kiện tính toán tự động
+        document.addEventListener('DOMContentLoaded', function() {
+            const totalInput = document.getElementById('totalTeachers');
+            const phdInput = document.getElementById('numPhD');
+            const masterInput = document.getElementById('numMaster');
+            
+            if (totalInput && phdInput && masterInput) {
+                totalInput.addEventListener('input', calculateTeacherPercentages);
+                phdInput.addEventListener('input', calculateTeacherPercentages);
+                masterInput.addEventListener('input', calculateTeacherPercentages);
+            }
+        });
+
+        /**
+         * Lưu dữ liệu Đội ngũ giáo viên
+         */
+        function saveTeacher() {
+            alert('Đã lưu dữ liệu Đội ngũ giáo viên cho trường: ' + selectedUniversityName);
+            closeModal('addTeacherModal');
+            // TODO: Gửi dữ liệu lên server
+        }
+
+        function editTeacher(id) {
+            alert('Chỉnh sửa đội ngũ GV ID: ' + id);
+        }
+
+        function deleteTeacher(id) {
+            if (confirm('Bạn có chắc muốn xóa dữ liệu Đội ngũ giáo viên này?')) {
+                alert('Đã xóa đội ngũ GV ID: ' + id);
+            }
+        }
+
+        // ==================== MAJOR FUNCTIONS ====================
+        function addMajor() {
+            alert('Thêm ngành học thành công!');
+            closeModal('addMajorModal');
+        }
+
+        function editMajor(id) {
+            alert('Chỉnh sửa ngành học ID: ' + id);
+        }
+
+        function deleteMajor(id) {
+            if (confirm('Bạn có chắc muốn xóa ngành học này?')) {
+                alert('Đã xóa ngành học ID: ' + id);
+            }
+        }
+
+        // ==================== CONSULTATION FUNCTIONS ====================
+        function viewConsultation(id) {
+            alert('Xem chi tiết tư vấn ID: ' + id);
+        }
+
+        function processConsultation(id) {
+            alert('Xử lý tư vấn ID: ' + id);
+        }
+
+        function deleteConsultation(id) {
+            if (confirm('Bạn có chắc muốn xóa yêu cầu tư vấn này?')) {
+                alert('Đã xóa tư vấn ID: ' + id);
+            }
+        }
+
+        // ==================== NAVIGATION & UI ====================
+        // Menu Toggle
+        const menuBtn = document.querySelector('.menu-button');
+        const navMenu = document.querySelector('.nav-menu');
+
+        if (menuBtn) {
+            menuBtn.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
+
+        // Header Scroll Effect
+        const header = document.querySelector('.header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Back to Top Button
+        const backToTop = document.querySelector('.back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth Scroll for Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const target = document.querySelector(targetId);
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Update active state
+                    document.querySelectorAll('.nav-menu a').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    // Close mobile menu
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+
+        // Update active nav on scroll
+        const sections = document.querySelectorAll('section[id]');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.sidebar-nav') && !e.target.closest('.menu-button')) {
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // Animation on Scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '0';
+                    entry.target.style.transform = 'translateY(30px)';
+                    setTimeout(() => {
+                        entry.target.style.transition = 'all 0.6s ease';
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, 100);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe stat cards
+        document.querySelectorAll('.stat-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Number Counter Animation for Stats
+        const animateCounter = (element, target, duration = 2000) => {
+            let start = 0;
+            const increment = target / (duration / 16);
+            
+            const updateCounter = () => {
+                start += increment;
+                if (start < target) {
+                    element.textContent = Math.ceil(start).toLocaleString();
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    element.textContent = target.toLocaleString();
+                }
+            };
+            
+            updateCounter();
+        };
+
+        // Trigger counter animation when stats are visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumber = entry.target.querySelector('h3');
+                    const targetValue = parseInt(statNumber.textContent.replace(/,/g, ''));
+                    animateCounter(statNumber, targetValue);
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stat-card').forEach(card => {
+            statsObserver.observe(card);
+        });
+
+        // ==================== SEARCH FUNCTIONS ====================
+        /**
+         * Tìm kiếm trong bảng
+         * @param {string} inputId - ID của input search
+         * @param {string} tableId - ID hoặc selector của bảng
+         */
+        function searchTable(inputId, tableSelector) {
+            const input = document.getElementById(inputId);
+            if (!input) return;
+            
+            const filter = input.value.toUpperCase();
+            const table = document.querySelector(tableSelector);
+            if (!table) return;
+            
+            const rows = table.getElementsByTagName('tr');
+            
+            for (let i = 1; i < rows.length; i++) {
+                const row = rows[i];
+                const cells = row.getElementsByTagName('td');
+                let found = false;
+                
+                for (let j = 0; j < cells.length; j++) {
+                    const cell = cells[j];
+                    if (cell) {
+                        const text = cell.textContent || cell.innerText;
+                        if (text.toUpperCase().indexOf(filter) > -1) {
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+                
+                row.style.display = found ? '' : 'none';
+            }
+        }
+
+        // Gắn sự kiện tìm kiếm cho các input
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInputs = [
+                { id: 'searchUniversities', table: '#universities .data-table' },
+                { id: 'searchFacilities', table: '#facilities .data-table' },
+                { id: 'searchTeachers', table: '#teachers .data-table' },
+                { id: 'searchMajors', table: '#majors .data-table' },
+                { id: 'searchConsultations', table: '#consultations .data-table' }
+            ];
+
+            searchInputs.forEach(item => {
+                const input = document.getElementById(item.id);
+                if (input) {
+                    input.addEventListener('keyup', function() {
+                        searchTable(item.id, item.table);
+                    });
+                }
+            });
+        });
+
+        // ==================== FORM VALIDATION ====================
+        /**
+         * Validate form trước khi submit
+         * @param {HTMLFormElement} form - Form cần validate
+         * @returns {boolean} - true nếu hợp lệ
+         */
+        function validateForm(form) {
+            const inputs = form.querySelectorAll('input[required], select[required], textarea[required]');
+            let isValid = true;
+
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    input.style.borderColor = 'var(--danger)';
+                    isValid = false;
+                } else {
+                    input.style.borderColor = 'var(--bg-gray)';
+                }
+            });
+
+            if (!isValid) {
+                alert('Vui lòng điền đầy đủ các trường bắt buộc!');
+            }
+
+            return isValid;
+        }
+          // ==================== NOTIFICATION SYSTEM ====================
+        /**
+         * Hiển thị thông báo toast
+         * @param {string} message - Nội dung thông báo
+         * @param {string} type - Loại thông báo: success, error, warning, info
+         */
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 30px;
+                background: ${type === 'success' ? 'var(--success)' : type === 'error' ? 'var(--danger)' : type === 'warning' ? 'var(--warning)' : 'var(--info)'};
+                color: white;
+                padding: 15px 25px;
+                border-radius: 8px;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+                z-index: 10000;
+                animation: slideInRight 0.3s ease;
+            `;
+            toast.textContent = message;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 300);
+            }, 3000);
+        }
+
+        // Add animation keyframes
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            @keyframes slideOutRight {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // ==================== KEYBOARD SHORTCUTS ====================
+        document.addEventListener('keydown', function(e) {
+            // ESC để đóng modal
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal.show').forEach(modal => {
+                    modal.classList.remove('show');
+                    document.body.style.overflow = '';
+                });
+            }
+            
+            // Ctrl + F để focus vào search box
+            if (e.ctrlKey && e.key === 'f') {
+                e.preventDefault();
+                const activeSection = document.querySelector('section:hover') || document.querySelector('#dashboard');
+                const searchBox = activeSection?.querySelector('input[type="text"]');
+                if (searchBox) {
+                    searchBox.focus();
+                }
+            }
+        });
+
+        // ==================== CONSOLE LOG ====================
+        console.log('%c🎓 UNIFINDER Admin Dashboard', 'color: #2563eb; font-size: 20px; font-weight: bold;');
+        console.log('%cHệ thống đã sẵn sàng!', 'color: #10b981; font-size: 14px;');
+        console.log('%c⚠️ Cảnh báo: Không paste code lạ vào console!', 'color: #ef4444; font-size: 12px; font-weight: bold;');
+
+    </script>
+</body>
+</html>

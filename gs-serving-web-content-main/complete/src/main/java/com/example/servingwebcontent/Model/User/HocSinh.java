@@ -29,7 +29,7 @@ public class HocSinh extends Nguoi {
     private TaiKhoan taiKhoan;
 
 
-    // ✅ Constructors
+    // Constructors
     public HocSinh() {}
 
     public HocSinh(String maHocSinh, String hoTen, LocalDate ngaySinh, String gioiTinh,
@@ -67,7 +67,7 @@ public class HocSinh extends Nguoi {
     
 
     @Override
-    public void XemThongTin() {
+    public void xemThongTin() {
         
         System.out.println("Học sinh: " + getHoTen()); 
         System.out.println("Mã HS: " + maHocSinh);

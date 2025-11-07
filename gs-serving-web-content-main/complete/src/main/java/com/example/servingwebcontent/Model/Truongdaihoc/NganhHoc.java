@@ -1,5 +1,6 @@
 package com.example.servingwebcontent.Model.Truongdaihoc;
 
+import java.text.Normalizer;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -32,8 +33,8 @@ public class NganhHoc {
     @Column(name = "luong_trung_binh")
     private double luongTrungBinh; // triệu
 
-    @Column(name = "chi_tieu")
-    private int chiTieu;
+    @Column(name = "nhu_cau_tuyen_dung")
+    private int nhuCauTuyenDung;
 
     @Column(name = "ho_so")
     private int hoSo;
@@ -53,7 +54,7 @@ private List<String> soThichLienQuan;
 
     public NganhHoc(String tenNganh, String maNganh, String toHopMon,
                     double diemChuan, double coHoiViecLam,
-                    double luongTrungBinh, int chiTieu, int hoSo,
+                    double luongTrungBinh, int nhuCauTuyenDung, int hoSo,
                     List<String> soThichLienQuan) {
         this.tenNganh = tenNganh;
         this.maNganh = maNganh;
@@ -61,7 +62,7 @@ private List<String> soThichLienQuan;
         this.diemChuan = diemChuan;
         this.coHoiViecLam = coHoiViecLam;
         this.luongTrungBinh = luongTrungBinh;
-        this.chiTieu = chiTieu;
+        this.nhuCauTuyenDung = nhuCauTuyenDung;
         this.hoSo = hoSo;
         this.soThichLienQuan = soThichLienQuan;
     }
@@ -70,41 +71,106 @@ private List<String> soThichLienQuan;
     public void xemThongTin() {
         System.out.println(this.toString());
     }
+    // chuẩn hóa chuỗi 
+    private String normalize(String s){
+          if(s == null) return "";
+          // loại bỏ khoảng trắng đầu cuối và chuyển về chữ thường
+          String tmp = s.trim().toLowerCase();
+          //loại dấu tiếng việt
+          tmp = Normalizer.normalize(tmp, Normalizer.Form.NFD);
+          tmp = tmp.replaceAll("\\p{InCombiningDiacriticalMarks}+","");
+          //bỏ kí tự không phải chữ cái,chữ số hoặc là khoảng trắng 
+          tmp = tmp.replaceAll("[^a-z0-9\\s]","");
+          //chuyển nhiều khoảng trắng thành 1
+          tmp = tmp.replaceAll("\\s+","");
+          return tmp;
+}
+    // Kiểm tra 2 chuỗi có 1 phần khớp hay không
+         private boolean softMatch(String userInterest,String dbValue){
+            if (userInterest == null || userInterest.isEmpty()) return false;
+            if (dbValue == null || dbValue.isEmpty()) return false;
 
+            String a = normalize(userInterest);
+            String b = normalize(dbValue);
+    // nếu dbvalue chưa toàn bộ userInterest thì trả về true
+            if(b.contains(a)) return true;
+    //nếu userInterrest chưa toàn bộ dbvalue thì trả về true
+            if(a.contains(b)) return true;
+    //tách userInterest thành từ, kiểm tra từng token có nằm trong dbValue không
+    String[] tokens = a.split("");
+    int matchTokens =0;
+    for(String t : tokens){
+        if(t.length() >= 2 && b.contains(t)) {
+            matchTokens++;
+        }
+    }
+    //Nếu hơn 50% token của userInterest xuất hiện trong dbValue thì trả về true
+        return tokens.length > 0 && ((double) matchTokens / tokens.length) >= 0.5;
+         }
     // ===== Tính điểm phù hợp =====
     public double tinhDiemNganh(double diemThiHS, String toHopHS, List<String> soThichHS) {
-        double diem = 0;
+    double diem = 0.0;
 
-        // 1. So sánh điểm thi so với điểm chuẩn
-        if (diemThiHS >= diemChuan) {
-            diem += 0.4;
-        } else {
-            diem += (diemThiHS / diemChuan) * 0.4;
-        }
-
-        // 2. Kiểm tra tổ hợp môn
-        if (toHopMon != null && toHopMon.contains(toHopHS.trim())) {
-            diem += 0.3;
-        }
-
-        // 3. Kiểm tra sở thích trùng khớp
-        if (soThichLienQuan != null && soThichHS != null) {
-            int match = 0;
-            for (String st : soThichHS) {
-                for (String lienQuan : soThichLienQuan) {
-                    if (st.trim().equalsIgnoreCase(lienQuan)) {
-                        match++;
-                    }
-                }
-            }
-            if (!soThichLienQuan.isEmpty()) {
-                diem += ((double) match / soThichLienQuan.size()) * 0.3;
-            }
-        }
-
-        return diem;
+    // 1️⃣ So sánh điểm thi và điểm chuẩn
+    if (diemThiHS >= diemChuan) {
+        double chenhlech = diemThiHS - diemChuan;
+        diem += 0.3 + (chenhlech * 0.02); // +2% mỗi điểm hơn
+    } else {
+        diem += (diemThiHS / diemChuan) * 0.4; // tỉ lệ nếu thấp hơn
     }
 
+    // 2️⃣ Chỉ tiêu lớn hơn 100
+    if (nhuCauTuyenDung > 100) {
+        diem += 0.1; // +10%
+    }
+
+    // 3️⃣ Cơ hội việc làm (0.9 ~ 0.9%)
+    double coHoi = coHoiViecLam;
+    if (coHoi > 1) coHoi /= 100; // nếu lỡ nhập 90 thì thành 0.9
+    diem += coHoi * 0.2; // tối đa +20%
+
+    // 4️⃣ Lương trung bình (giả sử 20 triệu là mức cao nhất)
+    double luong = luongTrungBinh;
+    double diemLuong = Math.min((luong / 20.0) * 0.1, 0.1); // tối đa +10%
+    diem += diemLuong;
+
+    // 5️⃣ Sở thích (vẫn như cũ)
+    if (soThichLienQuan != null && soThichHS != null && !soThichLienQuan.isEmpty()) {
+        int matchCount = 0;
+        int checks = 0;
+
+        for (String userSt : soThichHS) {
+            if (userSt == null || userSt.trim().isEmpty()) continue;
+            checks++;
+            boolean matched = false;
+
+            for (String dbSt : soThichLienQuan) {
+                if (softMatch(userSt, dbSt)) {
+                    matched = true;
+                    break;
+                }
+            }
+            if (!matched && softMatch(userSt, this.tenNganh)) matched = true;
+            if (matched) matchCount++;
+        }
+
+        if (checks > 0) {
+            double ratio = (double) matchCount / checks;
+            diem += ratio * 0.25; // tối đa +30%
+        }
+    }
+
+    // 🔹 Chuẩn hóa (0 → 1)
+    if (diem > 1) diem = 1;
+    if (diem < 0) diem = 0;
+
+    // Nhân 100 để ra %
+    return diem;
+}
+
+
+
+    
     // ===== Override toString =====
     @Override
     public String toString() {
@@ -114,7 +180,7 @@ private List<String> soThichLienQuan;
                 " | Điểm chuẩn: " + diemChuan +
                 " | Cơ hội việc làm: " + coHoiViecLam + "%" +
                 " | Lương TB: " + luongTrungBinh + " triệu" +
-                " | Chỉ tiêu: " + chiTieu +
+                " | Chỉ tiêu: " + nhuCauTuyenDung +
                 " | Hồ sơ: " + hoSo;
     }
 
@@ -141,8 +207,8 @@ private List<String> soThichLienQuan;
     public double getLuongTrungBinh() { return luongTrungBinh; }
     public void setLuongTrungBinh(double luongTrungBinh) { this.luongTrungBinh = luongTrungBinh; }
 
-    public int getChiTieu() { return chiTieu; }
-    public void setChiTieu(int chiTieu) { this.chiTieu = chiTieu; }
+    public int getNhuCauTuyenDung() { return nhuCauTuyenDung; }
+    public void setNhuCauTuyenDung(int nhuCauTuyenDung) { this.nhuCauTuyenDung = nhuCauTuyenDung; }
 
     public int getHoSo() { return hoSo; }
     public void setHoSo(int hoSo) { this.hoSo = hoSo; }

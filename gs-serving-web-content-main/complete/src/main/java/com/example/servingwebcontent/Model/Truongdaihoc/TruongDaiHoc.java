@@ -15,33 +15,29 @@ public class TruongDaiHoc {
     private String tenTruong;
     private String diaChi;
 
-    // ✅ Lưu điểm đánh giá tổng (tự động cập nhật khi có thay đổi)
     @Column(name = "diem_danh_gia")
     private Double diemDanhGia;
 
-    // ====== Liên kết 1-1 với bảng Cơ sở vật chất ======
-    @OneToOne(mappedBy = "truongDaiHoc", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    // Liên kết 1-1 với bảng Cơ sở vật chất, dùng EAGER để tránh LazyInitialization
+    @OneToOne(mappedBy = "truongDaiHoc", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private CoSoVatChat coSoVatChat;
 
-    // ====== Liên kết 1-1 với bảng Đội ngũ giáo viên ======
-    @OneToOne(mappedBy = "truongDaiHoc", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    // Liên kết 1-1 với bảng Đội ngũ giáo viên, dùng EAGER
+    @OneToOne(mappedBy = "truongDaiHoc", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private DoiNguGiaoVien doiNguGiaoVien;
 
     // Danh sách ngành học (không lưu trong DB)
     @Transient
-    private List<NganhHoc> danhSachNganhHoc;
+    private List<NganhHoc> danhSachNganhHoc = new ArrayList<>();
 
-    // ====== Constructor ======
-    public TruongDaiHoc() {
-        this.danhSachNganhHoc = new ArrayList<>();
-    }
+    // ===== Constructor =====
+    public TruongDaiHoc() {}
 
-    public TruongDaiHoc(int maTruong, String tenTruong, String diaChi, double diemDanhGia) {
+    public TruongDaiHoc(int maTruong, String tenTruong, String diaChi, Double diemDanhGia) {
         this.maTruong = maTruong;
         this.tenTruong = tenTruong;
         this.diaChi = diaChi;
         this.diemDanhGia = diemDanhGia;
-        this.danhSachNganhHoc = new ArrayList<>();
     }
 
     // ===== Getter & Setter =====
@@ -54,8 +50,8 @@ public class TruongDaiHoc {
     public String getDiaChi() { return diaChi; }
     public void setDiaChi(String diaChi) { this.diaChi = diaChi; }
 
-    public double getDiemDanhGia() { return diemDanhGia; }
-    public void setDiemDanhGia(double diemDanhGia) { this.diemDanhGia = diemDanhGia; }
+    public Double getDiemDanhGia() { return diemDanhGia; }
+    public void setDiemDanhGia(Double diemDanhGia) { this.diemDanhGia = diemDanhGia; }
 
     public CoSoVatChat getCoSoVatChat() { return coSoVatChat; }
     public void setCoSoVatChat(CoSoVatChat coSoVatChat) { this.coSoVatChat = coSoVatChat; }
@@ -73,10 +69,21 @@ public class TruongDaiHoc {
         return diemCSVC + diemGV;
     }
 
-    //  Hàm tự động cập nhật trước khi lưu vào DB
+    // ===== Cập nhật điểm trước khi lưu vào DB =====
     @PrePersist
     @PreUpdate
     public void capNhatDiemDanhGia() {
         this.diemDanhGia = tinhDiemDanhGia();
+    }
+
+    // ===== Helper hiển thị =====
+    @Override
+    public String toString() {
+        return "TruongDaiHoc{" +
+                "maTruong=" + maTruong +
+                ", tenTruong='" + tenTruong + '\'' +
+                ", diaChi='" + diaChi + '\'' +
+                ", diemDanhGia=" + diemDanhGia +
+                '}';
     }
 }

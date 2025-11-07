@@ -16,8 +16,7 @@ public class CoSoVatChatService {
     private CoSoVatChatRepository coSoVatChatRepository;
 
     /**
-     * Lấy danh sách tất cả cơ sở vật chất từ database.
-     * @return List<CoSoVatChat>
+     * Lấy toàn bộ danh sách cơ sở vật chất.
      */
     public List<CoSoVatChat> layTatCaCoSoVatChat() {
         return coSoVatChatRepository.findAll();
@@ -25,39 +24,52 @@ public class CoSoVatChatService {
 
     /**
      * Tìm cơ sở vật chất theo ID.
-     * @param id ID của cơ sở vật chất.
-     * @return Optional<CoSoVatChat>
      */
     public Optional<CoSoVatChat> timTheoId(int id) {
         return coSoVatChatRepository.findById(id);
     }
 
     /**
-     * Lưu (tạo mới hoặc cập nhật) một đối tượng CoSoVatChat.
-     * Đây là nơi chứa logic nghiệp vụ (business logic).
-     * @param coSoVatChat Đối tượng cần lưu.
-     * @return Đối tượng đã được lưu (với tongDiem đã được cập nhật).
+     * Thêm mới cơ sở vật chất.
      */
     @Transactional
-    public CoSoVatChat luuCoSoVatChat(CoSoVatChat coSoVatChat) {
-        // --- LOGIC NGHIỆP VỤ ---
-        // Luôn luôn tính toán lại tổng điểm mỗi khi lưu
-        // để đảm bảo dữ liệu nhất quán.
-        int tongDiem = coSoVatChat.tinhTongDiem();
-        coSoVatChat.setTongDiem(tongDiem);
-        // -------------------------
-        
+    public CoSoVatChat themCoSoVatChat(CoSoVatChat coSoVatChat) {
+        // Logic nghiệp vụ: tính lại tổng điểm
+        coSoVatChat.setTongDiem(coSoVatChat.tinhTongDiem());
         return coSoVatChatRepository.save(coSoVatChat);
     }
 
     /**
+     * Cập nhật thông tin cơ sở vật chất (nếu tồn tại).
+     */
+    @Transactional
+    public CoSoVatChat capNhatCoSoVatChat(int id, CoSoVatChat coSoVatChatMoi) {
+        Optional<CoSoVatChat> coSoCu = coSoVatChatRepository.findById(id);
+
+        if (coSoCu.isPresent()) {
+            CoSoVatChat coSo = coSoCu.get();
+            coSo.setSoPhongHoc(coSoVatChatMoi.getSoPhongHoc());
+            coSo.setSoKyTucXa(coSoVatChatMoi.getSoKyTucXa());
+            coSo.setSoThuVien(coSoVatChatMoi.getSoThuVien());
+            coSo.setSoTrangThietBi(coSoVatChatMoi.getSoTrangThietBi());
+            coSo.setSoTienIch(coSoVatChatMoi.getSoTienIch());
+            coSo.setSoHaTangKiThuat(coSoVatChatMoi.getSoHaTangKiThuat());
+
+            coSo.setTongDiem(coSo.tinhTongDiem());
+            return coSoVatChatRepository.save(coSo);
+        } else {
+            throw new RuntimeException("Không tìm thấy cơ sở vật chất có ID: " + id);
+        }
+    }
+
+    /**
      * Xóa cơ sở vật chất theo ID.
-     * @param id ID của cơ sở vật chất cần xóa.
      */
     public void xoaCoSoVatChat(int id) {
-        coSoVatChatRepository.deleteById(id);
+        if (coSoVatChatRepository.existsById(id)) {
+            coSoVatChatRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Không thể xóa vì không tìm thấy cơ sở vật chất có ID: " + id);
+        }
     }
-    
-    // Bạn có thể thêm các phương thức logic nghiệp vụ khác ở đây
-    // ví dụ: timCoSoVatChatTheoTruong(int truongId), ...
 }

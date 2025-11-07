@@ -410,7 +410,7 @@
         <div class="header">
             <div class="logo">Eschool</div>
             <nav class="nav">
-                <a th:href="@{/}">Home</a>
+                <a th:href="@{/}" class ="active">Home</a>
                 <a href="#">About</a>
                 <a th:href="@{/tuvan}" class="active">Tư vấn</a>
                 <a th:href="@{/truong}">Trường ĐH</a>
@@ -539,8 +539,8 @@
                         <div class="detail-box">
                             <span class="detail-icon">👥</span>
                             <div>
-                                <div class="detail-text">Chỉ tiêu</div>
-                                <div class="detail-value" th:text="${nganh.chiTieu}">200</div>
+                                <div class="detail-text">Nhu Cầu Tuyển Dụng</div>
+                                <div class="detail-value" th:text="${nganh.nhuCauTuyenDung}">200</div>
                             </div>
                         </div>
                         <div class="detail-box">

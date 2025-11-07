@@ -41,7 +41,7 @@ public class KetQuaHocTap {
     }
 
     //method 
-    public void CapNhatDiemThi(float diemThi, String hocLuc, String toHopMon) {
+    public void capNhatDiemThi(float diemThi, String hocLuc, String toHopMon) {
         this.diemThi = diemThi;
         this.hocLuc = hocLuc;
         this.toHopMon = toHopMon;
