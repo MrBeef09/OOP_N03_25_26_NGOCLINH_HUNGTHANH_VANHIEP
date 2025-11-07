@@ -19,5 +19,7 @@ public interface TruongDaiHocRepository extends JpaRepository<TruongDaiHoc, Inte
 List<TruongDaiHoc> searchByKeyword(@Param("keyword") String keyword);
 
     List<TruongDaiHoc> findByTenTruongContainingIgnoreCase(String query);
+
+    
 }
 

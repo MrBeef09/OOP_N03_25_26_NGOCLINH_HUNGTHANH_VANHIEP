@@ -1108,65 +1108,78 @@
         </section>
 
         <!-- ==================== UNIVERSITIES ==================== -->
-        <section id="universities">
-            <h2 class="section-title">Quản Lý Trường Đại Học</h2>
-            
-            <div class="data-card">
-                <div class="card-header">
-                    <h3><i class="fas fa-university"></i> Danh sách trường đại học</h3>
-                    <button class="btn btn-success" onclick="openModal('addUniversityModal')">
-                        <i class="fas fa-plus"></i> Thêm trường
-                    </button>
-                </div>
+       <section id="universities">
+    <h2 class="section-title">Quản Lý Trường Đại Học</h2>
+    
+    <div class="data-card">
+        <div class="card-header">
+            <h3><i class="fas fa-university"></i> Danh sách trường đại học</h3>
+            <button class="btn btn-success" onclick="openModal('addUniversityModal')">
+                <i class="fas fa-plus"></i> Thêm trường
+            </button>
+        </div>
 
-                <div class="search-filter-bar">
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="text" placeholder="Tìm kiếm trường..." id="searchUniversities">
-                    </div>
-                </div>
-
-                <div class="data-table-wrapper" th:fragment="universityTableFragment">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Mã</th>
-                                <th>Tên trường</th>
-                                <th>Địa chỉ</th>
-                                <th>Điểm đánh giá</th>
-                                <th>Trạng thái</th>
-                                <th>Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="truong : ${danhSachTruong}">
-                                <td th:text="${truong.id}"></td>
-                                <td th:text="${truong.tenTruong}"></td>
-                                <td th:text="${truong.diaChi}"></td>
-                                <td><strong th:text="${#numbers.formatDecimal(truong.diemDanhGia, 1, 1)}"></strong></td>
-                                <td><span class="status-badge active">Hoạt động</span></td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="btn btn-sm btn-primary" th:onclick="'editUniversity(' + ${truong.id} + ')'" title="Chỉnh sửa">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-warning" th:onclick="'viewUniversity(' + ${truong.id} + ')'" title="Xem chi tiết">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
-                                        <a th:href="@{/admin/university/delete/{id}(id=${truong.id})}" 
-                                           class="btn btn-sm btn-danger" 
-                                           onclick="return confirm('Bạn có chắc muốn xóa trường này?')" 
-                                           title="Xóa">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+        <div class="search-filter-bar">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Tìm kiếm trường..." id="searchUniversities">
             </div>
-        </section>
+        </div>
+
+        <div class="data-table-wrapper" th:fragment="universityTableFragment">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Mã</th>
+                        <th>Tên trường</th>
+                        <th>Địa chỉ</th>
+                        <th>Điểm đánh giá</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="truong : ${truongList}">
+                        
+                        <td th:text="${truong.maTruong}">DHXXX</td> 
+                        
+                        <td th:text="${truong.tenTruong}">Tên trường</td>
+                        <td th:text="${truong.diaChi}">Địa chỉ</td>
+                        
+                        <td>
+                            <strong th:text="${#numbers.formatDecimal(truong.diemDanhGia, 1, 1)}">0.0</strong>/100
+                        </td>
+                        
+                        <td><span class="status-badge active">Hoạt động</span></td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-sm btn-primary" th:onclick="'editUniversity(' + ${truong.id} + ')'" title="Chỉnh sửa">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-warning" th:onclick="'viewUniversity(' + ${truong.id} + ')'" title="Xem chi tiết">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                
+                                <a th:href="@{/admin/university/delete/{id}(id=${truong.id})}" 
+                                   class="btn btn-sm btn-danger" 
+                                   onclick="return confirm('Bạn có chắc muốn xóa trường này?')" 
+                                   title="Xóa">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <tr th:if="${#lists.isEmpty(truongList)}">
+                        <td colspan="6" style="text-align: center; color: grey;">
+                            Chưa có trường đại học nào trong hệ thống.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
 
         <!-- ==================== FACILITIES MANAGEMENT ==================== -->
         <section id="facilities">
@@ -1482,7 +1495,7 @@
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <form action="/admin/university/add" method="post">
+            <form action="/truongdaihoc/add" method="post">
                 <div class="form-group">
                     <label>Tên trường <span class="required">*</span></label>
                     <input type="text" name="tenTruong" class="form-control" placeholder="Nhập tên trường" required>
