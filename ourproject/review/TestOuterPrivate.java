@@ -1,7 +1,6 @@
-// TestOuterPrivate.java
-public class TestOuterPrivate {
+public class TestOuterprivate {
     public static void main(String[] args) {
-        OuterPrivate outer = new OuterPrivate();
-        outer.useInner();
+        OuterPrivate op = new OuterPrivate();
+        op.useInner();
     }
 }

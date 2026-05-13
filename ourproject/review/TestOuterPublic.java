@@ -1,9 +1,7 @@
-// TestOuterPublic.java
-public class TestOuterPublic {
+public class TestOuterpublic {
     public static void main(String[] args) {
-        OuterPublic outer = new OuterPublic();
-        OuterPublic.InnerPublic inner = outer.new InnerPublic();
-        inner.show();
+        Outerpublic op = new Outerpublic();
+        Outerpublic.InnerPublic ip = op.new InnerPublic();
+        ip.show();
     }
 }
-
