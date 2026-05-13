@@ -2,7 +2,7 @@ package com.example.servingwebcontent.Model.User;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "hoc_sinh")

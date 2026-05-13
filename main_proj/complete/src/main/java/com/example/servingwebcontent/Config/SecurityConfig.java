@@ -24,7 +24,7 @@ public class SecurityConfig {
                 System.out.println("🔧 Configuring authorization rules...");
                 authz
                     // Các trang công khai
-                    .requestMatchers(
+                    .antMatchers(
                         "/", 
                         "/dang-nhap",
                         "/forgot-password",
@@ -42,15 +42,15 @@ public class SecurityConfig {
                     ).permitAll()
                     
                     // Các trang của Học sinh (sử dụng hasAnyRole)
-                    .requestMatchers("/user/**", "/truongdaihoc", "/tuvan", "/danhgia", "/profile-page")
+                    .antMatchers("/user/**", "/truongdaihoc", "/tuvan", "/danhgia", "/profile-page")
                         .hasAnyRole("HOCSINH", "ADMIN")
                     
                     // Các trang của Admin
-                    .requestMatchers("/admin/**", "/api/admin/**")
+                    .antMatchers("/admin/**", "/api/admin/**")
                         .hasRole("ADMIN")
                     
                     // Các API của Học sinh
-                    .requestMatchers("/api/hocsinh/**")
+                    .antMatchers("/api/hocsinh/**")
                         .hasAnyRole("HOCSINH", "ADMIN")
                     
                     // Mọi yêu cầu khác đều cần đăng nhập

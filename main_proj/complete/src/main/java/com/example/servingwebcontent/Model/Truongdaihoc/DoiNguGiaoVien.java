@@ -1,6 +1,6 @@
 package com.example.servingwebcontent.Model.Truongdaihoc;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "doi_ngu_giao_vien")

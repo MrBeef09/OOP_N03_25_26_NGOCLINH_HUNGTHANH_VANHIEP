@@ -28,6 +28,11 @@ public class TruongDaiHocService {
         return ds;
     }
 
+    // Lấy trường theo ID
+    public Optional<TruongDaiHoc> getTruongById(int id) {
+        return truongRepo.findById(id);
+    }
+
     // Thêm hoặc cập nhật trường (cho Admin)
     public void saveTruong(TruongDaiHoc truong) {
         double diem = truong.tinhDiemDanhGia();

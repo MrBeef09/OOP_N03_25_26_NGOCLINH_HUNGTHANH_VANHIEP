@@ -1,6 +1,6 @@
 package com.example.servingwebcontent.Model.User;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @MappedSuperclass

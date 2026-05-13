@@ -1,7 +1,7 @@
 package com.example.servingwebcontent.Model.Truongdaihoc;
 
 import java.text.Normalizer;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity

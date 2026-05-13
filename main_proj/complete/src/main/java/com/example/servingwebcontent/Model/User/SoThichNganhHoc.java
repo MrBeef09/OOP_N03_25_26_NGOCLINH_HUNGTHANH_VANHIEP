@@ -1,6 +1,6 @@
 package com.example.servingwebcontent.Model.User;
 
-import jakarta.persistence.Embeddable;
+import javax.persistence.Embeddable;
 
 @Embeddable
 public class SoThichNganhHoc {

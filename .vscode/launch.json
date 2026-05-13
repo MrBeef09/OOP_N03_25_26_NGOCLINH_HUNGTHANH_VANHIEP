@@ -2,14 +2,15 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "com.example.servingwebcontent.Main",
+            "projectName": "serving-web-content-complete"
+        },
+        {
+            "type": "java",
             "name": "App",
             "request": "launch",
-            "mainClass": "com.example.servingwebcontent.console.App",
-            "projectName": "serving-web-content-complete",
-
-            "mainClass": "App",
-            "projectName": "OOP_N03_25_26_NGOCLINH_HUNGTHANH_VANHIEP_92c838d4",
-
             "mainClass": "com.example.servingwebcontent.console.App",
             "projectName": "serving-web-content-complete"
         },
