@@ -40,4 +40,9 @@ public class TruongDaiHocService {
         truongRepo.deleteById(id);
     }
 
+    // Lấy trường theo ID
+    public Optional<TruongDaiHoc> getTruongById(int id) {
+        return truongRepo.findById(id);
+    }
+
 }
